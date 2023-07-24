@@ -26,7 +26,7 @@ export class ScratchManager {
     this.object = new ScratchMesh(this.renderer, 2 * this.aspect);
     this.scene = new THREE.Scene();
     this.scene.add(this.object);
-    this.scene.add(new THREE.AxesHelper(this.aspect / 2));
+    // this.scene.add(new THREE.AxesHelper(this.aspect / 2));
 
     this.camera = new THREE.OrthographicCamera(-this.aspect, this.aspect, 1, -1, 0.001, 10);
     this.camera.position.set(0, 0, 1);

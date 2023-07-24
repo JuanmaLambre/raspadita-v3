@@ -12,24 +12,19 @@ const brushCurve: BrushCurve = (w.brush = new BrushCurve(new ThickLineBrush(0.2)
 
 w.regenerateCurveMesh = regenerateCurveMesh;
 function regenerateCurveMesh() {
-  const old = scene.getObjectByName("curve-object");
+  const old = scene.getObjectByName("curve-object") as THREE.Mesh;
   if (old) {
-    old.userData.disposables?.forEach((obj: any) => obj.dispose?.());
+    old.geometry.dispose();
+    (old.material as THREE.MeshBasicMaterial).dispose();
     scene.remove(old);
   }
 
-  const curveGroup = new THREE.Group();
-  curveGroup.name = "curve-object";
+  const geometry = brushCurve.buildGeometry();
   const material = new THREE.MeshBasicMaterial({ color: 0x8800ff });
-  const geometries = brushCurve.buildGeometries();
-  curveGroup.userData.disposables = [...geometries];
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.name = "curve-object";
 
-  geometries.forEach((geometry) => {
-    const mesh = new THREE.Mesh(geometry, material);
-    curveGroup.add(mesh);
-  });
-
-  scene.add(curveGroup);
+  scene.add(mesh);
 }
 
 function onWindowResize() {

@@ -16,7 +16,7 @@ body {
   width: 80px;
   height: 120px;
   /* background: radial-gradient(circle, rgb(233, 115, 115) 0%, rgba(0,212,255) 100%) ; */
-  background: radial-gradient(circle, grey 0%, cornsilk 100%) ;
+  background: radial-gradient(circle, cyan 0%, cornsilk 20%, magenta 40%) ;
   /* background-color: cornsilk; */
 }
 

@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { BrushCurve } from "./BrushCurve";
+import { ThickLineBrush } from "./brushes/ThickLineBrush";
 
 export class ScratchMesh extends THREE.Mesh {
   readonly width: number;
@@ -44,10 +46,14 @@ export class ScratchMesh extends THREE.Mesh {
     this.alphaScene = new THREE.Scene();
 
     // Draw transparent stuff in black
-    const holeGeom = new THREE.PlaneGeometry(this.width / 4, this.height / 6);
+    const { random } = Math;
+    const brushCurve = new BrushCurve(new ThickLineBrush(this.width / 8));
+    brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
+    brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
+    brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
+    const holeGeom = brushCurve.buildGeometry();
     const holeMat = new THREE.MeshBasicMaterial({ color: 0x0 });
-    const holeMesh = new THREE.Mesh(holeGeom, holeMat);
-    this.alphaScene.add(holeMesh);
+    this.alphaScene.add(new THREE.Mesh(holeGeom, holeMat));
 
     this.alphaScene.userData.disposables = [holeGeom, holeMat];
   }
