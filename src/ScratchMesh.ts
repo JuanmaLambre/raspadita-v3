@@ -4,7 +4,7 @@ export class ScratchMesh extends THREE.Mesh {
   readonly width: number;
   readonly height: number;
 
-  material: THREE.MeshStandardMaterial;
+  material: THREE.MeshBasicMaterial;
 
   private renderer: THREE.WebGLRenderer;
   private alphaScene: THREE.Scene;
@@ -12,7 +12,7 @@ export class ScratchMesh extends THREE.Mesh {
 
   constructor(renderer: THREE.WebGLRenderer, width: number, height: number = 2) {
     const geometry = new THREE.PlaneGeometry(width, height);
-    const material = new THREE.MeshStandardMaterial({ color: 0x666666, transparent: true });
+    const material = new THREE.MeshBasicMaterial({ color: 0x666666, transparent: true });
     super(geometry, material);
 
     this.renderer = renderer;
@@ -55,6 +55,7 @@ export class ScratchMesh extends THREE.Mesh {
   private renderAlphaTexture() {
     const oldTarget = this.renderer.getRenderTarget();
     const oldClearColor = new THREE.Color();
+    const oldAlpha = this.renderer.getClearAlpha();
     this.renderer.getClearColor(oldClearColor);
 
     this.renderer.setClearColor(0xffffff);
@@ -74,7 +75,7 @@ export class ScratchMesh extends THREE.Mesh {
     this.renderer.render(this.alphaScene, this.alphaCamera);
 
     this.renderer.setRenderTarget(oldTarget);
-    this.renderer.setClearColor(oldClearColor);
+    this.renderer.setClearColor(oldClearColor, oldAlpha);
 
     return target.texture;
   }
