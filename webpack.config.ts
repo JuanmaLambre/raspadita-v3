@@ -3,7 +3,7 @@ import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import { WebpackConfiguration } from "webpack-cli";
 
-const testbenches = ["scratch-mesh"];
+const testbenches = ["scratch-mesh", "brush-curve"];
 
 const tbEntries = testbenches.reduce(
   (entries, name) => ({ ...entries, [name]: path.resolve(__dirname, `./testbenches/${name}/main.ts`) }),
