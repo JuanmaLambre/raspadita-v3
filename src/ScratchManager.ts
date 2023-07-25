@@ -6,7 +6,7 @@ export class ScratchManager {
   readonly height: number;
   readonly renderer: THREE.WebGLRenderer;
 
-  public object: THREE.Mesh;
+  public mesh: ScratchMesh;
 
   private divElement: HTMLDivElement;
   private scene: THREE.Scene;
@@ -23,9 +23,9 @@ export class ScratchManager {
     this.renderer.setAnimationLoop(this.render.bind(this));
     this.divElement.appendChild(this.renderer.domElement);
 
-    this.object = new ScratchMesh(this.renderer, 2 * this.aspect);
+    this.mesh = new ScratchMesh(this.renderer, 2 * this.aspect);
     this.scene = new THREE.Scene();
-    this.scene.add(this.object);
+    this.scene.add(this.mesh);
     // this.scene.add(new THREE.AxesHelper(this.aspect / 2));
 
     this.camera = new THREE.OrthographicCamera(-this.aspect, this.aspect, 1, -1, 0.001, 10);

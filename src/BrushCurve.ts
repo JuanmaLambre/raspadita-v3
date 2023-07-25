@@ -1,14 +1,13 @@
 import * as THREE from "three";
 import { VLineBrush } from "./brushes/VLineBrush";
 import { Brush } from "./brushes/Brush";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+import { mergeBufferAttributes, mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 
 export class BrushCurve {
   brush: Brush;
+  geometry: THREE.BufferGeometry = new THREE.BufferGeometry();
 
   private points: THREE.Vector2[] = [];
-  private object: THREE.Object3D;
-  private disposables: any[] = [];
 
   constructor(brush: Brush = new VLineBrush(0.2)) {
     this.brush = brush;
@@ -16,24 +15,21 @@ export class BrushCurve {
 
   addPoint(point: THREE.Vector2) {
     this.points.push(point.clone());
+
+    // Update geometry with last pair of points
+    if (this.points.length < 2) return;
+
+    const lastTwo = this.points.slice(-2);
+    const newPositions = this.brush.getStroke(lastTwo[0], lastTwo[1]).getAttribute("position") as THREE.BufferAttribute;
+    const oldPosititions = this.geometry.getAttribute("position") as THREE.BufferAttribute;
+
+    if (oldPosititions) var newAttribute = mergeBufferAttributes([oldPosititions, newPositions]);
+    else newAttribute = newPositions;
+
+    this.geometry.setAttribute("position", newAttribute);
   }
 
   clear() {
     this.points.length = 0;
-  }
-
-  buildGeometry(): THREE.BufferGeometry {
-    const geometries: THREE.BufferGeometry[] = [];
-
-    for (let i = 1; i < this.points.length; i++) {
-      const p0 = this.points[i - 1];
-      const p1 = this.points[i];
-      geometries.push(this.brush.getStroke(p0, p1));
-    }
-
-    const result = mergeBufferGeometries(geometries, false);
-    geometries.forEach((geom) => geom.dispose());
-
-    return result;
   }
 }

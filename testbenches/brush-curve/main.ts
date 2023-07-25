@@ -10,23 +10,6 @@ let scene: THREE.Scene;
 let camera: THREE.OrthographicCamera;
 const brushCurve: BrushCurve = (w.brush = new BrushCurve(new ThickLineBrush(0.2)));
 
-w.regenerateCurveMesh = regenerateCurveMesh;
-function regenerateCurveMesh() {
-  const old = scene.getObjectByName("curve-object") as THREE.Mesh;
-  if (old) {
-    old.geometry.dispose();
-    (old.material as THREE.MeshBasicMaterial).dispose();
-    scene.remove(old);
-  }
-
-  const geometry = brushCurve.buildGeometry();
-  const material = new THREE.MeshBasicMaterial({ color: 0x8800ff });
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.name = "curve-object";
-
-  scene.add(mesh);
-}
-
 function onWindowResize() {
   const htmlContent = document.getElementById("content");
   const width = htmlContent.offsetWidth;
@@ -56,6 +39,11 @@ function setup() {
 
   scene.add(new THREE.AxesHelper());
 
+  const curveMaterial = new THREE.MeshBasicMaterial({ color: 0x8800ff });
+  const mesh = new THREE.Mesh(brushCurve.geometry, curveMaterial);
+  mesh.name = "curve-mesh";
+  scene.add(mesh);
+
   window.addEventListener("resize", onWindowResize, false);
   onWindowResize();
 
@@ -63,7 +51,6 @@ function setup() {
   brushCurve.addPoint(new THREE.Vector2(0.3, -0.7));
   brushCurve.addPoint(new THREE.Vector2(0.6, -0.1));
   brushCurve.addPoint(new THREE.Vector2(0.8, -0.1));
-  regenerateCurveMesh();
 
   renderer.setAnimationLoop(update);
 }

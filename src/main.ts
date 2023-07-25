@@ -1,7 +1,12 @@
 import "./style.css";
+import * as THREE from "three";
 import { ScratchManager } from "./ScratchManager";
 
-const scratches: ScratchManager[] = [];
+// For debugging
+const w = window as any;
+w.THREE = THREE;
+
+const scratches: ScratchManager[] = (w.managers = []);
 
 function start() {
   const cardDivs = document.getElementsByClassName("card") as HTMLCollectionOf<HTMLDivElement>;

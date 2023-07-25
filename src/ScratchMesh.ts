@@ -9,8 +9,9 @@ export class ScratchMesh extends THREE.Mesh {
   material: THREE.MeshBasicMaterial;
 
   private renderer: THREE.WebGLRenderer;
-  private alphaScene: THREE.Scene;
+  private alphaScene: THREE.Scene = new THREE.Scene();
   private alphaCamera: THREE.OrthographicCamera;
+  private brushCurve: BrushCurve;
 
   constructor(renderer: THREE.WebGLRenderer, width: number, height: number = 2) {
     const geometry = new THREE.PlaneGeometry(width, height);
@@ -22,9 +23,14 @@ export class ScratchMesh extends THREE.Mesh {
     this.width = width;
     this.height = height;
     this.name = "scratch";
+    this.brushCurve = new BrushCurve(new ThickLineBrush(this.width / 8));
+
+    this.debugGenerateBrushCurve();
 
     this.alphaCamera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0.01, 10);
     this.alphaCamera.position.set(0, 0, 1);
+
+    this.buildAlphaScene();
 
     this.generateAlphaMap();
   }
@@ -32,30 +38,14 @@ export class ScratchMesh extends THREE.Mesh {
   private generateAlphaMap() {
     this.material?.alphaMap?.dispose();
 
-    this.generateAlphaScene();
-
     this.material.alphaMap = this.renderAlphaTexture();
     this.material.needsUpdate = true;
   }
 
-  private generateAlphaScene() {
-    if (this.alphaScene) {
-      this.alphaScene.userData.disposables?.forEach((obj: any) => obj.dispose?.());
-    }
-
-    this.alphaScene = new THREE.Scene();
-
-    // Draw transparent stuff in black
-    const { random } = Math;
-    const brushCurve = new BrushCurve(new ThickLineBrush(this.width / 8));
-    brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
-    brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
-    brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
-    const holeGeom = brushCurve.buildGeometry();
+  private buildAlphaScene() {
     const holeMat = new THREE.MeshBasicMaterial({ color: 0x0 });
-    this.alphaScene.add(new THREE.Mesh(holeGeom, holeMat));
-
-    this.alphaScene.userData.disposables = [holeGeom, holeMat];
+    const holeMesh = new THREE.Mesh(this.brushCurve.geometry, holeMat);
+    this.alphaScene.add(holeMesh);
   }
 
   private renderAlphaTexture() {
@@ -84,5 +74,12 @@ export class ScratchMesh extends THREE.Mesh {
     this.renderer.setClearColor(oldClearColor, oldAlpha);
 
     return target.texture;
+  }
+
+  private debugGenerateBrushCurve() {
+    const { random } = Math;
+    this.brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
+    this.brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
+    this.brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
   }
 }
