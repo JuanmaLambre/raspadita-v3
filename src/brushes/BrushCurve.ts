@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { mergeBufferAttributes } from "three/examples/jsm/utils/BufferGeometryUtils";
-import { VLineBrush } from "./brushes/VLineBrush";
-import { Brush } from "./brushes/Brush";
+import { VLineBrush } from "./VLineBrush";
+import { Brush } from "./Brush";
 
 export class BrushCurve {
   brush: Brush;

@@ -1,6 +1,6 @@
 import "./style.css";
 import * as THREE from "three";
-import { ScratchManager } from "./ScratchManager";
+import { ScratchManager } from "./scratch/ScratchManager";
 
 // For debugging
 const w = window as any;

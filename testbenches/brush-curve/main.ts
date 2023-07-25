@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { BrushCurve } from "../../src/BrushCurve";
+import { BrushCurve } from "../../src/brushes/BrushCurve";
 import { ThickLineBrush } from "../../src/brushes/ThickLineBrush";
 
 const w = window as any;

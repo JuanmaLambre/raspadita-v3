@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { ScratchMesh } from "../../src/ScratchMesh";
+import { ScratchMesh } from "../../src/scratch/ScratchMesh";
 
 let renderer: THREE.WebGLRenderer;
 let scene: THREE.Scene;

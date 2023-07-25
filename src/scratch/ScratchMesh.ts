@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { BrushCurve } from "./BrushCurve";
-import { ThickLineBrush } from "./brushes/ThickLineBrush";
+import { BrushCurve } from "../brushes/BrushCurve";
+import { ThickLineBrush } from "../brushes/ThickLineBrush";
 
 const BRUSH_THICKNESS = 0.07;
 
