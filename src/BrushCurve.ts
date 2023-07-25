@@ -1,16 +1,18 @@
 import * as THREE from "three";
+import { mergeBufferAttributes } from "three/examples/jsm/utils/BufferGeometryUtils";
 import { VLineBrush } from "./brushes/VLineBrush";
 import { Brush } from "./brushes/Brush";
-import { mergeBufferAttributes, mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
 
 export class BrushCurve {
   brush: Brush;
-  geometry: THREE.BufferGeometry = new THREE.BufferGeometry();
+  geometry: THREE.BufferGeometry;
 
   private points: THREE.Vector2[] = [];
 
   constructor(brush: Brush = new VLineBrush(0.2)) {
     this.brush = brush;
+    this.geometry = new THREE.BufferGeometry();
+    this.clear();
   }
 
   addPoint(point: THREE.Vector2) {
@@ -31,5 +33,6 @@ export class BrushCurve {
 
   clear() {
     this.points.length = 0;
+    this.geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(), 3));
   }
 }

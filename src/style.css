@@ -14,8 +14,8 @@ body {
 }
 
 .cards-grid .card {
-  width: 80px;
-  height: 120px;
+  width: 160px;
+  height: 240px;
   /* background: radial-gradient(circle, rgb(233, 115, 115) 0%, rgba(0,212,255) 100%) ; */
   background: radial-gradient(circle, cyan 0%, cornsilk 30%, magenta 60%) ;
   /* background-color: cornsilk; */

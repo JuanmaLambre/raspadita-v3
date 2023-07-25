@@ -1,32 +1,42 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 
+const DEBUG_RENDER = true;
+
 export class ScratchManager {
-  readonly width: number;
-  readonly height: number;
+  readonly pxWidth: number; // In CSS pixels
+  readonly pxHeight: number; // In CSS pixels
   readonly renderer: THREE.WebGLRenderer;
 
-  public mesh: ScratchMesh;
+  public scratchMesh: ScratchMesh;
 
   private divElement: HTMLDivElement;
   private scene: THREE.Scene;
   private camera: THREE.OrthographicCamera;
+  private isScratched: boolean = false;
 
   constructor(divElement: HTMLDivElement) {
     this.divElement = divElement;
-    this.width = divElement.offsetWidth;
-    this.height = divElement.offsetHeight;
+    this.pxWidth = divElement.offsetWidth;
+    this.pxHeight = divElement.offsetHeight;
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setClearColor(0x0, 0);
-    this.renderer.setSize(this.width, this.height);
+    this.renderer.setSize(this.pxWidth, this.pxHeight);
     this.renderer.setAnimationLoop(this.render.bind(this));
     this.divElement.appendChild(this.renderer.domElement);
 
-    this.mesh = new ScratchMesh(this.renderer, 2 * this.aspect);
+    this.renderer.domElement.addEventListener("touchmove", this.onTouchMove.bind(this));
+
+    this.scratchMesh = new ScratchMesh(this.renderer, 2 * this.aspect);
     this.scene = new THREE.Scene();
-    this.scene.add(this.mesh);
-    // this.scene.add(new THREE.AxesHelper(this.aspect / 2));
+    this.scene.add(this.scratchMesh);
+
+    if (DEBUG_RENDER) {
+      const axes = new THREE.AxesHelper(this.aspect);
+      axes.position.set(0, 0, 0.01);
+      this.scene.add(axes);
+    }
 
     this.camera = new THREE.OrthographicCamera(-this.aspect, this.aspect, 1, -1, 0.001, 10);
     this.camera.position.set(0, 0, 1);
@@ -36,10 +46,35 @@ export class ScratchManager {
   }
 
   get aspect(): number {
-    return this.width / this.height;
+    return this.pxWidth / this.pxHeight;
+  }
+
+  get scratched(): boolean {
+    return this.isScratched;
   }
 
   private render() {
     this.renderer.render(this.scene, this.camera);
+  }
+
+  private onTouchMove(event: TouchEvent) {
+    if (!this.scratched) {
+      this.isScratched = true;
+      console.log("Scratch selected");
+    }
+
+    // Calculate touch coordinates relative to canvas in pixel coords
+    const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft - this.pxWidth / 2;
+    const pixelCoordY = event.targetTouches[0].clientY - this.renderer.domElement.offsetTop - this.pxHeight / 2;
+
+    // Translate pixel coords to ThreeJS unit coords
+    const unitCoordX = (pixelCoordX * this.scratchMesh.width) / this.pxWidth;
+    const unitCoordY = (-pixelCoordY * this.scratchMesh.height) / this.pxHeight;
+
+    // Add scratch point
+    const point = new THREE.Vector2(unitCoordX, unitCoordY);
+    this.scratchMesh.addScratchPoint(point);
+
+    event.preventDefault();
   }
 }

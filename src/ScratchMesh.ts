@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { BrushCurve } from "./BrushCurve";
 import { ThickLineBrush } from "./brushes/ThickLineBrush";
 
+const BRUSH_THICKNESS = 0.07;
+
 export class ScratchMesh extends THREE.Mesh {
   readonly width: number;
   readonly height: number;
@@ -23,9 +25,7 @@ export class ScratchMesh extends THREE.Mesh {
     this.width = width;
     this.height = height;
     this.name = "scratch";
-    this.brushCurve = new BrushCurve(new ThickLineBrush(this.width / 8));
-
-    this.debugGenerateBrushCurve();
+    this.brushCurve = new BrushCurve(new ThickLineBrush(BRUSH_THICKNESS));
 
     this.buildAlphaScene();
     this.updateAlphaMap();
@@ -44,7 +44,7 @@ export class ScratchMesh extends THREE.Mesh {
   }
 
   private buildAlphaScene() {
-    const holeMat = new THREE.MeshBasicMaterial({ color: 0x0 });
+    const holeMat = new THREE.MeshBasicMaterial({ color: 0x0, side: THREE.DoubleSide });
     const holeMesh = new THREE.Mesh(this.brushCurve.geometry, holeMat);
     this.alphaScene.add(holeMesh);
 
@@ -90,8 +90,11 @@ export class ScratchMesh extends THREE.Mesh {
 
   private debugGenerateBrushCurve() {
     const { random } = Math;
-    this.brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
-    this.brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
-    this.brushCurve.addPoint(new THREE.Vector2((random() - 0.5) * this.width, (random() - 0.5) * this.height));
+
+    for (let i = 0; i < 3; i++) {
+      const x = (random() - 0.5) * this.width;
+      const y = (random() - 0.5) * this.height;
+      this.brushCurve.addPoint(new THREE.Vector2(x, y));
+    }
   }
 }
