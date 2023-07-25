@@ -95,6 +95,15 @@ const config: WebpackConfiguration = {
           filename: "assets/fonts/[hash][ext]",
         },
       },
+
+      // To import any file (e.g. shaders) as text. Remember to update `./src/types/global.d.ts`
+      {
+        test: /\.(frag|vert)$/,
+        loader: "raw-loader",
+        options: {
+          esModule: false,
+        },
+      },
     ],
   },
 
