@@ -25,8 +25,10 @@ export class BrushCurve {
     const newPositions = this.brush.getStroke(lastTwo[0], lastTwo[1]).getAttribute("position") as THREE.BufferAttribute;
     const oldPosititions = this.geometry.getAttribute("position") as THREE.BufferAttribute;
 
-    if (oldPosititions) var newAttribute = mergeBufferAttributes([oldPosititions, newPositions]);
-    else newAttribute = newPositions;
+    if (oldPosititions && newPositions) var newAttribute = mergeBufferAttributes([oldPosititions, newPositions]);
+    else if (oldPosititions) newAttribute = oldPosititions;
+    else if (newPositions) newAttribute = newPositions;
+    else newAttribute = new THREE.BufferAttribute([], 3);
 
     this.geometry.setAttribute("position", newAttribute);
   }

@@ -102,7 +102,7 @@ export class ScratchMesh extends THREE.Mesh {
       wrapT: THREE.RepeatWrapping,
     };
 
-    const target = new THREE.WebGLRenderTarget(512, 512, targetOpts);
+    const target = new THREE.WebGLRenderTarget(1024, 1024, targetOpts);
     this.renderer.setRenderTarget(target);
     this.renderer.clear();
     this.renderer.render(this.alphaScene, this.alphaCamera);
