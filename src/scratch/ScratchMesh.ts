@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { BrushCurve } from "../brushes/BrushCurve";
 import { ThickLineBrush } from "../brushes/ThickLineBrush";
+import { AlphaTextureGenerator } from "./AlphaTextureGenerator";
 
 const BRUSH_THICKNESS = 0.07;
 
@@ -10,31 +11,28 @@ export class ScratchMesh extends THREE.Mesh {
 
   tinMaterial: THREE.MeshBasicMaterial;
 
-  private renderer: THREE.WebGLRenderer;
-  private alphaScene: THREE.Scene;
-  private alphaCamera: THREE.OrthographicCamera;
   private brushCurves: BrushCurve[] = [];
   private currentScratch: BrushCurve;
+  private textureGenerator: AlphaTextureGenerator;
 
   constructor(renderer: THREE.WebGLRenderer, width: number, height: number = 2) {
     const geometry = new THREE.PlaneGeometry(width, height);
     const material = new THREE.MeshBasicMaterial({ color: 0x666666, transparent: true });
     super(geometry, material);
 
-    this.renderer = renderer;
     this.tinMaterial = material;
     this.width = width;
     this.height = height;
     this.name = "scratch";
+    this.textureGenerator = new AlphaTextureGenerator(renderer, width, height);
 
-    this.buildAlphaScene();
     this.updateAlphaMap();
   }
 
   startScratch() {
     this.currentScratch = new BrushCurve(new ThickLineBrush(BRUSH_THICKNESS));
     this.brushCurves.push(this.currentScratch);
-    this.updateAlphaScene();
+    this.updateAlphaMap();
   }
 
   stopScratch() {
@@ -49,68 +47,11 @@ export class ScratchMesh extends THREE.Mesh {
   }
 
   private updateAlphaMap() {
+    this.textureGenerator.updateScene(this.brushCurves);
+
     this.tinMaterial?.alphaMap?.dispose();
-
-    this.tinMaterial.alphaMap = this.renderAlphaTexture();
+    this.tinMaterial.alphaMap = this.textureGenerator.renderTexture();
     this.tinMaterial.needsUpdate = true;
-  }
-
-  private buildAlphaScene() {
-    const holeMat = new THREE.MeshBasicMaterial({ color: 0x0 });
-
-    this.alphaScene = new THREE.Scene();
-    this.alphaScene.userData.material = holeMat;
-
-    this.alphaCamera = new THREE.OrthographicCamera(
-      -this.width / 2,
-      this.width / 2,
-      this.height / 2,
-      -this.height / 2,
-      0.01,
-      10
-    );
-
-    this.alphaCamera.position.set(0, 0, 1);
-
-    this.updateAlphaScene();
-  }
-
-  private updateAlphaScene() {
-    this.alphaScene.clear();
-    const holeMat = this.alphaScene.userData.material as THREE.MeshBasicMaterial;
-
-    this.brushCurves.forEach((curve) => {
-      const mesh = new THREE.Mesh(curve.geometry, holeMat);
-      this.alphaScene.add(mesh);
-    });
-  }
-
-  private renderAlphaTexture() {
-    const oldTarget = this.renderer.getRenderTarget();
-    const oldClearColor = new THREE.Color();
-    const oldAlpha = this.renderer.getClearAlpha();
-    this.renderer.getClearColor(oldClearColor);
-
-    this.renderer.setClearColor(0xffffff);
-
-    let targetOpts: THREE.WebGLRenderTargetOptions = {
-      minFilter: THREE.LinearFilter, // Important as we want to sample square pixels
-      magFilter: THREE.LinearFilter,
-      format: THREE.RGBAFormat,
-      type: THREE.UnsignedByteType, // Important as we need precise coordinates (not ints)
-      wrapS: THREE.RepeatWrapping,
-      wrapT: THREE.RepeatWrapping,
-    };
-
-    const target = new THREE.WebGLRenderTarget(1024, 1024, targetOpts);
-    this.renderer.setRenderTarget(target);
-    this.renderer.clear();
-    this.renderer.render(this.alphaScene, this.alphaCamera);
-
-    this.renderer.setRenderTarget(oldTarget);
-    this.renderer.setClearColor(oldClearColor, oldAlpha);
-
-    return target.texture;
   }
 
   private debugGenerateBrushCurve() {
