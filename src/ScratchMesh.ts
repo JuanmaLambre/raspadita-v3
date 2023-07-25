@@ -8,12 +8,13 @@ export class ScratchMesh extends THREE.Mesh {
   readonly width: number;
   readonly height: number;
 
-  material: THREE.MeshBasicMaterial;
+  tinMaterial: THREE.MeshBasicMaterial;
 
   private renderer: THREE.WebGLRenderer;
-  private alphaScene: THREE.Scene = new THREE.Scene();
+  private alphaScene: THREE.Scene;
   private alphaCamera: THREE.OrthographicCamera;
-  private brushCurve: BrushCurve;
+  private brushCurves: BrushCurve[] = [];
+  private currentScratch: BrushCurve;
 
   constructor(renderer: THREE.WebGLRenderer, width: number, height: number = 2) {
     const geometry = new THREE.PlaneGeometry(width, height);
@@ -21,32 +22,44 @@ export class ScratchMesh extends THREE.Mesh {
     super(geometry, material);
 
     this.renderer = renderer;
-    this.material = material;
+    this.tinMaterial = material;
     this.width = width;
     this.height = height;
     this.name = "scratch";
-    this.brushCurve = new BrushCurve(new ThickLineBrush(BRUSH_THICKNESS));
 
     this.buildAlphaScene();
     this.updateAlphaMap();
   }
 
+  startScratch() {
+    this.currentScratch = new BrushCurve(new ThickLineBrush(BRUSH_THICKNESS));
+    this.brushCurves.push(this.currentScratch);
+    this.updateAlphaScene();
+  }
+
+  stopScratch() {
+    this.currentScratch = undefined;
+  }
+
   addScratchPoint(point: THREE.Vector2) {
-    this.brushCurve.addPoint(point);
+    if (!this.currentScratch) return;
+
+    this.currentScratch.addPoint(point);
     this.updateAlphaMap();
   }
 
   private updateAlphaMap() {
-    this.material?.alphaMap?.dispose();
+    this.tinMaterial?.alphaMap?.dispose();
 
-    this.material.alphaMap = this.renderAlphaTexture();
-    this.material.needsUpdate = true;
+    this.tinMaterial.alphaMap = this.renderAlphaTexture();
+    this.tinMaterial.needsUpdate = true;
   }
 
   private buildAlphaScene() {
-    const holeMat = new THREE.MeshBasicMaterial({ color: 0x0, side: THREE.DoubleSide });
-    const holeMesh = new THREE.Mesh(this.brushCurve.geometry, holeMat);
-    this.alphaScene.add(holeMesh);
+    const holeMat = new THREE.MeshBasicMaterial({ color: 0x0 });
+
+    this.alphaScene = new THREE.Scene();
+    this.alphaScene.userData.material = holeMat;
 
     this.alphaCamera = new THREE.OrthographicCamera(
       -this.width / 2,
@@ -58,6 +71,18 @@ export class ScratchMesh extends THREE.Mesh {
     );
 
     this.alphaCamera.position.set(0, 0, 1);
+
+    this.updateAlphaScene();
+  }
+
+  private updateAlphaScene() {
+    this.alphaScene.clear();
+    const holeMat = this.alphaScene.userData.material as THREE.MeshBasicMaterial;
+
+    this.brushCurves.forEach((curve) => {
+      const mesh = new THREE.Mesh(curve.geometry, holeMat);
+      this.alphaScene.add(mesh);
+    });
   }
 
   private renderAlphaTexture() {
@@ -91,10 +116,14 @@ export class ScratchMesh extends THREE.Mesh {
   private debugGenerateBrushCurve() {
     const { random } = Math;
 
+    this.startScratch();
+
     for (let i = 0; i < 3; i++) {
       const x = (random() - 0.5) * this.width;
       const y = (random() - 0.5) * this.height;
-      this.brushCurve.addPoint(new THREE.Vector2(x, y));
+      this.addScratchPoint(new THREE.Vector2(x, y));
     }
+
+    this.stopScratch();
   }
 }

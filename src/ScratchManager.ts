@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 
-const DEBUG_RENDER = true;
+const DEBUG_RENDER = false;
 
 export class ScratchManager {
   readonly pxWidth: number; // In CSS pixels
@@ -26,7 +26,9 @@ export class ScratchManager {
     this.renderer.setAnimationLoop(this.render.bind(this));
     this.divElement.appendChild(this.renderer.domElement);
 
+    this.renderer.domElement.addEventListener("touchstart", this.onTouchStart.bind(this));
     this.renderer.domElement.addEventListener("touchmove", this.onTouchMove.bind(this));
+    this.renderer.domElement.addEventListener("touchend", this.onTouchEnd.bind(this));
 
     this.scratchMesh = new ScratchMesh(this.renderer, 2 * this.aspect);
     this.scene = new THREE.Scene();
@@ -57,6 +59,10 @@ export class ScratchManager {
     this.renderer.render(this.scene, this.camera);
   }
 
+  private onTouchStart() {
+    this.scratchMesh.startScratch();
+  }
+
   private onTouchMove(event: TouchEvent) {
     if (!this.scratched) {
       this.isScratched = true;
@@ -76,5 +82,9 @@ export class ScratchManager {
     this.scratchMesh.addScratchPoint(point);
 
     event.preventDefault();
+  }
+
+  private onTouchEnd() {
+    this.scratchMesh.stopScratch();
   }
 }
