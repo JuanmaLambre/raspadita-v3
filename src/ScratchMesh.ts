@@ -27,15 +27,16 @@ export class ScratchMesh extends THREE.Mesh {
 
     this.debugGenerateBrushCurve();
 
-    this.alphaCamera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0.01, 10);
-    this.alphaCamera.position.set(0, 0, 1);
-
     this.buildAlphaScene();
-
-    this.generateAlphaMap();
+    this.updateAlphaMap();
   }
 
-  private generateAlphaMap() {
+  addScratchPoint(point: THREE.Vector2) {
+    this.brushCurve.addPoint(point);
+    this.updateAlphaMap();
+  }
+
+  private updateAlphaMap() {
     this.material?.alphaMap?.dispose();
 
     this.material.alphaMap = this.renderAlphaTexture();
@@ -46,6 +47,17 @@ export class ScratchMesh extends THREE.Mesh {
     const holeMat = new THREE.MeshBasicMaterial({ color: 0x0 });
     const holeMesh = new THREE.Mesh(this.brushCurve.geometry, holeMat);
     this.alphaScene.add(holeMesh);
+
+    this.alphaCamera = new THREE.OrthographicCamera(
+      -this.width / 2,
+      this.width / 2,
+      this.height / 2,
+      -this.height / 2,
+      0.01,
+      10
+    );
+
+    this.alphaCamera.position.set(0, 0, 1);
   }
 
   private renderAlphaTexture() {
