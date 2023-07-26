@@ -1,7 +1,11 @@
 import * as THREE from "three";
+import { CircleBrush } from "../brushes/CircleBrush";
+import { Brush } from "../brushes/Brush";
 
 export class AlphaTextureGenerator {
+  brush: Brush;
   readonly texture: THREE.DataTexture;
+
   private data: Uint8Array;
   private width: number;
   private height: number;
@@ -15,28 +19,17 @@ export class AlphaTextureGenerator {
 
     this.texture = new THREE.DataTexture(this.data, width, height, THREE.RGBAFormat);
     this.texture.needsUpdate = true;
+
+    this.brush = new CircleBrush(this.width, this.height, 10);
   }
 
   /** Coordinates are cartesian-oriented (x+ axis points right, y+ axis points up) */
   scratchAt(pixelX: number, pixelY: number) {
-    const greenIdx = this.getGreenIndex(pixelX, pixelY);
-    this.data[greenIdx] = 0;
+    this.brush.paintAt(this.data, pixelX, pixelY);
     this.texture.needsUpdate = true;
   }
 
   private getGreenIndex(x: number, y: number): number {
     return (x + y * this.width) * 4 + 1;
-  }
-
-  debugScratch() {
-    const { floor } = Math;
-
-    for (let x = floor((2 * this.width) / 3); x < this.width; x++) {
-      for (let y = floor(this.height / 3); y < (2 * this.height) / 3; y++) {
-        this.scratchAt(x, y);
-      }
-    }
-
-    this.texture.needsUpdate = true;
   }
 }
