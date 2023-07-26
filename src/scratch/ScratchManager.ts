@@ -30,7 +30,7 @@ export class ScratchManager {
     this.renderer.domElement.addEventListener("touchmove", this.onTouchMove.bind(this));
     this.renderer.domElement.addEventListener("touchend", this.onTouchEnd.bind(this));
 
-    this.scratchMesh = new ScratchMesh(this.renderer, 2 * this.aspect);
+    this.scratchMesh = new ScratchMesh(this.pxWidth, this.pxHeight);
     this.scene = new THREE.Scene();
     this.scene.add(this.scratchMesh);
 
@@ -59,9 +59,7 @@ export class ScratchManager {
     this.renderer.render(this.scene, this.camera);
   }
 
-  private onTouchStart() {
-    this.scratchMesh.startScratch();
-  }
+  private onTouchStart() {}
 
   private onTouchMove(event: TouchEvent) {
     if (!this.scratched) {
@@ -70,21 +68,14 @@ export class ScratchManager {
     }
 
     // Calculate touch coordinates relative to canvas in pixel coords
-    const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft - this.pxWidth / 2;
-    const pixelCoordY = event.targetTouches[0].clientY - this.renderer.domElement.offsetTop - this.pxHeight / 2;
+    const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
+    const pixelCoordY = this.renderer.domElement.offsetTop - event.targetTouches[0].clientY + this.pxHeight;
 
-    // Translate pixel coords to ThreeJS unit coords
-    const unitCoordX = (pixelCoordX * this.scratchMesh.width) / this.pxWidth;
-    const unitCoordY = (-pixelCoordY * this.scratchMesh.height) / this.pxHeight;
-
-    // Add scratch point
-    const point = new THREE.Vector2(unitCoordX, unitCoordY);
-    this.scratchMesh.addScratchPoint(point);
+    // Do scratch
+    this.scratchMesh.scratchAt(pixelCoordX, pixelCoordY);
 
     event.preventDefault();
   }
 
-  private onTouchEnd() {
-    this.scratchMesh.stopScratch();
-  }
+  private onTouchEnd() {}
 }

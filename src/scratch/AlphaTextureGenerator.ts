@@ -1,55 +1,42 @@
 import * as THREE from "three";
-import { BrushCurve } from "../brushes/BrushCurve";
 
 export class AlphaTextureGenerator {
-  private renderer: THREE.WebGLRenderer;
-  private scene: THREE.Scene;
-  private camera: THREE.OrthographicCamera;
-  private material: THREE.MeshBasicMaterial;
+  readonly texture: THREE.DataTexture;
+  private data: Uint8Array;
+  private width: number;
+  private height: number;
 
-  constructor(renderer: THREE.WebGLRenderer, width: number, height: number) {
-    this.renderer = renderer;
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
 
-    this.material = new THREE.MeshBasicMaterial({ color: 0x0 });
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0.01, 10);
-    this.camera.position.set(0, 0, 1);
+    // Apparently alphaMap only interpretates the green channel...?
+    this.data = new Uint8Array(width * height * 4).fill(255);
+
+    this.texture = new THREE.DataTexture(this.data, width, height, THREE.RGBAFormat);
+    this.texture.needsUpdate = true;
   }
 
-  updateScene(curves: BrushCurve[]) {
-    this.scene.clear();
-
-    curves.forEach((curve) => {
-      const mesh = new THREE.Mesh(curve.geometry, this.material);
-      this.scene.add(mesh);
-    });
+  /** Coordinates are cartesian-oriented (x+ axis points right, y+ axis points up) */
+  scratchAt(pixelX: number, pixelY: number) {
+    const greenIdx = this.getGreenIndex(pixelX, pixelY);
+    this.data[greenIdx] = 0;
+    this.texture.needsUpdate = true;
   }
 
-  renderTexture(): THREE.Texture {
-    const oldTarget = this.renderer.getRenderTarget();
-    const oldClearColor = new THREE.Color();
-    const oldAlpha = this.renderer.getClearAlpha();
-    this.renderer.getClearColor(oldClearColor);
+  private getGreenIndex(x: number, y: number): number {
+    return (x + y * this.width) * 4 + 1;
+  }
 
-    this.renderer.setClearColor(0xffffff);
+  debugScratch() {
+    const { floor } = Math;
 
-    let targetOpts: THREE.WebGLRenderTargetOptions = {
-      minFilter: THREE.LinearFilter, // Important as we want to sample square pixels
-      magFilter: THREE.LinearFilter,
-      format: THREE.RGBAFormat,
-      type: THREE.UnsignedByteType, // Important as we need precise coordinates (not ints)
-      wrapS: THREE.RepeatWrapping,
-      wrapT: THREE.RepeatWrapping,
-    };
+    for (let x = floor((2 * this.width) / 3); x < this.width; x++) {
+      for (let y = floor(this.height / 3); y < (2 * this.height) / 3; y++) {
+        this.scratchAt(x, y);
+      }
+    }
 
-    const target = new THREE.WebGLRenderTarget(1024, 1024, targetOpts);
-    this.renderer.setRenderTarget(target);
-    this.renderer.clear();
-    this.renderer.render(this.scene, this.camera);
-
-    this.renderer.setRenderTarget(oldTarget);
-    this.renderer.setClearColor(oldClearColor, oldAlpha);
-
-    return target.texture;
+    this.texture.needsUpdate = true;
   }
 }

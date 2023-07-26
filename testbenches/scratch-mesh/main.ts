@@ -21,7 +21,8 @@ function onWindowResize() {
 
 function setup() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
-  document.getElementById("content").appendChild(renderer.domElement);
+  const contentDiv = document.getElementById("content");
+  contentDiv.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x333344);
@@ -36,7 +37,7 @@ function setup() {
   scene.add(new THREE.AxesHelper());
   scene.add(new THREE.GridHelper(10, 10));
 
-  scratch = new ScratchMesh(renderer, 2 * Math.random() + 1);
+  scratch = new ScratchMesh(contentDiv.offsetWidth, contentDiv.offsetHeight);
   scratch.translateZ(0.05);
   scene.add(scratch);
 
