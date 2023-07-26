@@ -1,4 +1,4 @@
-import { Brush, NumberArray } from "./Brush";
+import { Brush, DataArrayType } from "./Brush";
 
 export class CircleBrush extends Brush {
   radius: number;
@@ -8,7 +8,9 @@ export class CircleBrush extends Brush {
     this.radius = Math.round(radius);
   }
 
-  paintAt(data: NumberArray, centerX: number, centerY: number) {
+  paintAt(data: DataArrayType, from: THREE.Vector2, to: THREE.Vector2) {
+    const { x: centerX, y: centerY } = to;
+
     for (let x = -this.radius; x <= this.radius; x++) {
       for (let y = -this.radius; y <= this.radius; y++) {
         if (0 > centerX + x || centerX + x >= this.canvasWidth) continue;

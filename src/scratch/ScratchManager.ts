@@ -15,6 +15,8 @@ export class ScratchManager {
   private camera: THREE.OrthographicCamera;
   private isScratched: boolean = false;
 
+  private lastTouch: THREE.Vector2 = new THREE.Vector2();
+
   constructor(divElement: HTMLDivElement) {
     this.divElement = divElement;
     this.pxWidth = divElement.offsetWidth;
@@ -59,7 +61,13 @@ export class ScratchManager {
     this.renderer.render(this.scene, this.camera);
   }
 
-  private onTouchStart() {}
+  private onTouchStart(event: TouchEvent) {
+    // Calculate touch coordinates relative to canvas in cartesian pixel coords
+    const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
+    const pixelCoordY = this.renderer.domElement.offsetTop - event.targetTouches[0].clientY + this.pxHeight;
+
+    this.lastTouch.set(pixelCoordX, pixelCoordY);
+  }
 
   private onTouchMove(event: TouchEvent) {
     if (!this.scratched) {
@@ -67,12 +75,15 @@ export class ScratchManager {
       console.log("Scratch selected");
     }
 
-    // Calculate touch coordinates relative to canvas in pixel coords
+    // Calculate touch coordinates relative to canvas in cartesian pixel coords
     const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
     const pixelCoordY = this.renderer.domElement.offsetTop - event.targetTouches[0].clientY + this.pxHeight;
+    const point = new THREE.Vector2(pixelCoordX, pixelCoordY);
 
     // Do scratch
-    this.scratchMesh.scratchAt(pixelCoordX, pixelCoordY);
+    this.scratchMesh.scratch(this.lastTouch, point);
+
+    this.lastTouch.copy(point);
 
     event.preventDefault();
   }

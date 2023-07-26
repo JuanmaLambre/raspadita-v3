@@ -29,10 +29,7 @@ export class ScratchMesh extends THREE.Mesh {
   }
 
   /** Cartesian-oriented coordinates */
-  scratchAt(pixelX: number, pixelY: number) {
-    const x = Math.round(pixelX);
-    const y = Math.round(pixelY);
-
-    this.textureGenerator.scratchAt(x, y);
+  scratch(from: THREE.Vector2, to: THREE.Vector2) {
+    this.textureGenerator.scratch(from.round(), to.round());
   }
 }

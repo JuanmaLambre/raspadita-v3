@@ -1,4 +1,4 @@
-export type NumberArray = Uint8Array;
+export type DataArrayType = Uint8Array;
 
 export abstract class Brush {
   pxDepth: number = 4;
@@ -10,5 +10,5 @@ export abstract class Brush {
     this.canvasHeight = height;
   }
 
-  abstract paintAt(data: NumberArray, x: number, y: number): void;
+  abstract paintAt(data: DataArrayType, from: THREE.Vector2, to: THREE.Vector2): void;
 }

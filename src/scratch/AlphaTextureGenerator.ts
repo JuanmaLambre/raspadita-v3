@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { CircleBrush } from "../brushes/CircleBrush";
 import { Brush } from "../brushes/Brush";
+import { ThickLineBrush } from "../brushes/ThickLineBrush";
 
 export class AlphaTextureGenerator {
   brush: Brush;
@@ -20,12 +20,12 @@ export class AlphaTextureGenerator {
     this.texture = new THREE.DataTexture(this.data, width, height, THREE.RGBAFormat);
     this.texture.needsUpdate = true;
 
-    this.brush = new CircleBrush(this.width, this.height, 10);
+    this.brush = new ThickLineBrush(this.width, this.height, 10);
   }
 
   /** Coordinates are cartesian-oriented (x+ axis points right, y+ axis points up) */
-  scratchAt(pixelX: number, pixelY: number) {
-    this.brush.paintAt(this.data, pixelX, pixelY);
+  scratch(from: THREE.Vector2, to: THREE.Vector2) {
+    this.brush.paintAt(this.data, from, to);
     this.texture.needsUpdate = true;
   }
 
