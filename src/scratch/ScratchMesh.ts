@@ -1,11 +1,12 @@
 import * as THREE from "three";
 import { AlphaTextureGenerator } from "./AlphaTextureGenerator";
+import { TinMaterial } from "../materials/TinMaterial";
 
 export class ScratchMesh extends THREE.Mesh {
   readonly width: number;
   readonly height: number;
 
-  tinMaterial: THREE.MeshBasicMaterial;
+  tinMaterial: TinMaterial;
 
   private textureGenerator: AlphaTextureGenerator;
 
@@ -13,9 +14,24 @@ export class ScratchMesh extends THREE.Mesh {
     const aspect = pxWidth / pxHeight;
     const geometry = new THREE.PlaneGeometry(2 * aspect, 2);
     const textureGenerator = new AlphaTextureGenerator(pxWidth, pxHeight);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x666666,
-      transparent: true,
+
+    // const material = new THREE.MeshBasicMaterial({
+    //   color: 0x666666,
+    //   transparent: true,
+    //   alphaMap: textureGenerator.texture,
+    // });
+
+    const gradToRad = Math.PI / 180;
+    const unitToPx = pxWidth / (2 * aspect);
+
+    const material = new TinMaterial({
+      width: pxWidth,
+      height: pxHeight,
+      length: 0.7 * unitToPx,
+      angle: 330 * gradToRad,
+      offset: -0.1 * unitToPx,
+      color1: 0x666666,
+      color2: 0x505050,
       alphaMap: textureGenerator.texture,
     });
 
