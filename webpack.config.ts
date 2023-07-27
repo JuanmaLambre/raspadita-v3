@@ -2,6 +2,8 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import { WebpackConfiguration } from "webpack-cli";
+import Server from "webpack-dev-server";
+import { setup as setupServer } from "./src/devServer/setup";
 
 const testbenches = ["scratch-mesh"];
 
@@ -105,6 +107,14 @@ const config: WebpackConfiguration = {
         },
       },
     ],
+  },
+
+  devServer: {
+    // Setup server endpoints
+    setupMiddlewares: (middlewares: any, devServer: Server) => {
+      setupServer(devServer);
+      return middlewares;
+    },
   },
 
   resolve: {

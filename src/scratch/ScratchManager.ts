@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
+import { getScratchContent } from "../backend/getScratchContent";
 
 const DEBUG_RENDER = false;
 
@@ -61,6 +62,13 @@ export class ScratchManager {
     this.renderer.render(this.scene, this.camera);
   }
 
+  private onScratchSelected() {
+    this.isScratched = true;
+
+    const id = Math.round(Math.random() * 10);
+    getScratchContent(id).then((response) => console.log("RESPONSE:", response));
+  }
+
   private onTouchStart(event: TouchEvent) {
     // Calculate touch coordinates relative to canvas in cartesian pixel coords
     const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
@@ -70,10 +78,7 @@ export class ScratchManager {
   }
 
   private onTouchMove(event: TouchEvent) {
-    if (!this.scratched) {
-      this.isScratched = true;
-      console.log("Scratch selected");
-    }
+    if (!this.scratched) this.onScratchSelected();
 
     // Calculate touch coordinates relative to canvas in cartesian pixel coords
     const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
