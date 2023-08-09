@@ -15,12 +15,6 @@ export class ScratchMesh extends THREE.Mesh {
     const geometry = new THREE.PlaneGeometry(2 * aspect, 2);
     const textureGenerator = new AlphaTextureGenerator(pxWidth, pxHeight);
 
-    // const material = new THREE.MeshBasicMaterial({
-    //   color: 0x666666,
-    //   transparent: true,
-    //   alphaMap: textureGenerator.texture,
-    // });
-
     const gradToRad = Math.PI / 180;
     const unitToPx = pxWidth / (2 * aspect);
 

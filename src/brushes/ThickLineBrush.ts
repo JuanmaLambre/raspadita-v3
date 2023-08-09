@@ -4,7 +4,7 @@ import { Brush } from "./Brush";
 export class ThickLineBrush extends Brush {
   thickness: number;
 
-  constructor(canvasW: number, canvasH: number, thickness: number) {
+  constructor(canvasW: number, canvasH: number, thickness: number = 10) {
     super(canvasW, canvasH);
     this.thickness = thickness;
   }

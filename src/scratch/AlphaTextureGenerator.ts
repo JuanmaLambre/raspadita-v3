@@ -20,7 +20,7 @@ export class AlphaTextureGenerator {
     this.texture = new THREE.DataTexture(this.data, width, height, THREE.RGBAFormat);
     this.texture.needsUpdate = true;
 
-    this.brush = new ThickLineBrush(this.width, this.height, 10);
+    this.brush = new ThickLineBrush(this.width, this.height);
   }
 
   /** Coordinates are cartesian-oriented (x+ axis points right, y+ axis points up) */
