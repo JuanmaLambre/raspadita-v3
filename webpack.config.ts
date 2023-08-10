@@ -76,8 +76,8 @@ const config: WebpackConfiguration = {
 
       // CSS
       {
-        test: /\.css$/,
-        use: [MiniCSSExtractPlugin.loader, "css-loader"],
+        test: /\.s?css$/,
+        use: [MiniCSSExtractPlugin.loader, "css-loader", "sass-loader"],
       },
 
       // Images
