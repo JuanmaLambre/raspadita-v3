@@ -4,9 +4,11 @@ import { Brush } from "./Brush";
 export class ThickLineBrush extends Brush {
   thickness: number;
 
-  constructor(canvasW: number, canvasH: number, thickness: number = 10) {
+  constructor(canvasW: number, canvasH: number, thickness: number = 20) {
     super(canvasW, canvasH);
     this.thickness = thickness;
+
+    this.setDebugSpinner();
   }
 
   paintAt(data: Uint8Array, from: THREE.Vector2, to: THREE.Vector2): void {
@@ -53,5 +55,16 @@ export class ThickLineBrush extends Brush {
     const numerator = Math.abs((x2 - x1) * (y1 - y0) - (x1 - x0) * (y2 - y1));
     const denom = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     return numerator / denom;
+  }
+
+  private setDebugSpinner() {
+    const spinner = document.getElementById("thickness-input") as HTMLInputElement;
+    if (!spinner) return;
+
+    spinner.value = this.thickness.toString();
+
+    spinner.addEventListener("input", (ev) => {
+      this.thickness = parseInt(spinner.value);
+    });
   }
 }

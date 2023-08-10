@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 import * as THREE from "three";
 import { ScratchManager } from "./scratch/ScratchManager";
 
