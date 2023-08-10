@@ -1,15 +1,18 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 import { getScratchContent } from "../backend/getScratchContent";
+import { ScratchEventTypes, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
 
 const DEBUG_RENDER = false;
 
 export class ScratchManager {
+  readonly id: number;
   readonly pxWidth: number; // In CSS pixels
   readonly pxHeight: number; // In CSS pixels
   readonly renderer: THREE.WebGLRenderer;
 
   public scratchMesh: ScratchMesh;
+  public enabled: boolean = true;
 
   private divElement: HTMLDivElement;
   private scene: THREE.Scene;
@@ -18,7 +21,8 @@ export class ScratchManager {
 
   private lastTouch: THREE.Vector2 = new THREE.Vector2();
 
-  constructor(divElement: HTMLDivElement) {
+  constructor(id: number, divElement: HTMLDivElement) {
+    this.id = id;
     this.divElement = divElement;
     this.pxWidth = divElement.offsetWidth;
     this.pxHeight = divElement.offsetHeight;
@@ -65,11 +69,17 @@ export class ScratchManager {
   private onScratchSelected() {
     this.isScratched = true;
 
-    const id = Math.round(Math.random() * 10);
-    getScratchContent(id).then((response) => console.log("RESPONSE:", response));
+    const event = new ScratchSelectedEvent({ id: this.id });
+    dispatchEvent(event);
+
+    getScratchContent(this.id).then(this.onContentResponse.bind(this));
   }
 
   private onTouchStart(event: TouchEvent) {
+    if (!this.enabled) return;
+
+    if (!this.scratched) this.onScratchSelected();
+
     // Calculate touch coordinates relative to canvas in cartesian pixel coords
     const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
     const pixelCoordY = this.renderer.domElement.offsetTop - event.targetTouches[0].clientY + this.pxHeight;
@@ -78,7 +88,9 @@ export class ScratchManager {
   }
 
   private onTouchMove(event: TouchEvent) {
-    if (!this.scratched) this.onScratchSelected();
+    event.preventDefault();
+
+    if (!this.enabled) return;
 
     // Calculate touch coordinates relative to canvas in cartesian pixel coords
     const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
@@ -89,9 +101,12 @@ export class ScratchManager {
     this.scratchMesh.scratch(this.lastTouch, point);
 
     this.lastTouch.copy(point);
-
-    event.preventDefault();
   }
 
   private onTouchEnd() {}
+
+  private onContentResponse(response: any) {
+    dispatchEvent(new ScratchLoadedEvent({ id: this.id }));
+    console.log("RESPONSE:", response);
+  }
 }
