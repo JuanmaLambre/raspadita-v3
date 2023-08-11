@@ -13,6 +13,20 @@
       <div class="card c4"></div>
       <div class="card c5"></div>
       <div class="card c6"></div>
+      <div class="card c7"></div>
+      <div class="card c8"></div>
+      <div class="card c9"></div>
+      <div class="card c10"></div>
+      <div class="card c11"></div>
+      <div class="card c12"></div>
+      <div class="card c13"></div>
+      <div class="card c14"></div>
+      <div class="card c15"></div>
+      <div class="card c16"></div>
+      <div class="card c17"></div>
+      <div class="card c18"></div>
+      <div class="card c19"></div>
+      <div class="card c20"></div>
     </div>
 
     <div class="brush-console">
@@ -20,4 +34,24 @@
       <input type="number" id="thickness-input" min="1" />
     </div>
   </body>
+
+  <script>
+    // Make random backgrounds for cards
+
+    const { floor, random } = Math;
+    const randInt = (max) => floor(random() * max);
+
+    const cards = document.getElementsByClassName("card");
+
+    for (let i = 0; i < cards.length; i++) {
+      const x = floor(random() * 100);
+      const y = floor(random() * 100);
+      const c0 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
+      const c50 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
+      const c100 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
+      const bg = `radial-gradient(circle at ${x}% ${y}%, ${c0}, ${c50} 50%, ${c100} 100%)`;
+
+      cards[i].style.background = bg;
+    }
+  </script>
 </html>

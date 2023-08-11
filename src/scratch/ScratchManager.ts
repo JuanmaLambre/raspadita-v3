@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 import { getScratchContent } from "../backend/getScratchContent";
-import { ScratchEventTypes, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
+import { ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
 
 const DEBUG_RENDER = false;
 
@@ -9,33 +9,35 @@ export class ScratchManager {
   readonly id: number;
   readonly pxWidth: number; // In CSS pixels
   readonly pxHeight: number; // In CSS pixels
-  readonly renderer: THREE.WebGLRenderer;
 
   public scratchMesh: ScratchMesh;
   public enabled: boolean = true;
+  public needsUpdate: boolean = true;
 
   private divElement: HTMLDivElement;
+  private canvas: HTMLCanvasElement;
   private scene: THREE.Scene;
   private camera: THREE.OrthographicCamera;
   private isScratched: boolean = false;
+  private renderer: THREE.WebGLRenderer;
 
   private lastTouch: THREE.Vector2 = new THREE.Vector2();
 
-  constructor(id: number, divElement: HTMLDivElement) {
+  constructor(id: number, divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
     this.id = id;
     this.divElement = divElement;
+    this.renderer = renderer;
     this.pxWidth = divElement.offsetWidth;
     this.pxHeight = divElement.offsetHeight;
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setClearColor(0x0, 0);
-    this.renderer.setSize(this.pxWidth, this.pxHeight);
-    this.renderer.setAnimationLoop(this.render.bind(this));
-    this.divElement.appendChild(this.renderer.domElement);
+    this.canvas = document.createElement("canvas");
+    this.canvas.width = this.pxWidth;
+    this.canvas.height = this.pxHeight;
+    this.divElement.appendChild(this.canvas);
 
-    this.renderer.domElement.addEventListener("touchstart", this.onTouchStart.bind(this));
-    this.renderer.domElement.addEventListener("touchmove", this.onTouchMove.bind(this));
-    this.renderer.domElement.addEventListener("touchend", this.onTouchEnd.bind(this));
+    this.canvas.addEventListener("touchstart", this.onTouchStart.bind(this));
+    this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
+    this.canvas.addEventListener("touchend", this.onTouchEnd.bind(this));
 
     this.scratchMesh = new ScratchMesh(this.pxWidth, this.pxHeight);
     this.scene = new THREE.Scene();
@@ -62,8 +64,15 @@ export class ScratchManager {
     return this.isScratched;
   }
 
-  private render() {
+  update() {
+    if (!this.needsUpdate) return;
+
     this.renderer.render(this.scene, this.camera);
+
+    const context = this.canvas.getContext("2d");
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    context.drawImage(this.renderer.domElement, 0, 0);
+    this.needsUpdate = false;
   }
 
   private onScratchSelected() {
@@ -80,11 +89,8 @@ export class ScratchManager {
 
     if (!this.scratched) this.onScratchSelected();
 
-    // Calculate touch coordinates relative to canvas in cartesian pixel coords
-    const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
-    const pixelCoordY = this.renderer.domElement.offsetTop - event.targetTouches[0].clientY + this.pxHeight;
-
-    this.lastTouch.set(pixelCoordX, pixelCoordY);
+    const lastTouch = this.getCartesianCoords(event);
+    this.lastTouch.copy(lastTouch);
   }
 
   private onTouchMove(event: TouchEvent) {
@@ -92,13 +98,10 @@ export class ScratchManager {
 
     if (!this.enabled) return;
 
-    // Calculate touch coordinates relative to canvas in cartesian pixel coords
-    const pixelCoordX = event.targetTouches[0].clientX - this.renderer.domElement.offsetLeft;
-    const pixelCoordY = this.renderer.domElement.offsetTop - event.targetTouches[0].clientY + this.pxHeight;
-    const point = new THREE.Vector2(pixelCoordX, pixelCoordY);
-
     // Do scratch
+    const point = this.getCartesianCoords(event);
     this.scratchMesh.scratch(this.lastTouch, point);
+    this.needsUpdate = true;
 
     this.lastTouch.copy(point);
   }
@@ -108,5 +111,13 @@ export class ScratchManager {
   private onContentResponse(response: any) {
     dispatchEvent(new ScratchLoadedEvent({ id: this.id }));
     console.log("RESPONSE:", response);
+  }
+
+  /** Calculate touch coordinates relative to canvas in cartesian pixel coords */
+  private getCartesianCoords(event: TouchEvent): THREE.Vector2 {
+    const { clientX, clientY } = event.targetTouches[0];
+    const pixelCoordX = clientX - this.canvas.offsetLeft;
+    const pixelCoordY = this.canvas.offsetTop - clientY + this.pxHeight;
+    return new THREE.Vector2(pixelCoordX, pixelCoordY);
   }
 }

@@ -13,8 +13,8 @@ body {
   gap: 4rem;
 
   .card {
-    width: 200px;
-    height: 300px;
+    width: 16rem;
+    height: 24rem;
     background: #333344;
 
     &.c1 {
@@ -38,7 +38,7 @@ body {
     }
     
     &.c6 {
-      background: radial-gradient(circle at 100%, #000, coral 50%, #eee 75%, #eee 75%);
+      background: radial-gradient(circle at 100% 50%, #000, coral 50%, #eee 75%, #eee 75%);
     } 
   }
 }

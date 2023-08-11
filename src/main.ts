@@ -9,8 +9,6 @@ w.THREE = THREE;
 
 const pageMangager = new PageManager();
 
-const scratches: ScratchManager[] = (w.managers = []);
-
 function start() {
   pageMangager.setup();
 

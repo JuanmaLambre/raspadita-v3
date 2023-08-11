@@ -32,4 +32,12 @@ export class AlphaTextureGenerator {
   private getGreenIndex(x: number, y: number): number {
     return (x + y * this.width) * 4 + 1;
   }
+
+  private debugScratch() {
+    const rand = Math.random;
+    // const from = new THREE.Vector2(rand() * this.width, rand() * this.height);
+    const from = new THREE.Vector2(0, 0);
+    const to = new THREE.Vector2(rand() * this.width, rand() * this.height);
+    this.scratch(from.round(), to.round());
+  }
 }
