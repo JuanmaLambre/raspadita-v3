@@ -9,12 +9,12 @@ export class PageManager {
 
   private renderer: THREE.WebGLRenderer;
 
-  setup() {
+  setup(divClassName: string) {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setClearColor(0x0, 0);
     this.renderer.setAnimationLoop(this.update.bind(this));
 
-    const cardDivs = document.getElementsByClassName("card") as HTMLCollectionOf<HTMLDivElement>;
+    const cardDivs = document.getElementsByClassName(divClassName) as HTMLCollectionOf<HTMLDivElement>;
     const { offsetWidth: pxWidth, offsetHeight: pxHeight } = cardDivs[0];
     this.renderer.setSize(pxWidth, pxHeight);
 

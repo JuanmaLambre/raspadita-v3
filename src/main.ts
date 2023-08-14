@@ -1,16 +1,14 @@
 import "./style.scss";
 import * as THREE from "three";
-import { ScratchManager } from "./scratch/ScratchManager";
 import { PageManager } from "./scratch/PageManager";
 
 // For debugging
 const w = window as any;
 w.THREE = THREE;
 
-const pageMangager = new PageManager();
-
-function start() {
-  pageMangager.setup();
+function start(cardClassName = "card") {
+  const pageMangager = new PageManager();
+  pageMangager.setup(cardClassName);
 
   w.managers = pageMangager.scratches;
 }
