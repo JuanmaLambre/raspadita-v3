@@ -24,8 +24,8 @@ export class ScratchMesh extends THREE.Mesh {
       length: 0.7 * unitToPx,
       angle: 330 * gradToRad,
       offset: -0.1 * unitToPx,
-      color1: 0x666666,
-      color2: 0x505050,
+      color1: 0x777777,
+      color2: 0x656565,
       alphaMap: textureGenerator.texture,
     });
 
