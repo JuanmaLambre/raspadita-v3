@@ -88,18 +88,20 @@ export class ScratchManager {
     if (!this.enabled) return;
 
     if (!this.scratched) this.onScratchSelected();
-
-    const lastTouch = this.getCartesianCoords(event);
-    this.lastTouch.copy(lastTouch);
+    else this.lastTouch.copy(this.getCartesianCoords(event));
   }
 
   private onTouchMove(event: TouchEvent) {
     event.preventDefault();
 
-    if (!this.enabled) return;
+    const point = this.getCartesianCoords(event);
+
+    if (!this.enabled) {
+      this.lastTouch.copy(point);
+      return;
+    }
 
     // Do scratch
-    const point = this.getCartesianCoords(event);
     this.scratchMesh.scratch(this.lastTouch, point);
     this.needsUpdate = true;
 
