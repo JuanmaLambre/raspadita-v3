@@ -5,16 +5,15 @@ body {
 }
 
 .cards-grid {
-  width: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  margin: 3rem;
+  margin: 2rem 4rem 0 4rem;
   gap: 4rem;
 
   .card {
-    width: 16rem;
-    height: 24rem;
+    width: 24rem;
+    height: 36rem;
     background: #333344;
 
     &.c1 {
@@ -45,16 +44,22 @@ body {
 
 .brush-console {
   display: flex;
-  flex-direction: column;
-  margin-left: 2rem;
+  flex-direction: row;
+  margin: 2rem 0 0 2rem;
+  gap: 1.5rem;
 
   span {
     color: lightgray;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    padding: 1rem;
   }
 
   #thickness-input {
     margin: 0.6rem 0;
-    width: 6rem;
+    width: 10rem;
+    height: 3rem;
+    font-size: 2rem;
   }
 }
 
