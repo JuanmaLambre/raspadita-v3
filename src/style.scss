@@ -1,20 +1,34 @@
 body {
   width: 100vw;
   margin: 0;
-  background-color: #333344;
+  background-color: rgb(51, 76, 122);;
+}
+
+.header {
+  background-color: rgb(66, 99, 159);
+  border-radius: 0 0 1rem 1rem;
+  text-align: center;
+  padding: 1.5rem;
+  
+  span {
+    color: aliceblue;
+    font-size: 3rem;
+    font-family: sans-serif;
+  }
 }
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
-  margin: 2rem 4rem 0 4rem;
-  gap: 4rem;
+  margin: 2rem 2rem 0 2rem;
+  gap: 2rem;
 
   .card {
-    width: 24rem;
-    height: 36rem;
+    width: 12rem;
+    height: 18rem;
     background: #333344;
+    border: #aaaaaa 16px;
 
     &.c1 {
       background: radial-gradient(circle, rgba(20,135,0,1) 0%, rgba(0,212,255,1) 100%);
