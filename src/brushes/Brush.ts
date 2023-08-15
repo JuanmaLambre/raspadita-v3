@@ -10,5 +10,5 @@ export abstract class Brush {
     this.canvasHeight = height;
   }
 
-  abstract paintAt(data: DataArrayType, from: THREE.Vector2, to: THREE.Vector2): void;
+  abstract paintAt(data: DataArrayType, from: THREE.Vector2, to: THREE.Vector2): number;
 }

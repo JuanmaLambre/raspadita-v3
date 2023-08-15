@@ -22,5 +22,7 @@ export class CircleBrush extends Brush {
         }
       }
     }
+
+    return 0;
   }
 }

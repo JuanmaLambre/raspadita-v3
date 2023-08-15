@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { ScratchEventTypes, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
 import { ScratchManager } from "./ScratchManager";
 
-const WAIT_SERVER_RESPONSE = true;
+const WAIT_SERVER_RESPONSE = false;
 
 export class PageManager {
   scratches: ScratchManager[] = [];

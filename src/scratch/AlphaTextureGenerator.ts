@@ -9,6 +9,7 @@ export class AlphaTextureGenerator {
   private data: Uint8Array;
   private width: number;
   private height: number;
+  private pixelsPainted: number = 0;
 
   constructor(width: number, height: number) {
     this.width = width;
@@ -23,9 +24,15 @@ export class AlphaTextureGenerator {
     this.brush = new ThickLineBrush(this.width, this.height);
   }
 
+  /** Returns percentage of pixels already painted */
+  get painted(): number {
+    return (this.pixelsPainted / (this.width * this.height)) * 100;
+  }
+
   /** Coordinates are cartesian-oriented (x+ axis points right, y+ axis points up) */
   scratch(from: THREE.Vector2, to: THREE.Vector2) {
-    this.brush.paintAt(this.data, from, to);
+    const painted = this.brush.paintAt(this.data, from, to);
+    this.pixelsPainted += painted;
     this.texture.needsUpdate = true;
   }
 
