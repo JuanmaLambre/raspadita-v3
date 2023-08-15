@@ -38,6 +38,10 @@ export class ScratchMesh extends THREE.Mesh {
     this.name = "scratch-mesh";
   }
 
+  get painted(): number {
+    return this.textureGenerator.painted;
+  }
+
   /** Cartesian-oriented coordinates */
   scratch(from: THREE.Vector2, to: THREE.Vector2) {
     this.textureGenerator.scratch(from.round(), to.round());

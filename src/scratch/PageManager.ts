@@ -1,5 +1,10 @@
 import * as THREE from "three";
-import { ScratchEventTypes, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
+import {
+  ScratchEventTypes,
+  ScratchFinishedEvent,
+  ScratchLoadedEvent,
+  ScratchSelectedEvent,
+} from "../types/ScratchEvent";
 import { ScratchManager } from "./ScratchManager";
 
 const WAIT_SERVER_RESPONSE = false;
@@ -26,20 +31,32 @@ export class PageManager {
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
+    addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
   }
 
   update() {
     this.scratches.forEach((mngr) => mngr.update());
   }
 
+  private getScratch(id: number) {
+    return this.scratches.find((scratch) => scratch.id == id);
+  }
+
   private onScratchSelected(ev: ScratchSelectedEvent) {
-    if (WAIT_SERVER_RESPONSE) {
-      console.log("Waiting server response...");
-      this.scratches.forEach((mngr) => (mngr.enabled = false));
+    this.scratches.forEach((mngr) => (mngr.enabled = false));
+
+    if (!WAIT_SERVER_RESPONSE) {
+      this.getScratch(ev.id).enabled = true;
     }
   }
 
   private onScratchLoaded(ev: ScratchLoadedEvent) {
+    const scratch = this.getScratch(ev.id);
+    scratch.enabled = true;
+  }
+
+  private onScratchFinished(ev: ScratchFinishedEvent) {
+    console.log("Scratch", ev.id, "finished");
     this.scratches.forEach((mngr) => (mngr.enabled = true));
   }
 }

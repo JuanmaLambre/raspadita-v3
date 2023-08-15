@@ -1,9 +1,10 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 import { getScratchContent } from "../backend/getScratchContent";
-import { ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
+import { ScratchFinishedEvent, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
 
 const DEBUG_RENDER = false;
+const FINISH_THRESHOLD = 60; // Percentage
 
 export class ScratchManager {
   readonly id: number;
@@ -13,6 +14,7 @@ export class ScratchManager {
   public scratchMesh: ScratchMesh;
   public enabled: boolean = true;
   public needsUpdate: boolean = true;
+  public finished: boolean = false;
 
   private divElement: HTMLDivElement;
   private canvas: HTMLCanvasElement;
@@ -96,7 +98,9 @@ export class ScratchManager {
 
     const point = this.getCartesianCoords(event);
 
-    if (!this.enabled || !this.lastTouch) {
+    if (!this.enabled) return;
+
+    if (!this.lastTouch) {
       this.lastTouch = point.clone();
       return;
     }
@@ -106,6 +110,13 @@ export class ScratchManager {
     this.needsUpdate = true;
 
     this.lastTouch.copy(point);
+
+    // Notify finish
+    if (!this.finished && this.scratchMesh.painted >= FINISH_THRESHOLD) {
+      const event = new ScratchFinishedEvent({ id: this.id });
+      dispatchEvent(event);
+      this.finished = true;
+    }
   }
 
   private onTouchEnd() {}

@@ -3,12 +3,17 @@ import * as THREE from "three";
 export enum ScratchEventTypes {
   onScratchSelected = "onScratchSelected",
   onScratchLoaded = "onScratchLoaded",
+  onScratchFinished = "onScratchFinished",
 }
+
+type ScratchEventInfo = {
+  id: number;
+};
 
 export class ScratchSelectedEvent extends Event {
   id: number;
 
-  constructor(info: any) {
+  constructor(info: ScratchEventInfo) {
     super(ScratchEventTypes.onScratchSelected);
     Object.assign(this, info);
   }
@@ -17,8 +22,17 @@ export class ScratchSelectedEvent extends Event {
 export class ScratchLoadedEvent extends Event {
   id: number;
 
-  constructor(info: any) {
+  constructor(info: ScratchEventInfo) {
     super(ScratchEventTypes.onScratchLoaded);
+    Object.assign(this, info);
+  }
+}
+
+export class ScratchFinishedEvent extends Event {
+  id: number;
+
+  constructor(info: ScratchEventInfo) {
+    super(ScratchEventTypes.onScratchFinished);
     Object.assign(this, info);
   }
 }
