@@ -21,7 +21,7 @@ export class ScratchManager {
   private isScratched: boolean = false;
   private renderer: THREE.WebGLRenderer;
 
-  private lastTouch: THREE.Vector2 = new THREE.Vector2();
+  private lastTouch: THREE.Vector2;
 
   constructor(id: number, divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
     this.id = id;
@@ -96,8 +96,8 @@ export class ScratchManager {
 
     const point = this.getCartesianCoords(event);
 
-    if (!this.enabled) {
-      this.lastTouch.copy(point);
+    if (!this.enabled || !this.lastTouch) {
+      this.lastTouch = point.clone();
       return;
     }
 
