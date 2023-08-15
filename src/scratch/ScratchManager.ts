@@ -101,6 +101,7 @@ export class ScratchManager {
     if (!this.enabled) return;
 
     if (!this.lastTouch) {
+      // Note: this is done here rather than onTouchStart because we need to wait for the server's response
       this.lastTouch = point.clone();
       return;
     }
@@ -129,8 +130,10 @@ export class ScratchManager {
   /** Calculate touch coordinates relative to canvas in cartesian pixel coords */
   private getCartesianCoords(event: TouchEvent): THREE.Vector2 {
     const { clientX, clientY } = event.targetTouches[0];
-    const pixelCoordX = clientX - this.canvas.offsetLeft;
-    const pixelCoordY = this.canvas.offsetTop - clientY + this.pxHeight;
+    const { scrollTop, scrollLeft } = document.scrollingElement;
+
+    const pixelCoordX = clientX - this.canvas.offsetLeft - scrollLeft;
+    const pixelCoordY = this.canvas.offsetTop - clientY + this.pxHeight - scrollTop;
     return new THREE.Vector2(pixelCoordX, pixelCoordY);
   }
 }
