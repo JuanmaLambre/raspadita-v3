@@ -57,8 +57,8 @@ export class ScratchManager {
     this.id = id;
     this.divElement = divElement;
     this.renderer = renderer;
-    this.pxWidth = divElement.offsetWidth;
-    this.pxHeight = divElement.offsetHeight;
+    this.pxWidth = divElement.clientWidth;
+    this.pxHeight = divElement.clientHeight;
 
     this.canvas = document.createElement("canvas");
     this.canvas.width = this.pxWidth;
@@ -160,8 +160,8 @@ export class ScratchManager {
     const { clientX, clientY } = event.targetTouches[0];
     const { scrollTop, scrollLeft } = document.scrollingElement;
 
-    const pixelCoordX = clientX - this.canvas.offsetLeft - scrollLeft;
-    const pixelCoordY = this.canvas.offsetTop - clientY + this.pxHeight - scrollTop;
+    const pixelCoordX = clientX - this.canvas.parentElement.offsetLeft - scrollLeft;
+    const pixelCoordY = this.canvas.parentElement.offsetTop - clientY + this.pxHeight - scrollTop;
     return new THREE.Vector2(pixelCoordX, pixelCoordY);
   }
 
