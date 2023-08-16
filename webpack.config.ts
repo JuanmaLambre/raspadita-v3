@@ -110,6 +110,11 @@ const config: WebpackConfiguration = {
   },
 
   devServer: {
+    static: {
+      directory: path.resolve(__dirname, "public"),
+      publicPath: "/public/",
+    },
+
     // Setup server endpoints
     setupMiddlewares: (middlewares: any, devServer: Server) => {
       setupServer(devServer);
