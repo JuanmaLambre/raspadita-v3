@@ -1,34 +1,65 @@
 body {
   width: 100vw;
   margin: 0;
-  background-color: rgb(51, 76, 122);;
+  background-color: #012f7c;
 }
 
 .header {
-  background-color: rgb(66, 99, 159);
+  background-color: #024fef;
   border-radius: 0 0 1rem 1rem;
   text-align: center;
-  padding: 1.5rem;
+  padding: 1rem;
   
   span {
     color: aliceblue;
-    font-size: 3rem;
+    font-size: 6rem;
     font-family: sans-serif;
   }
 }
 
+.instructions {
+  color: aliceblue;
+  font-size: 3rem;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 3rem;
+}
+
+.time-box {
+  margin: 0 2rem 0 2rem;
+  height: 4rem;
+  border: 2px solid whitesmoke;
+
+  .seconds-bar {
+    height: inherit;
+    background-color: red;
+    border-right: 2px solid whitesmoke;
+    width: 8rem;
+  }
+}
+
 .cards-grid {
+  background-color: #024fef;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
-  margin: 2rem 2rem 0 2rem;
+  margin: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
   gap: 2rem;
 
   .card {
     width: 12rem;
     height: 12rem;
     background: #333344;
-    border: #aaaaaa 16px;
+    border: 2px solid whitesmoke;
+    position: relative;
+
+    canvas {
+      position: absolute;
+      z-index: 10;
+    }
 
     &.c1 {
       background: radial-gradient(circle, rgba(20,135,0,1) 0%, rgba(0,212,255,1) 100%);
@@ -59,7 +90,7 @@ body {
 .debug-console {
   display: flex;
   flex-direction: column;
-  margin: 2rem 0 0 2rem;
+  margin: 4rem 0 0 2rem;
   gap: 1.5rem;
 
   .setting {

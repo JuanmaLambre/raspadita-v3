@@ -5,6 +5,29 @@ import { ScratchFinishedEvent, ScratchLoadedEvent, ScratchSelectedEvent } from "
 
 const DEBUG_RENDER = false;
 
+const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
+  0: 0x07fcfe,
+  1: 0x024fef,
+  2: 0x07fcfe,
+  3: 0x024fef,
+  4: 0x012f81,
+  5: 0x07fcfe,
+  6: 0x024fef,
+  7: 0x07fcfe,
+  8: 0x07fcfe,
+  9: 0x012f81,
+  10: 0x07fcfe,
+  11: 0x024fef,
+  12: 0x012f81,
+  13: 0x07fcfe,
+  14: 0x012f81,
+  15: 0x07fcfe,
+  16: 0x024fef,
+  17: 0x012f81,
+  18: 0x07fcfe,
+  19: 0x012f81,
+};
+
 export class ScratchManager {
   readonly id: number;
   readonly pxWidth: number; // In CSS pixels
@@ -45,7 +68,8 @@ export class ScratchManager {
     this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
     this.canvas.addEventListener("touchend", this.onTouchEnd.bind(this));
 
-    this.scratchMesh = new ScratchMesh({ pxWidth: this.pxWidth, pxHeight: this.pxHeight });
+    const color = ID_COLORS[this.id];
+    this.scratchMesh = new ScratchMesh({ pxWidth: this.pxWidth, pxHeight: this.pxHeight, color });
     this.scene = new THREE.Scene();
     this.scene.add(this.scratchMesh);
 
