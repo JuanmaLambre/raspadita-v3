@@ -42,7 +42,6 @@ export class ScratchManager {
     this.canvas.height = this.pxHeight;
     this.divElement.appendChild(this.canvas);
 
-    this.canvas.addEventListener("touchstart", this.onTouchStart.bind(this));
     this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
     this.canvas.addEventListener("touchend", this.onTouchEnd.bind(this));
 
@@ -91,19 +90,19 @@ export class ScratchManager {
     getScratchContent(this.id).then(this.onContentResponse.bind(this));
   }
 
-  private onTouchStart(event: TouchEvent) {
-    if (!this.enabled) return;
-
-    if (!this.scratched) this.onScratchSelected();
-    else this.lastTouch.copy(this.getCartesianCoords(event));
-  }
-
   private onTouchMove(event: TouchEvent) {
+    if (event.touches.length > 1) return;
+
     event.preventDefault();
 
-    const point = this.getCartesianCoords(event);
-
     if (!this.enabled) return;
+
+    if (!this.scratched) {
+      this.onScratchSelected();
+      return;
+    }
+
+    const point = this.getCartesianCoords(event);
 
     if (!this.lastTouch) {
       // Note: this is done here rather than onTouchStart because we need to wait for the server's response
