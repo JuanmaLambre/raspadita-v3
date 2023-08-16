@@ -111,7 +111,14 @@ body {
       font-size: 2rem;
     }
   }
+}
 
+.prize {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
 }
 
 #three-canvas {

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 import { getScratchContent } from "../backend/getScratchContent";
-import { ScratchFinishedEvent, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
+import { randomPick } from "../utils/randomPick";
 
 const DEBUG_RENDER = false;
 
@@ -123,6 +123,7 @@ export class ScratchManager {
 
     if (!this.scratched) {
       this.onScratchSelected();
+      this.showPrize();
       return;
     }
 
@@ -153,6 +154,14 @@ export class ScratchManager {
   private onContentResponse(response: any) {
     dispatchEvent(new ScratchLoadedEvent({ id: this.id }));
     console.log("RESPONSE:", response);
+  }
+
+  private showPrize() {
+    const prizeId = randomPick(["prize-snacks", "prize-car"]);
+    const prizeElement = document.getElementById(prizeId).cloneNode() as HTMLElement;
+    prizeElement.style.display = "initial";
+    prizeElement.id = undefined;
+    this.divElement.appendChild(prizeElement);
   }
 
   /** Calculate touch coordinates relative to canvas in cartesian pixel coords */
