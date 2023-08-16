@@ -37,7 +37,8 @@ function setup() {
   scene.add(new THREE.AxesHelper());
   scene.add(new THREE.GridHelper(10, 10));
 
-  scratch = new ScratchMesh(contentDiv.offsetWidth, contentDiv.offsetHeight);
+  const { offsetWidth: pxWidth, offsetHeight: pxHeight } = contentDiv;
+  scratch = new ScratchMesh({ pxHeight, pxWidth });
   scratch.translateZ(0.05);
   scene.add(scratch);
 

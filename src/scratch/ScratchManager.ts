@@ -46,7 +46,7 @@ export class ScratchManager {
     this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
     this.canvas.addEventListener("touchend", this.onTouchEnd.bind(this));
 
-    this.scratchMesh = new ScratchMesh(this.pxWidth, this.pxHeight);
+    this.scratchMesh = new ScratchMesh({ pxWidth: this.pxWidth, pxHeight: this.pxHeight });
     this.scene = new THREE.Scene();
     this.scene.add(this.scratchMesh);
 
