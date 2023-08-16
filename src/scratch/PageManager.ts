@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import {
+  ScratchingDisabledEvent,
   ScratchEventTypes,
   ScratchFinishedEvent,
   ScratchLoadedEvent,
@@ -8,11 +9,16 @@ import {
 import { ScratchManager } from "./ScratchManager";
 
 const WAIT_SERVER_RESPONSE = false;
+const SCRATCH_LIMIT = 3;
 
 export class PageManager {
   scratches: ScratchManager[] = [];
 
   private renderer: THREE.WebGLRenderer;
+
+  get scratchedCount(): number {
+    return this.scratches.filter((s) => s.scratched).length;
+  }
 
   setup(divClassName: string) {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -32,10 +38,17 @@ export class PageManager {
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
+    addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
   }
 
   update() {
     this.scratches.forEach((mngr) => mngr.update());
+  }
+
+  private get selected() {
+    const enabled = this.scratches.filter((s) => s.enabled);
+    if (enabled.length > 1) return undefined;
+    else return enabled[0];
   }
 
   private getScratch(id: number) {
@@ -57,6 +70,15 @@ export class PageManager {
 
   private onScratchFinished(ev: ScratchFinishedEvent) {
     console.log("Scratch", ev.id, "finished");
-    this.scratches.forEach((mngr) => (mngr.enabled = true));
+
+    if (this.scratchedCount < SCRATCH_LIMIT) {
+      this.scratches.forEach((mngr) => (mngr.enabled = true));
+    }
+  }
+
+  private onScratchingDisabled(ev: ScratchingDisabledEvent) {
+    if (this.scratchedCount < SCRATCH_LIMIT) {
+      alert("Seguí raspando antes de seleccionar una raspadita nueva");
+    }
   }
 }

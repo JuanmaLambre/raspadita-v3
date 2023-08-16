@@ -1,6 +1,12 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
 import { getScratchContent } from "../backend/getScratchContent";
+import {
+  ScratchingDisabledEvent,
+  ScratchFinishedEvent,
+  ScratchLoadedEvent,
+  ScratchSelectedEvent,
+} from "../types/ScratchEvent";
 import { randomPick } from "../utils/randomPick";
 
 const DEBUG_RENDER = false;
@@ -119,7 +125,11 @@ export class ScratchManager {
 
     event.preventDefault();
 
-    if (!this.enabled) return;
+    if (!this.enabled) {
+      const event = new ScratchingDisabledEvent({ id: this.id });
+      dispatchEvent(event);
+      return;
+    }
 
     if (!this.scratched) {
       this.onScratchSelected();

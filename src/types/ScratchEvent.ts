@@ -4,6 +4,7 @@ export enum ScratchEventTypes {
   onScratchSelected = "onScratchSelected",
   onScratchLoaded = "onScratchLoaded",
   onScratchFinished = "onScratchFinished",
+  onScratchingDisabled = "onScratchingDisabled",
 }
 
 type ScratchEventInfo = {
@@ -33,6 +34,15 @@ export class ScratchFinishedEvent extends Event {
 
   constructor(info: ScratchEventInfo) {
     super(ScratchEventTypes.onScratchFinished);
+    Object.assign(this, info);
+  }
+}
+
+export class ScratchingDisabledEvent extends Event {
+  id: number;
+
+  constructor(info: ScratchEventInfo) {
+    super(ScratchEventTypes.onScratchingDisabled);
     Object.assign(this, info);
   }
 }
