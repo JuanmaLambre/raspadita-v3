@@ -26,7 +26,7 @@ body {
 
   .card {
     width: 12rem;
-    height: 18rem;
+    height: 12rem;
     background: #333344;
     border: #aaaaaa 16px;
 
@@ -56,25 +56,31 @@ body {
   }
 }
 
-.brush-console {
+.debug-console {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 2rem 0 0 2rem;
   gap: 1.5rem;
 
-  span {
-    color: lightgray;
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    padding: 1rem;
+  .setting {
+    display: flex;
+    flex-direction: row;
+
+    span {
+      color: lightgray;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      padding: 1rem;
+    }
+  
+    input {
+      margin: 0.6rem 0;
+      width: 10rem;
+      height: 3rem;
+      font-size: 2rem;
+    }
   }
 
-  #thickness-input {
-    margin: 0.6rem 0;
-    width: 10rem;
-    height: 3rem;
-    font-size: 2rem;
-  }
 }
 
 #three-canvas {

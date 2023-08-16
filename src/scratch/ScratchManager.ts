@@ -4,12 +4,13 @@ import { getScratchContent } from "../backend/getScratchContent";
 import { ScratchFinishedEvent, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
 
 const DEBUG_RENDER = false;
-const FINISH_THRESHOLD = 60; // Percentage
 
 export class ScratchManager {
   readonly id: number;
   readonly pxWidth: number; // In CSS pixels
   readonly pxHeight: number; // In CSS pixels
+
+  static FINISH_THRESHOLD = 60; // Percentage
 
   public scratchMesh: ScratchMesh;
   public enabled: boolean = true;
@@ -24,6 +25,10 @@ export class ScratchManager {
   private renderer: THREE.WebGLRenderer;
 
   private lastTouch: THREE.Vector2;
+
+  static {
+    this.setDebugConsole();
+  }
 
   constructor(id: number, divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
     this.id = id;
@@ -113,7 +118,7 @@ export class ScratchManager {
     this.lastTouch.copy(point);
 
     // Notify finish
-    if (!this.finished && this.scratchMesh.painted >= FINISH_THRESHOLD) {
+    if (!this.finished && this.scratchMesh.painted >= ScratchManager.FINISH_THRESHOLD) {
       const event = new ScratchFinishedEvent({ id: this.id });
       dispatchEvent(event);
       this.finished = true;
@@ -135,5 +140,16 @@ export class ScratchManager {
     const pixelCoordX = clientX - this.canvas.offsetLeft - scrollLeft;
     const pixelCoordY = this.canvas.offsetTop - clientY + this.pxHeight - scrollTop;
     return new THREE.Vector2(pixelCoordX, pixelCoordY);
+  }
+
+  private static setDebugConsole() {
+    const spinner = document.getElementById("scratch-threshold") as HTMLInputElement;
+    if (!spinner) return;
+
+    spinner.value = ScratchManager.FINISH_THRESHOLD.toString();
+
+    spinner.addEventListener("input", (ev) => {
+      ScratchManager.FINISH_THRESHOLD = parseInt(spinner.value);
+    });
   }
 }
