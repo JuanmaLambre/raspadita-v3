@@ -61,8 +61,8 @@ export class ScratchManager {
     this.setDebugConsole();
   }
 
-  constructor(id: number, divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
-    this.id = id;
+  constructor(divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
+    this.id = parseInt(divElement.dataset.cardid);
     this.divElement = divElement;
     this.renderer = renderer;
     this.pxWidth = divElement.clientWidth;

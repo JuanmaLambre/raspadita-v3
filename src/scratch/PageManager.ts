@@ -36,7 +36,7 @@ export class PageManager {
     // Build scratches
     for (let i = 0; i < cardDivs.length; i++) {
       const div = cardDivs[i];
-      const scratch = new ScratchManager(i, div, this.renderer);
+      const scratch = new ScratchManager(div, this.renderer);
       this.scratches.push(scratch);
     }
 
