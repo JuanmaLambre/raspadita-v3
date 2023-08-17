@@ -1,4 +1,5 @@
 import * as serverConfig from "./config";
+import { ContentResponse } from "./responses/ContentResponse";
 
 const DEBUG_BACKEND = true;
 
@@ -13,6 +14,7 @@ export namespace Backend {
 
   export async function callGameStart() {
     const url = config.endpoints.initClock;
+    baseForm.set("selec", "");
 
     const opts = {
       method: "POST",
@@ -22,18 +24,20 @@ export namespace Backend {
     return fetch(url, opts);
   }
 
-  export async function getScratchContent(scratchNo: number) {
-    const url = config.endpoints.content + "?" + new URLSearchParams({ id: scratchNo.toString() });
+  export async function getScratchContent(scratchId: number): Promise<ContentResponse> {
+    const url = config.endpoints.content;
+    baseForm.set("selec", scratchId.toString());
 
     const opts = {
       method: "POST",
-      body: JSON.stringify({}),
+      body: baseForm,
     };
 
     return fetch(url, opts)
-      .then((response) => response.json())
+      .then(async (response) => new ContentResponse(await response.json()))
       .catch((error) => {
         console.error("Error:", error);
+        return null;
       });
   }
 }

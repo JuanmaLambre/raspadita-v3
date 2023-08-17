@@ -36,5 +36,9 @@ export class CardStatus {
     return this.prizes[id - 1];
   }
 
-  updateWith(response: ContentResponse) {}
+  updateWith(response: ContentResponse) {
+    this.gameState = response.gameState;
+    this.prizes = response.prizes;
+    this.selected = response.allSelected;
+  }
 }

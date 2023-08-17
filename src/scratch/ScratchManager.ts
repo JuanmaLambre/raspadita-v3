@@ -9,30 +9,31 @@ import {
 import { randomPick } from "../utils/randomPick";
 import { Backend } from "../backend/Backend";
 import { PrizeRepresentation } from "./CardStatus";
+import { ContentResponse } from "../backend/responses/ContentResponse";
 
 const DEBUG_RENDER = false;
 
 const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
-  0: 0x07fcfe,
-  1: 0x024fef,
-  2: 0x07fcfe,
-  3: 0x024fef,
-  4: 0x012f81,
-  5: 0x07fcfe,
-  6: 0x024fef,
-  7: 0x07fcfe,
+  1: 0x07fcfe,
+  2: 0x024fef,
+  3: 0x07fcfe,
+  4: 0x024fef,
+  5: 0x012f81,
+  6: 0x07fcfe,
+  7: 0x024fef,
   8: 0x07fcfe,
-  9: 0x012f81,
-  10: 0x07fcfe,
-  11: 0x024fef,
-  12: 0x012f81,
-  13: 0x07fcfe,
-  14: 0x012f81,
-  15: 0x07fcfe,
-  16: 0x024fef,
-  17: 0x012f81,
-  18: 0x07fcfe,
-  19: 0x012f81,
+  9: 0x07fcfe,
+  10: 0x012f81,
+  11: 0x07fcfe,
+  12: 0x024fef,
+  13: 0x012f81,
+  14: 0x07fcfe,
+  15: 0x012f81,
+  16: 0x07fcfe,
+  17: 0x024fef,
+  18: 0x012f81,
+  19: 0x07fcfe,
+  20: 0x012f81,
 };
 
 export class ScratchManager {
@@ -171,8 +172,8 @@ export class ScratchManager {
 
   private onTouchEnd() {}
 
-  private onContentResponse(response: any) {
-    dispatchEvent(new ScratchLoadedEvent({ id: this.id }));
+  private onContentResponse(response: ContentResponse) {
+    dispatchEvent(new ScratchLoadedEvent({ id: this.id, response }));
     console.log("RESPONSE:", response);
   }
 

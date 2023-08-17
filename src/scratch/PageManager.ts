@@ -42,11 +42,7 @@ export class PageManager {
 
     // Initialize all scratches with card status
     this.cardStatus = CardStatus.newFromHTML();
-    this.cardStatus.selected.forEach((id) => {
-      const scratch = this.getScratch(id);
-      scratch.setPrize(this.cardStatus.getPrizeFor(id));
-      scratch.reveal();
-    });
+    this.updateScratchPrizes();
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
@@ -67,12 +63,6 @@ export class PageManager {
     else return enabled[0];
   }
 
-  private getSelectedFromHTML(): ScratchManager[] {
-    const values = $("#hidSeleccion").val().toString().split("|");
-    const idsSelected = values.filter((id) => id).map((id) => parseInt(id));
-    return idsSelected.map((id) => this.getScratch(id));
-  }
-
   private getScratch(id: number) {
     return this.scratches.find((scratch) => scratch.id == id);
   }
@@ -87,6 +77,8 @@ export class PageManager {
 
   private onScratchLoaded(ev: ScratchLoadedEvent) {
     const scratch = this.getScratch(ev.id);
+    this.cardStatus.updateWith(ev.response);
+    this.updateScratchPrizes();
     scratch.enabled = true;
   }
 
@@ -102,5 +94,12 @@ export class PageManager {
     if (this.scratchedCount < SCRATCH_LIMIT) {
       alert("Seguí raspando antes de seleccionar una raspadita nueva");
     }
+  }
+
+  private updateScratchPrizes() {
+    this.cardStatus.selected.forEach((id) => {
+      const scratch = this.getScratch(id);
+      scratch.setPrize(this.cardStatus.getPrizeFor(id));
+    });
   }
 }

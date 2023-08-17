@@ -1,16 +1,14 @@
+import { GameState, PrizeRepresentation } from "../../scratch/CardStatus";
 import { parsePrizes, parseSelected } from "../parsers";
 
 export class ContentResponse {
-  keepsPlaying: boolean;
-  hasWon: boolean;
+  gameState: GameState;
   allSelected: number[];
-  prizes: string[];
+  prizes: (PrizeRepresentation | null)[];
   result: number;
 
   constructor(serverResponse: any) {
-    this.keepsPlaying = serverResponse.resp_gano == "P";
-    this.hasWon = serverResponse.resp_gano == "S";
-
+    this.gameState = serverResponse.resp_gano;
     this.allSelected = parseSelected(serverResponse.resp_seleccion);
     this.prizes = parsePrizes(serverResponse.resp_tarjeta);
     this.result = parseInt(serverResponse.resultado);
