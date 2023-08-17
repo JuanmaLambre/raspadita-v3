@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import $ from "jquery";
 import {
   ScratchingDisabledEvent,
   ScratchEventTypes,
@@ -7,6 +8,8 @@ import {
   ScratchSelectedEvent,
 } from "../types/ScratchEvent";
 import { ScratchManager } from "./ScratchManager";
+import { Backend } from "../backend/Backend";
+import { CardStatus } from "./CardStatus";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -15,6 +18,7 @@ export class PageManager {
   scratches: ScratchManager[] = [];
 
   private renderer: THREE.WebGLRenderer;
+  private cardStatus: CardStatus;
 
   get scratchedCount(): number {
     return this.scratches.filter((s) => s.scratched).length;
@@ -29,16 +33,28 @@ export class PageManager {
     const { offsetWidth: pxWidth, offsetHeight: pxHeight } = cardDivs[0];
     this.renderer.setSize(pxWidth, pxHeight);
 
+    // Build scratches
     for (let i = 0; i < cardDivs.length; i++) {
       const div = cardDivs[i];
       const scratch = new ScratchManager(i, div, this.renderer);
       this.scratches.push(scratch);
     }
 
+    // Initialize all scratches with card status
+    this.cardStatus = CardStatus.newFromHTML();
+    this.cardStatus.selected.forEach((id) => {
+      const scratch = this.getScratch(id);
+      scratch.setPrize(this.cardStatus.getPrizeFor(id));
+      scratch.reveal();
+    });
+
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
+
+    Backend.init();
+    Backend.callGameStart();
   }
 
   update() {
@@ -49,6 +65,12 @@ export class PageManager {
     const enabled = this.scratches.filter((s) => s.enabled);
     if (enabled.length > 1) return undefined;
     else return enabled[0];
+  }
+
+  private getSelectedFromHTML(): ScratchManager[] {
+    const values = $("#hidSeleccion").val().toString().split("|");
+    const idsSelected = values.filter((id) => id).map((id) => parseInt(id));
+    return idsSelected.map((id) => this.getScratch(id));
   }
 
   private getScratch(id: number) {

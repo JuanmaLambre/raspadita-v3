@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { ScratchMesh } from "./ScratchMesh";
-import { getScratchContent } from "../backend/getScratchContent";
 import {
   ScratchingDisabledEvent,
   ScratchFinishedEvent,
@@ -8,6 +7,8 @@ import {
   ScratchSelectedEvent,
 } from "../types/ScratchEvent";
 import { randomPick } from "../utils/randomPick";
+import { Backend } from "../backend/Backend";
+import { PrizeRepresentation } from "./CardStatus";
 
 const DEBUG_RENDER = false;
 
@@ -52,6 +53,7 @@ export class ScratchManager {
   private camera: THREE.OrthographicCamera;
   private isScratched: boolean = false;
   private renderer: THREE.WebGLRenderer;
+  private prize: PrizeRepresentation;
 
   private lastTouch: THREE.Vector2;
 
@@ -100,6 +102,11 @@ export class ScratchManager {
     return this.isScratched;
   }
 
+  setPrize(prize: PrizeRepresentation) {
+    this.prize = prize;
+    this.showPrize();
+  }
+
   update() {
     if (!this.needsUpdate) return;
 
@@ -111,13 +118,17 @@ export class ScratchManager {
     this.needsUpdate = false;
   }
 
+  reveal() {
+    this.scratchMesh.reveal();
+  }
+
   private onScratchSelected() {
     this.isScratched = true;
 
     const event = new ScratchSelectedEvent({ id: this.id });
     dispatchEvent(event);
 
-    getScratchContent(this.id).then(this.onContentResponse.bind(this));
+    Backend.getScratchContent(this.id).then(this.onContentResponse.bind(this));
   }
 
   private onTouchMove(event: TouchEvent) {
@@ -133,7 +144,6 @@ export class ScratchManager {
 
     if (!this.scratched) {
       this.onScratchSelected();
-      this.showPrize();
       return;
     }
 
@@ -167,8 +177,7 @@ export class ScratchManager {
   }
 
   private showPrize() {
-    const prizeId = randomPick(["prize-snacks", "prize-car"]);
-    const prizeElement = document.getElementById(prizeId).cloneNode() as HTMLElement;
+    const prizeElement = this.getPrizeElement(this.prize);
     prizeElement.style.display = "initial";
     prizeElement.id = undefined;
     this.divElement.appendChild(prizeElement);
@@ -193,5 +202,10 @@ export class ScratchManager {
     spinner.addEventListener("input", (ev) => {
       ScratchManager.FINISH_THRESHOLD = parseInt(spinner.value);
     });
+  }
+
+  private getPrizeElement(id: PrizeRepresentation) {
+    const prizeId = randomPick(["prize-snacks", "prize-car"]);
+    return document.getElementById(prizeId).cloneNode() as HTMLElement;
   }
 }
