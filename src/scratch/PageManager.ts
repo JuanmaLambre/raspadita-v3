@@ -10,6 +10,7 @@ import {
 import { ScratchManager } from "./ScratchManager";
 import { Backend } from "../backend/Backend";
 import { CardStatus } from "./CardStatus";
+import { Modal } from "../misc/Modal";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -51,6 +52,8 @@ export class PageManager {
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
+
+    Modal.init();
 
     Backend.init();
     Backend.callGameStart();
@@ -94,7 +97,7 @@ export class PageManager {
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     if (this.scratchedCount < SCRATCH_LIMIT) {
-      alert("Seguí raspando antes de seleccionar una raspadita nueva");
+      Modal.show("Seguí raspando antes de seleccionar una raspadita nueva");
     }
   }
 
