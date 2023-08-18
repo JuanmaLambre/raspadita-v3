@@ -43,6 +43,9 @@ export class PageManager {
     // Initialize all scratches with card status
     this.cardStatus = CardStatus.newFromHTML();
     this.updateScratchPrizes();
+    this.cardStatus.selected.forEach((id) => {
+      this.getScratch(id).reveal();
+    });
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
@@ -78,7 +81,6 @@ export class PageManager {
   private onScratchLoaded(ev: ScratchLoadedEvent) {
     const scratch = this.getScratch(ev.id);
     this.cardStatus.updateWith(ev.response);
-    this.updateScratchPrizes();
     scratch.enabled = true;
   }
 

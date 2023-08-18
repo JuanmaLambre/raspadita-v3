@@ -12,6 +12,7 @@ function start(cardClassName = "card") {
   const pageMangager = new PageManager();
   pageMangager.setup(cardClassName);
 
+  w.page = pageMangager;
   w.managers = pageMangager.scratches;
 }
 

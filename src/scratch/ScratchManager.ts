@@ -120,6 +120,7 @@ export class ScratchManager {
   }
 
   reveal() {
+    this.isScratched = true;
     this.scratchMesh.reveal();
   }
 

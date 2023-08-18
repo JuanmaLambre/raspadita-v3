@@ -59,6 +59,6 @@ export class ScratchMesh extends THREE.Mesh {
   }
 
   reveal() {
-    this.material.opacity = 0;
+    this.visible = false;
   }
 }
