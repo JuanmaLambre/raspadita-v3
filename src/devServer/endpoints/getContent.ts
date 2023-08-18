@@ -1,20 +1,19 @@
 import { Request, Response } from "express";
-import { randomPick } from "../../utils/randomPick";
+import { MockState } from "../MockState";
 
 const DEBUG_DELAY = 1000; // milliseconds
 
 export function getContent(req: Request, res: Response) {
   const scratchId = req.body.selec;
 
-  const card = new Array(20).fill("");
-  card[scratchId - 1] = randomPick(["3000:PUNTOS 3000"]);
+  MockState.select(scratchId);
 
   const response: any = {
     resultado: "1000",
-    resp_gano: "P",
+    resp_gano: MockState.getState(),
     resp_mensaje: null,
-    resp_tarjeta: card.join("|"),
-    resp_seleccion: `${scratchId}||`,
+    resp_tarjeta: MockState.prizesString(),
+    resp_seleccion: MockState.selectedString(),
     resp_premio: null,
   };
 
