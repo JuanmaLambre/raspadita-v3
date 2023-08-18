@@ -174,13 +174,18 @@ export class ScratchManager {
 
   private onContentResponse(response: ContentResponse) {
     dispatchEvent(new ScratchLoadedEvent({ id: this.id, response }));
+    this.prize = response.getPrize(this.id);
+    this.showPrize(true);
     console.log("RESPONSE:", response);
   }
 
-  private showPrize() {
-    const prizeElement = this.getPrizeElement(this.prize);
+  private showPrize(animate = false) {
+    const prizeElement = this.getPrizeElement();
     prizeElement.style.display = "initial";
     prizeElement.id = undefined;
+
+    if (animate) prizeElement.classList.add("animated-prize");
+
     this.divElement.appendChild(prizeElement);
   }
 
@@ -205,7 +210,7 @@ export class ScratchManager {
     });
   }
 
-  private getPrizeElement(id: PrizeRepresentation) {
+  private getPrizeElement() {
     const prizeId = randomPick(["prize-snacks", "prize-car"]);
     return document.getElementById(prizeId).cloneNode() as HTMLElement;
   }

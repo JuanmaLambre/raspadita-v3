@@ -55,6 +55,7 @@ body {
     background: #333344;
     border: 2px solid whitesmoke;
     position: relative;
+    overflow: hidden;
 
     canvas {
       position: absolute;
@@ -97,9 +98,24 @@ body {
   width: inherit;
 }
 
+.animated-prize {
+  animation: prize-animation 0.5s;
+}
+
 #three-canvas {
   position: absolute;
   width: 400px;
   height: 400px;
   top: 0;
+}
+
+@keyframes prize-animation {
+  0% { 
+    filter: blur(1000px) brightness(100%); 
+    opacity: 0;
+  }
+  100% { 
+    filter: none; 
+    opacity: 1;
+  }
 }

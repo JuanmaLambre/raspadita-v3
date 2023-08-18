@@ -13,4 +13,8 @@ export class ContentResponse {
     this.prizes = parsePrizes(serverResponse.resp_tarjeta);
     this.result = parseInt(serverResponse.resultado);
   }
+
+  getPrize(scratchId: number) {
+    return this.prizes[scratchId - 1];
+  }
 }
