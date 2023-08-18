@@ -57,6 +57,8 @@ export class PageManager {
 
     Backend.init();
     Backend.callGameStart();
+
+    this.checkGameFinish();
   }
 
   update() {
@@ -69,12 +71,21 @@ export class PageManager {
     else return enabled[0];
   }
 
+  private checkGameFinish() {
+    if (this.cardStatus.hasWon) {
+      Modal.show("Ganaste!");
+    } else if (this.cardStatus.hasLost) {
+      const msg = this.scratchedCount < SCRATCH_LIMIT ? "Se te acabó el tiempo" : "Se terminó el juego";
+      Modal.show(msg);
+    }
+  }
+
   private getScratch(id: number) {
     return this.scratches.find((scratch) => scratch.id == id);
   }
 
   private onScratchSelected(ev: ScratchSelectedEvent) {
-    this.scratches.forEach((mngr) => (mngr.enabled = false));
+    this.scratches.forEach((scratch) => (scratch.enabled = scratch.scratched));
 
     if (!WAIT_SERVER_RESPONSE) {
       this.getScratch(ev.id).enabled = true;
@@ -82,9 +93,12 @@ export class PageManager {
   }
 
   private onScratchLoaded(ev: ScratchLoadedEvent) {
-    const scratch = this.getScratch(ev.id);
     this.cardStatus.updateWith(ev.response);
+
+    const scratch = this.getScratch(ev.id);
     scratch.enabled = true;
+
+    this.checkGameFinish();
   }
 
   private onScratchFinished(ev: ScratchFinishedEvent) {
