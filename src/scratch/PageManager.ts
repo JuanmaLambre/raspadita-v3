@@ -44,8 +44,11 @@ export class PageManager {
     // Initialize all scratches with card status
     this.cardStatus = CardStatus.newFromHTML();
     this.updateScratchPrizes();
-    this.cardStatus.selected.forEach((id) => {
-      this.getScratch(id).reveal();
+
+    this.cardStatus.prizes.forEach((prize, idx) => {
+      if (!prize) return;
+      const scratch = this.getScratch(idx + 1);
+      scratch.reveal();
     });
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
@@ -77,6 +80,10 @@ export class PageManager {
     } else if (this.cardStatus.hasLost) {
       const msg = this.scratchedCount < SCRATCH_LIMIT ? "Se te acabó el tiempo" : "Se terminó el juego";
       Modal.show(msg);
+    }
+
+    if (!this.cardStatus.stillPlaying) {
+      this.scratches.forEach((s) => s.reveal());
     }
   }
 
@@ -116,9 +123,11 @@ export class PageManager {
   }
 
   private updateScratchPrizes() {
-    this.cardStatus.selected.forEach((id) => {
-      const scratch = this.getScratch(id);
-      scratch.setPrize(this.cardStatus.getPrizeFor(id));
+    this.cardStatus.prizes.forEach((prize, idx) => {
+      if (!prize) return;
+
+      const scratch = this.getScratch(idx + 1);
+      scratch.setPrize(prize);
     });
   }
 }
