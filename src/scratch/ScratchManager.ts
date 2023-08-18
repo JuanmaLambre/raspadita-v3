@@ -37,6 +37,11 @@ const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
   20: 0x012f81,
 };
 
+const PRIZE_ELEMENTS: { [id: string]: string } = {
+  "203": "#prize-car",
+  "1000": "#prize-snacks",
+};
+
 export class ScratchManager {
   readonly id: number;
   readonly pxWidth: number; // In CSS pixels
@@ -215,7 +220,8 @@ export class ScratchManager {
   }
 
   private getPrizeElement() {
-    const prizeId = randomPick(["#prize-snacks", "#prize-car"]);
-    return $(prizeId)[0].cloneNode() as HTMLElement;
+    const prizeId = this.prize.split(":")[0];
+    const elementId = PRIZE_ELEMENTS[prizeId];
+    return $(elementId)[0].cloneNode() as HTMLElement;
   }
 }
