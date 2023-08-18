@@ -19,6 +19,9 @@ export namespace MockState {
 
     if (id == 0) {
       timeout = true;
+      prizes.forEach((prize, idx) => {
+        if (prize == null) prizes[idx] = randomPick(prizesOptions);
+      });
     } else {
       const nextIdx = selected.findIndex((id) => !id);
       if (nextIdx == 3) return;
@@ -26,8 +29,6 @@ export namespace MockState {
       selected[nextIdx] = id;
       prizes[id - 1] = randomPick(prizesOptions);
     }
-
-    console.log("SELECTED", selected, selectedString());
   }
 
   export function getState(): GameState {

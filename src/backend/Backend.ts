@@ -41,4 +41,21 @@ export namespace Backend {
         return null;
       });
   }
+
+  export async function notifyTimeout() {
+    const url = config.endpoints.content;
+    baseForm.set("selec", "0");
+
+    const opts = {
+      method: "POST",
+      body: baseForm,
+    };
+
+    return fetch(url, opts)
+      .then(async (response) => new ContentResponse(await response.json()))
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+  }
 }

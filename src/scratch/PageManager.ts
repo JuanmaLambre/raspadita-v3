@@ -11,6 +11,7 @@ import { ScratchManager } from "./ScratchManager";
 import { Backend } from "../backend/Backend";
 import { CardStatus } from "./CardStatus";
 import { Modal } from "../misc/Modal";
+import { ClockEvents, ClockManager } from "./ClockManager";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -20,6 +21,7 @@ export class PageManager {
 
   private renderer: THREE.WebGLRenderer;
   private cardStatus: CardStatus;
+  private clockManager: ClockManager;
 
   get scratchedCount(): number {
     return this.scratches.filter((s) => s.scratched).length;
@@ -58,6 +60,9 @@ export class PageManager {
 
     Modal.init();
 
+    this.clockManager = new ClockManager();
+    addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));
+
     Backend.init();
     Backend.callGameStart();
 
@@ -66,12 +71,7 @@ export class PageManager {
 
   update() {
     this.scratches.forEach((mngr) => mngr.update());
-  }
-
-  private get selected() {
-    const enabled = this.scratches.filter((s) => s.enabled);
-    if (enabled.length > 1) return undefined;
-    else return enabled[0];
+    this.clockManager.update();
   }
 
   private checkGameFinish() {
@@ -83,7 +83,10 @@ export class PageManager {
     }
 
     if (!this.cardStatus.stillPlaying) {
-      this.scratches.forEach((s) => s.reveal());
+      this.clockManager.stop();
+      this.scratches.forEach((scratch) => {
+        if (!scratch.scratched) scratch.reveal();
+      });
     }
   }
 
@@ -91,8 +94,17 @@ export class PageManager {
     return this.scratches.find((scratch) => scratch.id == id);
   }
 
+  private onTimeout() {
+    this.disableScratches();
+
+    Backend.notifyTimeout().then((response) => {
+      this.cardStatus.updateWith(response);
+      this.checkGameFinish();
+    });
+  }
+
   private onScratchSelected(ev: ScratchSelectedEvent) {
-    this.scratches.forEach((scratch) => (scratch.enabled = scratch.scratched));
+    this.disableScratches();
 
     if (!WAIT_SERVER_RESPONSE) {
       this.getScratch(ev.id).enabled = true;
@@ -129,5 +141,9 @@ export class PageManager {
       const scratch = this.getScratch(idx + 1);
       scratch.setPrize(prize);
     });
+  }
+
+  private disableScratches() {
+    this.scratches.forEach((scratch) => (scratch.enabled = scratch.scratched));
   }
 }
