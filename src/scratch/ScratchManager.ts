@@ -172,7 +172,9 @@ export class ScratchManager {
     }
   }
 
-  private onTouchEnd() {}
+  private onTouchEnd() {
+    this.lastTouch = undefined;
+  }
 
   private onContentResponse(response: ContentResponse) {
     dispatchEvent(new ScratchLoadedEvent({ id: this.id, response }));
