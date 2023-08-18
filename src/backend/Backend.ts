@@ -1,4 +1,5 @@
 import * as serverConfig from "./config";
+import $ from "jquery";
 import { ContentResponse } from "./responses/ContentResponse";
 
 const DEBUG_BACKEND = true;
@@ -9,7 +10,7 @@ export namespace Backend {
   let baseForm: FormData;
 
   export function init() {
-    baseForm = new FormData(document.querySelector("form"));
+    baseForm = new FormData($("form")[0] as HTMLFormElement);
   }
 
   export async function callGameStart() {

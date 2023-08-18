@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import $ from "jquery";
 import { Brush } from "./Brush";
 
 export class ThickLineBrush extends Brush {
@@ -70,7 +71,7 @@ export class ThickLineBrush extends Brush {
   }
 
   private setDebugSpinner() {
-    const spinner = document.getElementById("thickness-input") as HTMLInputElement;
+    const spinner = $("#thickness-input")[0] as HTMLInputElement;
     if (!spinner) return;
 
     spinner.value = this.thickness.toString();

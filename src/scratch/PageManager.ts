@@ -24,12 +24,12 @@ export class PageManager {
     return this.scratches.filter((s) => s.scratched).length;
   }
 
-  setup(divClassName: string) {
+  setup(divSelector: string) {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setClearColor(0x0, 0);
     this.renderer.setAnimationLoop(this.update.bind(this));
 
-    const cardDivs = document.getElementsByClassName(divClassName) as HTMLCollectionOf<HTMLDivElement>;
+    const cardDivs = $<HTMLDivElement>(divSelector);
     const { offsetWidth: pxWidth, offsetHeight: pxHeight } = cardDivs[0];
     this.renderer.setSize(pxWidth, pxHeight);
 

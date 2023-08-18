@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import $ from "jquery";
 import { ScratchMesh } from "./ScratchMesh";
 import {
   ScratchingDisabledEvent,
@@ -201,7 +202,7 @@ export class ScratchManager {
   }
 
   private static setDebugConsole() {
-    const spinner = document.getElementById("scratch-threshold") as HTMLInputElement;
+    const spinner = $("#scratch-threshold")[0] as HTMLInputElement;
     if (!spinner) return;
 
     spinner.value = ScratchManager.FINISH_THRESHOLD.toString();
@@ -212,7 +213,7 @@ export class ScratchManager {
   }
 
   private getPrizeElement() {
-    const prizeId = randomPick(["prize-snacks", "prize-car"]);
-    return document.getElementById(prizeId).cloneNode() as HTMLElement;
+    const prizeId = randomPick(["#prize-snacks", "#prize-car"]);
+    return $(prizeId)[0].cloneNode() as HTMLElement;
   }
 }

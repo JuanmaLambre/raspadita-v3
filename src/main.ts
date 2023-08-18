@@ -8,7 +8,7 @@ const w = window as any;
 w.THREE = THREE;
 w.Backend = Backend;
 
-function start(cardClassName = "card") {
+function start(cardClassName = ".card") {
   const pageMangager = new PageManager();
   pageMangager.setup(cardClassName);
 
