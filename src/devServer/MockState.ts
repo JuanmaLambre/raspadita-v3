@@ -12,6 +12,7 @@ export namespace MockState {
   export function clear() {
     selected.fill(null);
     prizes.fill(null);
+    timeout = false;
   }
 
   export function select(id: number) {
