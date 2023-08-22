@@ -85,6 +85,8 @@ export class PageManager {
     if (!this.cardStatus.stillPlaying) {
       this.clockManager.stop();
       this.scratches.forEach((scratch) => {
+        const prize = this.cardStatus.getPrizeFor(scratch.id);
+        if (prize) scratch.setPrize(prize);
         if (!scratch.scratched) scratch.reveal();
       });
     }
