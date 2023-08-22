@@ -118,8 +118,6 @@ export class PageManager {
 
     const scratch = this.getScratch(ev.id);
     scratch.enabled = true;
-
-    this.checkGameFinish();
   }
 
   private onScratchFinished(ev: ScratchFinishedEvent) {
@@ -128,6 +126,8 @@ export class PageManager {
     if (this.scratchedCount < SCRATCH_LIMIT) {
       this.scratches.forEach((mngr) => (mngr.enabled = true));
     }
+
+    this.checkGameFinish();
   }
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
