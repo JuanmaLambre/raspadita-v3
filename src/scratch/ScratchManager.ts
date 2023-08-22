@@ -38,9 +38,15 @@ const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
 };
 
 const PRIZE_ELEMENTS: { [id: string]: string } = {
-  "201": "#prize-car",
-  "203": "#prize-car",
+  "101": "#prize-car",
+  "102": "#prize-car",
+  "103": "#prize-car",
+  "104": "#prize-car",
+  "105": "#prize-car",
   "106": "#prize-car",
+  "201": "#prize-car",
+  "202": "#prize-car",
+  "203": "#prize-car",
   "1000": "#prize-snacks",
   "2000": "#prize-snacks",
   "3000": "#prize-snacks",

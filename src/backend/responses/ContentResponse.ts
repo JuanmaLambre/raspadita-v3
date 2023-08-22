@@ -8,6 +8,8 @@ export class ContentResponse {
   result: number;
 
   constructor(serverResponse: any) {
+    if (serverResponse.resultado != "1000") console.warn("Dev: Resultado de response != 1000");
+
     this.gameState = serverResponse.resp_gano;
     this.allSelected = parseSelected(serverResponse.resp_seleccion);
     this.prizes = parsePrizes(serverResponse.resp_tarjeta);

@@ -10,32 +10,38 @@ export namespace Backend {
   let baseForm: FormData;
 
   export function init() {
-    baseForm = new FormData($("form1")[0] as HTMLFormElement);
+    baseForm = new FormData($("form[name=form1]")[0] as HTMLFormElement);
 
     if (!baseForm) {
       console.warn("Dev: No se encontró el form con las variables");
     }
+
+    if (!document.cookie) {
+      console.warn("Dev: Faltan cookies");
+    }
   }
 
   export async function callGameStart() {
-    const url = config.endpoints.initClock;
+    const url = config.url + config.endpoints.initClock;
     baseForm.set("selec", "");
 
-    const opts = {
+    const opts: RequestInit = {
       method: "POST",
       body: baseForm,
+      headers: { cookie: document.cookie },
     };
 
     return fetch(url, opts);
   }
 
   export async function getScratchContent(scratchId: number): Promise<ContentResponse> {
-    const url = config.endpoints.content;
+    const url = config.url + config.endpoints.content;
     baseForm.set("selec", scratchId.toString());
 
-    const opts = {
+    const opts: RequestInit = {
       method: "POST",
       body: baseForm,
+      headers: { cookie: document.cookie },
     };
 
     return fetch(url, opts)
@@ -47,12 +53,13 @@ export namespace Backend {
   }
 
   export async function notifyTimeout() {
-    const url = config.endpoints.content;
+    const url = config.url + config.endpoints.content;
     baseForm.set("selec", "0");
 
-    const opts = {
+    const opts: RequestInit = {
       method: "POST",
       body: baseForm,
+      headers: { cookie: document.cookie },
     };
 
     return fetch(url, opts)
