@@ -30,6 +30,12 @@ export namespace MockState {
       selected[nextIdx] = id;
       prizes[id - 1] = randomPick(prizesOptions);
     }
+
+    if (getState() != "P") {
+      prizes.forEach((prize, idx) => {
+        if (prize == null) prizes[idx] = randomPick(prizesOptions);
+      });
+    }
   }
 
   export function getState(): GameState {
