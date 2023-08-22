@@ -71,6 +71,7 @@ export class ScratchManager {
   private isScratched: boolean = false;
   private renderer: THREE.WebGLRenderer;
   private prize: PrizeRepresentation;
+  private prizeElement: HTMLElement;
 
   private lastTouch: THREE.Vector2;
 
@@ -139,6 +140,10 @@ export class ScratchManager {
     this.isScratched = true;
     this.scratchMesh.reveal();
     this.needsUpdate = true;
+  }
+
+  grayOut() {
+    this.divElement.style.filter = "sepia(1)";
   }
 
   private onScratchSelected() {
@@ -231,8 +236,11 @@ export class ScratchManager {
   }
 
   private getPrizeElement() {
+    if (this.prizeElement) return this.prizeElement;
+
     const prizeId = this.prize.split(":")[0];
     const elementId = PRIZE_ELEMENTS[prizeId];
-    return $(elementId)[0].cloneNode() as HTMLElement;
+    this.prizeElement = $(elementId)[0].cloneNode() as HTMLElement;
+    return this.prizeElement;
   }
 }
