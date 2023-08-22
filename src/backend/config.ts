@@ -1,4 +1,5 @@
 export const config = {
+  debug: false,
   url: "https://test.ypfchances.com",
   endpoints: {
     initClock: "/pages/log.ashx",
@@ -8,8 +9,10 @@ export const config = {
 
 export const debugConfig = {
   ...config,
+  debug: true,
+  url: "http://localhost:8080",
   endpoints: {
-    initClock: "/log",
-    content: "/content",
+    initClock: "/pages/log.ashx",
+    content: "/pages/process_tarjeta.ashx",
   },
 };
