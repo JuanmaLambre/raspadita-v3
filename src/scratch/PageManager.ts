@@ -58,12 +58,12 @@ export class PageManager {
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
 
+    Backend.init();
     Modal.init();
 
     this.clockManager = new ClockManager();
     addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));
 
-    Backend.init();
     Backend.callGameStart();
 
     this.checkGameFinish();

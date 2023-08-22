@@ -10,7 +10,11 @@ export namespace Backend {
   let baseForm: FormData;
 
   export function init() {
-    baseForm = new FormData($("form")[0] as HTMLFormElement);
+    baseForm = new FormData($("form1")[0] as HTMLFormElement);
+
+    if (!baseForm) {
+      console.warn("Dev: No se encontró el form con las variables");
+    }
   }
 
   export async function callGameStart() {

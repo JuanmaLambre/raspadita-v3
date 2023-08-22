@@ -38,8 +38,12 @@ const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
 };
 
 const PRIZE_ELEMENTS: { [id: string]: string } = {
+  "201": "#prize-car",
   "203": "#prize-car",
+  "106": "#prize-car",
   "1000": "#prize-snacks",
+  "2000": "#prize-snacks",
+  "3000": "#prize-snacks",
 };
 
 export class ScratchManager {
@@ -186,7 +190,7 @@ export class ScratchManager {
     dispatchEvent(new ScratchLoadedEvent({ id: this.id, response }));
     this.prize = response.getPrize(this.id);
     this.showPrize(true);
-    console.log("RESPONSE:", response);
+    console.debug("Premio", this.prize);
   }
 
   private showPrize(animate = false) {
