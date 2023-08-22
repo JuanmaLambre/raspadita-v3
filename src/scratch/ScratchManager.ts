@@ -111,7 +111,7 @@ export class ScratchManager {
 
   setPrize(prize: PrizeRepresentation) {
     this.prize = prize;
-    this.showPrize();
+    this.showPrize(true);
   }
 
   update() {
@@ -128,6 +128,7 @@ export class ScratchManager {
   reveal() {
     this.isScratched = true;
     this.scratchMesh.reveal();
+    this.needsUpdate = true;
   }
 
   private onScratchSelected() {
