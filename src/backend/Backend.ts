@@ -1,10 +1,6 @@
-import * as serverConfig from "./config";
 import $ from "jquery";
+const config = process.env.NODE_ENV == "production" ? require("./config").config : require("./config").debugConfig;
 import { ContentResponse } from "./responses/ContentResponse";
-
-const DEBUG_BACKEND = true;
-
-const config = DEBUG_BACKEND ? serverConfig.debugConfig : serverConfig.config;
 
 export namespace Backend {
   let baseForm: FormData;
