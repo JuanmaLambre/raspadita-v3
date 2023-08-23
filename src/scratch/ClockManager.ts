@@ -19,7 +19,7 @@ export class ClockManager {
     this.serverRemaining = parseInt($<HTMLInputElement>("#hidSegundosRestantes")[0].value);
     this.startEpoch = +new Date();
 
-    this.updateClock();
+    if (!this.timeout) this.updateClock();
   }
 
   get timeout() {
