@@ -6,6 +6,16 @@
     "fetch-tokens": "npx ts-node ./scripts/fetchTokens.ts"
   },
   "dependencies": {
+    "jquery": "^3.7.0",
+    "three": "^0.154.0"
+  },
+  "devDependencies": {
+    "@types/express-form-data": "^2.0.2",
+    "@types/jquery": "^3.5.16",
+    "@types/node": "^18.16.1",
+    "@types/three": "^0.154.0",
+    "@types/webpack": "^5.28.1",
+    "@types/webpack-dev-server": "^4.7.2",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "babel-loader": "^8.2.5",
@@ -15,29 +25,19 @@
     "file-loader": "^6.2.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
-    "jquery": "^3.7.0",
+    "express-form-data": "^2.0.22",
     "mini-css-extract-plugin": "^2.6.0",
     "portfinder-sync": "0.0.2",
     "raw-loader": "^4.0.2",
     "style-loader": "^3.3.1",
-    "three": "^0.154.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1",
-    "webpack-merge": "^5.8.0"
-  },
-  "devDependencies": {
-    "@types/express-form-data": "^2.0.2",
-    "@types/jquery": "^3.5.16",
-    "@types/node": "^18.16.1",
-    "@types/three": "^0.154.0",
-    "@types/webpack": "^5.28.1",
-    "@types/webpack-dev-server": "^4.7.2",
-    "express-form-data": "^2.0.22",
     "sass": "^1.65.1",
     "sass-loader": "^13.3.2",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "webpack": "^5.88.2"
+    "webpack": "^5.88.2",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1",
+    "webpack-merge": "^5.8.0"
   }
 }
