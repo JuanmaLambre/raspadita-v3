@@ -45,7 +45,7 @@ const config: WebpackConfiguration = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/index.html"),
       chunks: ["app"],
-      minify: true,
+      minify: false,
     }),
 
     // Testbenches
@@ -57,7 +57,12 @@ const config: WebpackConfiguration = {
       // HTML
       {
         test: /\.(html)$/,
-        use: ["html-loader"],
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: false },
+          },
+        ],
       },
 
       // JS
@@ -77,7 +82,14 @@ const config: WebpackConfiguration = {
       // CSS
       {
         test: /\.s?css$/,
-        use: [MiniCSSExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [
+          MiniCSSExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: { sassOptions: { outputStyle: "expanded" } },
+          },
+        ],
       },
 
       // Images
