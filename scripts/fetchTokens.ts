@@ -26,7 +26,7 @@ async function main() {
     body: requestForm,
     headers: {
       cookie:
-        "SSIDToken202308=token=0f3f484017d26e4a73b73006eae1041051ea4b44&hash=b25fb23fd0dd1f90bf475de3e2303b4869570333; ASP.NET_SessionId=w0gswtsx4zxtapajlimzvvrq; _ga_B6B7SL1EYX=GS1.1.1692714315.1.0.1692714315.0.0.0; _ga=GA1.1.1974663838.1692714315",
+        "SSIDToken202308=token=0f3f484017d26e4a73b73006eae1041051ea4b44&hash=b25fb23fd0dd1f90bf475de3e2303b4869570333; ASP.NET_SessionId=w0gswtsx4zxtapajlimzvvrq", // ; _ga_B6B7SL1EYX=GS1.1.1692714315.1.0.1692714315.0.0.0; _ga=GA1.1.1974663838.1692714315",
     },
   };
 
@@ -43,7 +43,7 @@ async function main() {
   const replacingRegex = /<!-- HIDDEN_VARS -->.*<!-- ENDOF HIDDEN_VARS -->/gs;
   const oldHtmlMatch = oldHtml.match(replacingRegex);
   const replacingText = oldHtmlMatch[0];
-  const newContent = "<!-- HIDDEN_VARS -->\n" + varsHtml + "\n<!-- ENDOF HIDDEN_VARS -->\n";
+  const newContent = "<!-- HIDDEN_VARS -->\n" + varsHtml + "\n<!-- ENDOF HIDDEN_VARS -->";
   const newHtml = oldHtml.replace(replacingText, newContent);
 
   fs.writeFileSync(destFilepath, newHtml);
