@@ -39,7 +39,7 @@ export class ScratchManager {
   readonly pxWidth: number; // In CSS pixels
   readonly pxHeight: number; // In CSS pixels
 
-  static FINISH_THRESHOLD = 60; // Percentage
+  static FINISH_THRESHOLD = 70; // Percentage
 
   public scratchMesh: ScratchMesh;
   public enabled: boolean = true;
