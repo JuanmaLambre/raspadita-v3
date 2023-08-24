@@ -5,6 +5,8 @@ import { WebpackConfiguration } from "webpack-cli";
 import Server from "webpack-dev-server";
 import { setup as setupServer } from "./src/devServer/setup";
 
+const MINIFY_OUTPUT = false;
+
 const testbenches = ["scratch-mesh"];
 
 const tbEntries = testbenches.reduce(
@@ -29,6 +31,10 @@ const config: WebpackConfiguration = {
     ...tbEntries,
   },
 
+  optimization: {
+    minimize: MINIFY_OUTPUT,
+  },
+
   mode: "development",
 
   output: {
@@ -45,7 +51,7 @@ const config: WebpackConfiguration = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/index.html"),
       chunks: ["app"],
-      minify: false,
+      minify: MINIFY_OUTPUT,
     }),
 
     // Testbenches
@@ -60,7 +66,7 @@ const config: WebpackConfiguration = {
         use: [
           {
             loader: "html-loader",
-            options: { minimize: false },
+            options: { minimize: MINIFY_OUTPUT },
           },
         ],
       },
