@@ -26,9 +26,31 @@
 <!-- ENDOF HIDDEN_VARS -->
 
   <body>
-    <div class="modal">
-      <span class="modal-text"></span>
-      <button class="modal-close">Cerrar</button>
+    <div class="modal-home" id="modal-gano">
+      <div class="content">
+        <div class="tituloModalDoble text-center">
+          <div id="txtYaUtilizadaGano" style="display: none">El codigo ya fue utilizado</div>
+          <p>Ganaste</p>
+          <div id="txtPremio"></div>
+        </div>
+        <div class="buttons">
+          <button type="button" class="btn btnNoJugar modal-close" id="btnCerrar">Cerrar</button><br />
+          <button type="button" class="btn btnNoJugar modal-close" id="btnChance">Nueva chance</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-home" id="modal-nogano">
+      <div class="content">
+        <div id="txtYaUtilizadaNoGano">El codigo ya fue utilizado</div>
+        <div id="txtPerdio">Lamentablemente no tuviste suerte</div>
+        <div id="txtTiempoFuera">Expiró el tiempo</div>
+
+        <div class="buttons">
+          <button type="button" class="btn btnNoJugar modal-close" id="btnCerrar">Cerrar</button><br />
+          <button type="button" class="btn btnNoJugar modal-close" id="btnChance">Nueva Chance</button>
+        </div>
+      </div>
     </div>
 
     <div class="header">
@@ -76,27 +98,4 @@
       </div>
     </div>
   </body>
-
-  <img class="prize" id="prize-car" src="https://juanmalambre.github.io/raspadita/assets/images/4eab9783810218a459d3.png"></img>
-  <img class="prize" id="prize-snacks" src="https://juanmalambre.github.io/raspadita/assets/images/98c97d6f67b37ef160b2.png"></img>
-
-  <script>
-    // Make random backgrounds for cards
-
-    // const { floor, random } = Math;
-    // const randInt = (max) => floor(random() * max);
-
-    // const cards = document.getElementsByClassName("card");
-
-    // for (let i = 0; i < cards.length; i++) {
-    //   const x = floor(random() * 100);
-    //   const y = floor(random() * 100);
-    //   const c0 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
-    //   const c50 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
-    //   const c100 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
-    //   const bg = `radial-gradient(circle at ${x}% ${y}%, ${c0}, ${c50} 50%, ${c100} 100%)`;
-
-    //   cards[i].style.background = bg;
-    // }
-  </script>
 </html>

@@ -10,8 +10,9 @@ import {
 import { ScratchManager } from "./ScratchManager";
 import { Backend } from "../backend/Backend";
 import { CardStatus } from "./CardStatus";
-import { Modal } from "../misc/Modal";
 import { ClockEvents, ClockManager } from "./ClockManager";
+import { WinModal } from "./modals/WinModal";
+import { LostModal } from "./modals/LostModal";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -58,15 +59,16 @@ export class PageManager {
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
 
+    WinModal.init();
+    LostModal.init();
     Backend.init();
-    Modal.init();
 
     this.clockManager = new ClockManager();
     addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));
 
     Backend.callGameStart();
 
-    this.checkGameFinish();
+    this.checkLoadStatus();
   }
 
   update() {
@@ -74,12 +76,25 @@ export class PageManager {
     this.clockManager.update();
   }
 
-  private checkGameFinish() {
+  private checkLoadStatus() {
     if (this.cardStatus.hasWon) {
-      Modal.show("Ganaste!");
+      WinModal.setPrize(/* prize argument */);
+      WinModal.setUsed();
+      WinModal.show();
     } else if (this.cardStatus.hasLost) {
-      const msg = this.scratchedCount < SCRATCH_LIMIT ? "Se te acabó el tiempo" : "Se terminó el juego";
-      Modal.show(msg);
+      LostModal.setUsed();
+      if (this.cardStatus.timeExpired) LostModal.setTimeExpiration();
+      LostModal.show();
+    }
+  }
+
+  private checkGameStatus() {
+    if (this.cardStatus.hasWon) {
+      WinModal.setPrize(/* prize argument */);
+      WinModal.show();
+    } else if (this.cardStatus.hasLost) {
+      if (this.cardStatus.timeExpired) LostModal.setTimeExpiration();
+      LostModal.show();
     }
 
     if (!this.cardStatus.stillPlaying) {
@@ -106,7 +121,7 @@ export class PageManager {
 
     Backend.notifyTimeout().then((response) => {
       this.cardStatus.updateWith(response);
-      this.checkGameFinish();
+      this.checkGameStatus();
     });
   }
 
@@ -132,12 +147,12 @@ export class PageManager {
       this.scratches.forEach((mngr) => (mngr.enabled = true));
     }
 
-    this.checkGameFinish();
+    this.checkGameStatus();
   }
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     if (this.scratchedCount < SCRATCH_LIMIT) {
-      Modal.show("Seguí raspando antes de seleccionar una raspadita nueva");
+      // Modal.show("Seguí raspando antes de seleccionar una raspadita nueva");
     }
   }
 

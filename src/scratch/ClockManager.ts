@@ -1,6 +1,5 @@
 import $ from "jquery";
 import { Backend } from "../backend/Backend";
-import { Modal } from "../misc/Modal";
 
 export enum ClockEvents {
   Timeout = "timeout",
