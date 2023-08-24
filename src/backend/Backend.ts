@@ -2,6 +2,7 @@ import $ from "jquery";
 import { ContentResponse } from "./responses/ContentResponse";
 import { BackendConfig } from "./config";
 
+// Webpack bundling will replace the condition with a hardcoded `true` or `false`
 const config: BackendConfig =
   process.env.NODE_ENV == "production" ? require("./config").config : require("./config").debugConfig;
 

@@ -1,3 +1,5 @@
+$reveal-time: 1s;
+
 body {
   width: 100vw;
   margin: 0;
@@ -60,6 +62,11 @@ body {
     canvas {
       position: absolute;
       z-index: 10;
+
+      &.animated-reveal {
+        animation: scratch-reveal-animation $reveal-time;
+        opacity: 0;
+      }
     }
   }
 }
@@ -91,7 +98,6 @@ body {
 }
 
 .prize {
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -100,7 +106,7 @@ body {
 }
 
 .animated-prize {
-  animation: prize-animation 0.5s;
+  animation: prize-animation $reveal-time;
 }
 
 .modal-home {
@@ -206,5 +212,14 @@ body {
   100% { 
     filter: none; 
     opacity: 1;
+  }
+}
+
+@keyframes scratch-reveal-animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

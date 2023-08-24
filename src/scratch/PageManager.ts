@@ -105,7 +105,7 @@ export class PageManager {
       const prize = this.cardStatus.getPrizeFor(scratch.id);
       if (prize) {
         scratch.setPrize(prize);
-        scratch.reveal();
+        if (!scratch.scratched) scratch.reveal();
         if (!this.cardStatus.selected.includes(scratch.id)) scratch.grayOut();
       }
     });

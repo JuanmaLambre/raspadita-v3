@@ -138,12 +138,12 @@ export class ScratchManager {
 
   reveal() {
     this.isScratched = true;
-    this.scratchMesh.reveal();
+    this.canvas.classList.add("animated-reveal");
     this.needsUpdate = true;
   }
 
   grayOut() {
-    this.divElement.style.filter = "sepia(1)";
+    // this.getPrizeElement().style.filter = "sepia(1)";
   }
 
   private onScratchSelected() {
@@ -206,8 +206,7 @@ export class ScratchManager {
 
   private showPrize(animate = false) {
     const prizeElement = this.getPrizeElement();
-    prizeElement.style.display = "initial";
-    prizeElement.id = undefined;
+    if (prizeElement.parentElement) return;
 
     if (animate) prizeElement.classList.add("animated-prize");
 
