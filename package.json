@@ -2,7 +2,7 @@
   "license": "Trade Secret",
   "scripts": {
     "dev": "webpack serve --config ./webpack.config.ts",
-    "build": "webpack build --config ./webpack.config.ts --mode production",
+    "build": "webpack build --config ./webpack.config.ts --mode production --env expanded",
     "fetch-tokens": "npx ts-node ./scripts/fetchTokens.ts"
   },
   "dependencies": {

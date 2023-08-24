@@ -1,11 +1,9 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
-import { WebpackConfiguration } from "webpack-cli";
+import { CallableOption, WebpackConfiguration } from "webpack-cli";
 import Server from "webpack-dev-server";
 import { setup as setupServer } from "./src/devServer/setup";
-
-const MINIFY_OUTPUT = false;
 
 const testbenches = ["scratch-mesh"];
 
@@ -25,14 +23,14 @@ const tbPages = testbenches.map((name) => {
   });
 });
 
-const config: WebpackConfiguration = {
+const config: CallableOption = (env: any): WebpackConfiguration => ({
   entry: {
     app: path.resolve(__dirname, "./src/main.ts"),
     ...tbEntries,
   },
 
   optimization: {
-    minimize: MINIFY_OUTPUT,
+    minimize: !env.expanded,
   },
 
   mode: "development",
@@ -51,7 +49,7 @@ const config: WebpackConfiguration = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/index.html"),
       chunks: ["app"],
-      minify: MINIFY_OUTPUT,
+      minify: !env.expanded,
     }),
 
     // Testbenches
@@ -66,7 +64,7 @@ const config: WebpackConfiguration = {
         use: [
           {
             loader: "html-loader",
-            options: { minimize: MINIFY_OUTPUT },
+            options: { minimize: !env.expanded },
           },
         ],
       },
@@ -143,6 +141,6 @@ const config: WebpackConfiguration = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-};
+});
 
 export default config;
