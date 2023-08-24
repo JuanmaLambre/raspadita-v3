@@ -1,7 +1,10 @@
+export type BackendConfig = typeof config;
+
 export const config = {
   debug: false,
-  url: "https://test.ypfchances.com",
+  host: "https://test.ypfchances.com",
   endpoints: {
+    images: "/pages/images/",
     initClock: "/pages/log.ashx",
     content: "/pages/process_tarjeta.ashx",
   },
@@ -10,8 +13,9 @@ export const config = {
 export const debugConfig = {
   ...config,
   debug: true,
-  url: "http://localhost:8080",
+  host: "http://localhost:8080",
   endpoints: {
+    images: "/public/",
     initClock: "/pages/log.ashx",
     content: "/pages/process_tarjeta.ashx",
   },

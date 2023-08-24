@@ -13,6 +13,7 @@ import { CardStatus } from "./CardStatus";
 import { ClockEvents, ClockManager } from "./ClockManager";
 import { WinModal } from "./modals/WinModal";
 import { LostModal } from "./modals/LostModal";
+import { DebugModal } from "./modals/DebugModal";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -46,13 +47,7 @@ export class PageManager {
 
     // Initialize all scratches with card status
     this.cardStatus = CardStatus.newFromHTML();
-    this.updateScratchPrizes();
-
-    this.cardStatus.prizes.forEach((prize, idx) => {
-      if (!prize) return;
-      const scratch = this.getScratch(idx + 1);
-      scratch.reveal();
-    });
+    this.updateScratches();
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
@@ -61,10 +56,12 @@ export class PageManager {
 
     WinModal.init();
     LostModal.init();
+    DebugModal.init();
     Backend.init();
 
     this.clockManager = new ClockManager();
-    addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));
+    if (!this.cardStatus.stillPlaying) this.clockManager.stop();
+    else addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));
 
     Backend.callGameStart();
 
@@ -93,23 +90,25 @@ export class PageManager {
       WinModal.setPrize(/* prize argument */);
       WinModal.show();
     } else if (this.cardStatus.hasLost) {
-      if (this.cardStatus.timeExpired) LostModal.setTimeExpiration();
+      if (this.cardStatus.timeExpired || this.clockManager.timeout) LostModal.setTimeExpiration();
       LostModal.show();
     }
 
     if (!this.cardStatus.stillPlaying) {
       this.clockManager.stop();
-
-      this.scratches.forEach((scratch) => {
-        const prize = this.cardStatus.getPrizeFor(scratch.id);
-        if (prize) {
-          scratch.setPrize(prize);
-          scratch.reveal();
-
-          if (!this.cardStatus.selected.includes(scratch.id)) scratch.grayOut();
-        }
-      });
+      this.updateScratches();
     }
+  }
+
+  private updateScratches() {
+    this.scratches.forEach((scratch) => {
+      const prize = this.cardStatus.getPrizeFor(scratch.id);
+      if (prize) {
+        scratch.setPrize(prize);
+        scratch.reveal();
+        if (!this.cardStatus.selected.includes(scratch.id)) scratch.grayOut();
+      }
+    });
   }
 
   private getScratch(id: number) {
@@ -152,17 +151,8 @@ export class PageManager {
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     if (this.scratchedCount < SCRATCH_LIMIT) {
-      // Modal.show("Seguí raspando antes de seleccionar una raspadita nueva");
+      DebugModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
     }
-  }
-
-  private updateScratchPrizes() {
-    this.cardStatus.prizes.forEach((prize, idx) => {
-      if (!prize) return;
-
-      const scratch = this.getScratch(idx + 1);
-      scratch.setPrize(prize);
-    });
   }
 
   private disableScratches() {

@@ -3,7 +3,7 @@ import { config } from "../../backend/config";
 
 export async function bypassRequest(req: Request, res: Response) {
   const pathname = req.url;
-  const host = config.url;
+  const host = config.host;
   const url = host + pathname;
 
   const form = new FormData();

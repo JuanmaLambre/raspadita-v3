@@ -238,9 +238,10 @@ export class ScratchManager {
   private getPrizeElement() {
     if (this.prizeElement) return this.prizeElement;
 
-    const prizeId = this.prize.split(":")[0];
-    const elementId = PRIZE_ELEMENTS[prizeId];
-    this.prizeElement = $(elementId)[0].cloneNode() as HTMLElement;
-    return this.prizeElement;
+    const prizeImg = document.createElement("img");
+    prizeImg.classList.add("prize");
+    prizeImg.src = Backend.getPrizeURL(this.prize);
+
+    return (this.prizeElement = prizeImg);
   }
 }

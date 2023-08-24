@@ -1,6 +1,9 @@
 import $ from "jquery";
-const config = process.env.NODE_ENV == "production" ? require("./config").config : require("./config").debugConfig;
 import { ContentResponse } from "./responses/ContentResponse";
+import { BackendConfig } from "./config";
+
+const config: BackendConfig =
+  process.env.NODE_ENV == "production" ? require("./config").config : require("./config").debugConfig;
 
 export namespace Backend {
   let baseForm: FormData;
@@ -18,7 +21,7 @@ export namespace Backend {
   }
 
   export async function callGameStart() {
-    const url = config.url + config.endpoints.initClock;
+    const url = config.host + config.endpoints.initClock;
     baseForm.set("selec", "");
 
     const opts: RequestInit = {
@@ -31,7 +34,7 @@ export namespace Backend {
   }
 
   export async function getScratchContent(scratchId: number): Promise<ContentResponse> {
-    const url = config.url + config.endpoints.content;
+    const url = config.host + config.endpoints.content;
     baseForm.set("selec", scratchId.toString());
 
     const opts: RequestInit = {
@@ -49,7 +52,7 @@ export namespace Backend {
   }
 
   export async function notifyTimeout() {
-    const url = config.url + config.endpoints.content;
+    const url = config.host + config.endpoints.content;
     baseForm.set("selec", "0");
 
     const opts: RequestInit = {
@@ -64,5 +67,9 @@ export namespace Backend {
         console.error("Error:", error);
         return null;
       });
+  }
+
+  export function getPrizeURL(filename: string): string {
+    return config.host + config.endpoints.images + filename;
   }
 }
