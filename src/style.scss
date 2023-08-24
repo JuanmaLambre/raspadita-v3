@@ -68,6 +68,18 @@ body {
         opacity: 0;
       }
     }
+
+    .gray-layer {
+      display: none;
+      background: black;
+      opacity: 0.4;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+      z-index: 20;
+    }
   }
 }
 

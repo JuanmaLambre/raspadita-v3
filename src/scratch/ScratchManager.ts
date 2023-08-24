@@ -143,7 +143,7 @@ export class ScratchManager {
   }
 
   grayOut() {
-    // this.getPrizeElement().style.filter = "sepia(1)";
+    this.divElement.querySelector<HTMLElement>(".gray-layer").style.display = "initial";
   }
 
   private onScratchSelected() {
