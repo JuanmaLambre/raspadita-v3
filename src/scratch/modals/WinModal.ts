@@ -3,7 +3,7 @@ import $ from "jquery";
 export namespace WinModal {
   let modalElement: HTMLElement;
 
-  export function init() {
+  function init() {
     modalElement = $("#modal-gano")[0];
 
     $("#modal-gano #btnCerrar").on("click", hide);
@@ -25,4 +25,6 @@ export namespace WinModal {
   export function hide() {
     modalElement.style.display = "none";
   }
+
+  init();
 }

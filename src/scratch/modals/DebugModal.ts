@@ -4,7 +4,7 @@ export namespace DebugModal {
   let modalElement: HTMLElement;
   let textElement: HTMLElement;
 
-  export function init() {
+  function init() {
     modalElement = $("#modal-debug")[0];
     textElement = $("#modal-debug #text")[0];
 
@@ -20,4 +20,6 @@ export namespace DebugModal {
   export function hide() {
     modalElement.style.display = "none";
   }
+
+  init();
 }

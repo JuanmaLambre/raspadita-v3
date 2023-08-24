@@ -54,11 +54,6 @@ export class PageManager {
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
 
-    WinModal.init();
-    LostModal.init();
-    DebugModal.init();
-    Backend.init();
-
     this.clockManager = new ClockManager();
     if (!this.cardStatus.stillPlaying) this.clockManager.stop();
     else addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));

@@ -3,13 +3,14 @@ import { ContentResponse } from "./responses/ContentResponse";
 import { BackendConfig } from "./config";
 
 // Webpack bundling will replace the condition with a hardcoded `true` or `false`
-const config: BackendConfig =
+const backendConfig: BackendConfig =
   process.env.NODE_ENV == "production" ? require("./config").config : require("./config").debugConfig;
 
 export namespace Backend {
   let baseForm: FormData;
+  export const config: BackendConfig = backendConfig;
 
-  export function init() {
+  function init() {
     baseForm = new FormData($("form[name=form1]")[0] as HTMLFormElement);
 
     if (!baseForm) {
@@ -73,4 +74,6 @@ export namespace Backend {
   export function getPrizeURL(filename: string): string {
     return config.host + config.endpoints.images + filename;
   }
+
+  init();
 }

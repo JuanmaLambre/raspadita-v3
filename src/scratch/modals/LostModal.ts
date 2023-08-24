@@ -5,7 +5,7 @@ export namespace LostModal {
   let usedElement: HTMLElement;
   let expiredElement: HTMLElement;
 
-  export function init() {
+  function init() {
     modalElement = $("#modal-nogano")[0];
     usedElement = $("#modal-nogano #txtYaUtilizadaNoGano")[0];
     expiredElement = $("#modal-nogano #txtTiempoFuera")[0];
@@ -29,4 +29,6 @@ export namespace LostModal {
   export function hide() {
     modalElement.style.display = "none";
   }
+
+  init();
 }

@@ -38,6 +38,11 @@ export class CardStatus {
     return this.resultCode == "2102";
   }
 
+  get isInvalid(): boolean {
+    const validCodes = ["1000", "2102", "2056"];
+    return !validCodes.includes(this.resultCode);
+  }
+
   getPrizeFor(id: number): PrizeRepresentation {
     return this.prizes[id - 1];
   }
