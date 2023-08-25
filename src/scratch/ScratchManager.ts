@@ -11,6 +11,7 @@ import { randomPick } from "../utils/randomPick";
 import { Backend } from "../backend/Backend";
 import { PrizeRepresentation } from "./CardStatus";
 import { ContentResponse } from "../backend/responses/ContentResponse";
+import { DebugModal } from "./modals/DebugModal";
 
 const DEBUG_RENDER = false;
 
@@ -198,6 +199,12 @@ export class ScratchManager {
   }
 
   private onContentResponse(response: ContentResponse) {
+    if (!response.isValid) {
+      if (response.result == "2056") DebugModal.show("Código de selección inválido");
+      else DebugModal.show("Respuesta del servidor inválida");
+      return;
+    }
+
     dispatchEvent(new ScratchLoadedEvent({ id: this.id, response }));
     this.prize = response.getPrize(this.id);
     this.showPrize(true);
