@@ -31,7 +31,7 @@ export class ContentResponse {
     this.prizeId = serverResponse.resp_premio;
   }
 
-  get isValid(): boolean {
+  get isOK(): boolean {
     return this.result == "1000";
   }
 

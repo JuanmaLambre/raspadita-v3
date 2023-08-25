@@ -199,9 +199,11 @@ export class ScratchManager {
   }
 
   private onContentResponse(response: ContentResponse) {
-    if (!response.isValid) {
-      if (response.result == "2056") DebugModal.show("Código de selección inválido");
-      else DebugModal.show("Respuesta del servidor inválida");
+    if (!response.isOK) {
+      // Redirect home
+      console.warn("Redirigiendo a home...");
+      const home = Backend.config.host + Backend.config.endpoints.home;
+      location.href = home;
       return;
     }
 
