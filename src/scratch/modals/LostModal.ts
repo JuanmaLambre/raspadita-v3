@@ -34,7 +34,7 @@ export namespace LostModal {
   }
 
   function redirectHome() {
-    location.href = Backend.config.host + Backend.config.endpoints.home;
+    location.href = Backend.getHomeURL();
   }
 
   init();

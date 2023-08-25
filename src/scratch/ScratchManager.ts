@@ -202,8 +202,7 @@ export class ScratchManager {
     if (!response.isOK) {
       // Redirect home
       console.warn("Redirigiendo a home...");
-      const home = Backend.config.host + Backend.config.endpoints.home;
-      location.href = home;
+      location.href = Backend.getHomeURL(response.result);
       return;
     }
 

@@ -75,5 +75,10 @@ export namespace Backend {
     return config.host + config.endpoints.images + filename;
   }
 
+  export function getHomeURL(errorCode?: string): string {
+    const query = errorCode ? `?msg_result=${errorCode}` : "";
+    return config.host + config.endpoints.home + query;
+  }
+
   init();
 }
