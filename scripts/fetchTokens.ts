@@ -35,7 +35,14 @@ async function main() {
 
   // Get HTML elements with hidden variables
   const varsRegex = /<form name="form1".*id="stop_counter" value="" \/>/gs;
-  const varsHtml = pageHtml.match(varsRegex)[0];
+  const varsMatch = pageHtml.match(varsRegex);
+
+  if (!varsMatch) {
+    console.log(`No form found for code '${code}'`);
+    process.exit(1);
+  }
+
+  const varsHtml = varsMatch[0];
 
   // Paste variables on index.html
   const destFilepath = "./src/index.html";
