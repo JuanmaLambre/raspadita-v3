@@ -162,9 +162,8 @@ body {
 
   &#modal-gano {
     text-align: center;
-    padding: 3rem;
 
-    p {
+    p, #txtYaUtilizadaGano {
       color: white;
       font-family: sans-serif;
       font-size: 4rem;
@@ -174,6 +173,7 @@ body {
       display: flex;
       flex-direction: row;
       gap: 2rem;
+      justify-content: center;
 
       .btnNoJugar {
         width: 13rem;

@@ -10,6 +10,7 @@ export class CardStatus {
   prizes: (PrizeRepresentation | null)[];
   selected: number[];
   resultCode: string;
+  prizeId?: string;
 
   static newFromHTML(): CardStatus {
     const status = new CardStatus();
@@ -18,6 +19,7 @@ export class CardStatus {
     status.prizes = parsePrizes($("#hidTarjeta").val().toString());
     status.selected = parseSelected($("#hidSeleccion").val().toString());
     status.resultCode = $("#hidMensaje").val().toString();
+    status.prizeId = $("#hidPremio").val().toString();
 
     return status;
   }
@@ -52,5 +54,6 @@ export class CardStatus {
     this.prizes = response.prizes;
     this.selected = response.allSelected;
     this.resultCode = response.result;
+    this.prizeId = response.prizeId;
   }
 }

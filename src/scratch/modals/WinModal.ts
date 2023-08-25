@@ -4,12 +4,14 @@ import { Backend } from "../../backend/Backend";
 export namespace WinModal {
   let modalElement: HTMLElement;
 
-  export function setPrize() {
-    // TODO: Set modal prize
+  export function setPrize(prizeId: string) {
+    const textElement = modalElement.querySelector<HTMLParagraphElement>("p");
+    if (textElement) textElement.innerHTML += ` (ID: ${prizeId})`;
   }
 
   export function setUsed() {
-    // TODO: Show "Card already used" message
+    const textElement = modalElement.querySelector<HTMLElement>("#txtYaUtilizadaGano");
+    if (textElement) textElement.style.display = "initial";
   }
 
   export function show() {

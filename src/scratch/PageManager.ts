@@ -70,7 +70,7 @@ export class PageManager {
 
   private checkLoadStatus() {
     if (this.cardStatus.hasWon) {
-      WinModal.setPrize(/* prize argument */);
+      WinModal.setPrize(this.cardStatus.prizeId);
       WinModal.setUsed();
       WinModal.show();
     } else if (this.cardStatus.hasLost) {
@@ -82,7 +82,7 @@ export class PageManager {
 
   private checkGameStatus() {
     if (this.cardStatus.hasWon) {
-      WinModal.setPrize(/* prize argument */);
+      WinModal.setPrize(this.cardStatus.prizeId);
       WinModal.show();
     } else if (this.cardStatus.hasLost) {
       if (this.cardStatus.timeExpired || this.clockManager.timeout) LostModal.setTimeExpiration();

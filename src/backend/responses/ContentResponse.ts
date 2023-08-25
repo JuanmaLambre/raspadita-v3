@@ -15,6 +15,7 @@ export class ContentResponse {
   allSelected: number[];
   prizes: (PrizeRepresentation | null)[];
   result: string;
+  prizeId: string = null;
 
   constructor(serverResponse: ResponseJson) {
     if (serverResponse.resultado != "1000") console.warn("Dev: Resultado de response != 1000");
@@ -23,6 +24,7 @@ export class ContentResponse {
     this.allSelected = parseSelected(serverResponse.resp_seleccion);
     this.prizes = parsePrizes(serverResponse.resp_tarjeta);
     this.result = serverResponse.resultado;
+    this.prizeId = serverResponse.resp_premio;
   }
 
   getPrize(scratchId: number) {
