@@ -18,13 +18,21 @@ export class ContentResponse {
   prizeId: string = null;
 
   constructor(serverResponse: ResponseJson) {
-    if (serverResponse.resultado != "1000") console.warn("Dev: Resultado de response != 1000");
+    this.result = serverResponse.resultado;
+
+    if (serverResponse.resultado != "1000") {
+      console.warn("Código de servidor", this.result);
+      return;
+    }
 
     this.gameState = serverResponse.resp_gano;
     this.allSelected = parseSelected(serverResponse.resp_seleccion);
     this.prizes = parsePrizes(serverResponse.resp_tarjeta);
-    this.result = serverResponse.resultado;
     this.prizeId = serverResponse.resp_premio;
+  }
+
+  get isValid(): boolean {
+    return this.result == "1000";
   }
 
   getPrize(scratchId: number) {

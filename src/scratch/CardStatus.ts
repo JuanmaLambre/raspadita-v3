@@ -50,10 +50,13 @@ export class CardStatus {
   }
 
   updateWith(response: ContentResponse) {
+    this.resultCode = response.result;
+
+    if (this.resultCode != "1000") return;
+
     this.gameState = response.gameState;
     this.prizes = response.prizes;
     this.selected = response.allSelected;
-    this.resultCode = response.result;
     this.prizeId = response.prizeId;
   }
 }

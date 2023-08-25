@@ -53,7 +53,7 @@ export namespace Backend {
       });
   }
 
-  export async function notifyTimeout() {
+  export async function notifyTimeout(): Promise<ContentResponse> {
     const url = config.host + config.endpoints.content;
     baseForm.set("selec", "0");
 
