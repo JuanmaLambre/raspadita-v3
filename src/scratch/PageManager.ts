@@ -159,6 +159,5 @@ export class PageManager {
   private redirectHome(resultCode?: string) {
     const query = resultCode != undefined ? `?msg_result=${resultCode}` : "";
     location.href = Backend.config.host + Backend.config.endpoints.home + query;
-    location.href = "http://89.117.75.154?msg_result=" + resultCode;
   }
 }
