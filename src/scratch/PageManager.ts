@@ -103,7 +103,7 @@ export class PageManager {
       if (prize) {
         scratch.setPrize(prize);
         if (!scratch.scratched) scratch.reveal();
-        if (!this.cardStatus.selected.includes(scratch.id)) scratch.grayOut();
+        if (this.cardStatus.selected.includes(scratch.id)) scratch.highlight();
       }
     });
   }

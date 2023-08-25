@@ -59,6 +59,11 @@ body {
     position: relative;
     overflow: hidden;
 
+    &.highlighted {
+      border: #ed42e6 8px solid;
+      box-sizing: border-box;
+    }
+
     canvas {
       position: absolute;
       z-index: 10;

@@ -142,8 +142,8 @@ export class ScratchManager {
     this.needsUpdate = true;
   }
 
-  grayOut() {
-    this.divElement.querySelector<HTMLElement>(".gray-layer").style.display = "initial";
+  highlight() {
+    this.divElement.classList.add("highlighted");
   }
 
   private onScratchSelected() {
