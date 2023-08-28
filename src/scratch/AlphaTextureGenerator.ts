@@ -3,7 +3,7 @@ import { Brush } from "../brushes/Brush";
 import { ThickLineBrush } from "../brushes/ThickLineBrush";
 
 export class AlphaTextureGenerator {
-  brush: Brush;
+  brush: ThickLineBrush;
   readonly texture: THREE.DataTexture;
 
   private data: Uint8Array;

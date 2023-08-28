@@ -140,11 +140,12 @@ export class PageManager {
   }
 
   private onScratchFinished(ev: ScratchFinishedEvent) {
-    console.log("Scratch", ev.id, "finished");
+    console.debug("Raspadita", ev.id, "terminó");
 
     if (this.scratchedCount < SCRATCH_LIMIT) {
       this.scratches.forEach((mngr) => (mngr.enabled = true));
     } else {
+      console.debug("El juego terminó, esperando", GAME_FINISH_DELAY / 1000, "segundos...");
       setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
     }
   }
