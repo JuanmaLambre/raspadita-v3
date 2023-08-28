@@ -17,6 +17,7 @@ import { DebugModal } from "./modals/DebugModal";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
+const GAME_FINISH_DELAY = 3000; // Milliseconds
 
 export class PageManager {
   scratches: ScratchManager[] = [];
@@ -144,7 +145,7 @@ export class PageManager {
     if (this.scratchedCount < SCRATCH_LIMIT) {
       this.scratches.forEach((mngr) => (mngr.enabled = true));
     } else {
-      this.checkGameStatus();
+      setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
     }
   }
 
