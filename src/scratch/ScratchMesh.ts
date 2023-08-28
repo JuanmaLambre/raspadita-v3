@@ -57,4 +57,8 @@ export class ScratchMesh extends THREE.Mesh {
   scratch(from: THREE.Vector2, to: THREE.Vector2) {
     this.textureGenerator.scratch(from.round(), to.round());
   }
+
+  reveal() {
+    this.visible = false;
+  }
 }

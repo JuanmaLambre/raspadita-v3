@@ -1,7 +1,7 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
-import { WebpackConfiguration } from "webpack-cli";
+import { CallableOption, WebpackConfiguration } from "webpack-cli";
 import Server from "webpack-dev-server";
 import { setup as setupServer } from "./src/devServer/setup";
 
@@ -23,10 +23,14 @@ const tbPages = testbenches.map((name) => {
   });
 });
 
-const config: WebpackConfiguration = {
+const config: CallableOption = (env: any): WebpackConfiguration => ({
   entry: {
     app: path.resolve(__dirname, "./src/main.ts"),
     ...tbEntries,
+  },
+
+  optimization: {
+    minimize: !env.expanded,
   },
 
   mode: "development",
@@ -45,7 +49,7 @@ const config: WebpackConfiguration = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/index.html"),
       chunks: ["app"],
-      minify: true,
+      minify: !env.expanded,
     }),
 
     // Testbenches
@@ -57,7 +61,12 @@ const config: WebpackConfiguration = {
       // HTML
       {
         test: /\.(html)$/,
-        use: ["html-loader"],
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: !env.expanded },
+          },
+        ],
       },
 
       // JS
@@ -77,7 +86,14 @@ const config: WebpackConfiguration = {
       // CSS
       {
         test: /\.s?css$/,
-        use: [MiniCSSExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [
+          MiniCSSExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: { sassOptions: { outputStyle: "expanded" } },
+          },
+        ],
       },
 
       // Images
@@ -125,6 +141,6 @@ const config: WebpackConfiguration = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-};
+});
 
 export default config;

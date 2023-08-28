@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ContentResponse } from "../backend/responses/ContentResponse";
 
 export enum ScratchEventTypes {
   onScratchSelected = "onScratchSelected",
@@ -22,8 +23,9 @@ export class ScratchSelectedEvent extends Event {
 
 export class ScratchLoadedEvent extends Event {
   id: number;
+  response: ContentResponse;
 
-  constructor(info: ScratchEventInfo) {
+  constructor(info: ScratchEventInfo & { response: ContentResponse }) {
     super(ScratchEventTypes.onScratchLoaded);
     Object.assign(this, info);
   }

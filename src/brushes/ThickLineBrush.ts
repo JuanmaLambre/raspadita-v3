@@ -1,10 +1,13 @@
 import * as THREE from "three";
+import $ from "jquery";
 import { Brush } from "./Brush";
+
+const DEFAULT_THICKNESS = 35;
 
 export class ThickLineBrush extends Brush {
   thickness: number;
 
-  constructor(canvasW: number, canvasH: number, thickness: number = 35) {
+  constructor(canvasW: number, canvasH: number, thickness: number = DEFAULT_THICKNESS) {
     super(canvasW, canvasH);
     this.thickness = thickness;
 
@@ -70,7 +73,7 @@ export class ThickLineBrush extends Brush {
   }
 
   private setDebugSpinner() {
-    const spinner = document.getElementById("thickness-input") as HTMLInputElement;
+    const spinner = $("#thickness-input")[0] as HTMLInputElement;
     if (!spinner) return;
 
     spinner.value = this.thickness.toString();

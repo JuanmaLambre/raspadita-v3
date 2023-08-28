@@ -1,6 +1,6 @@
 import * as THREE from "three";
+import $ from "jquery";
 import { ScratchMesh } from "./ScratchMesh";
-import { getScratchContent } from "../backend/getScratchContent";
 import {
   ScratchingDisabledEvent,
   ScratchFinishedEvent,
@@ -8,30 +8,49 @@ import {
   ScratchSelectedEvent,
 } from "../types/ScratchEvent";
 import { randomPick } from "../utils/randomPick";
+import { Backend } from "../backend/Backend";
+import { PrizeRepresentation } from "./CardStatus";
+import { ContentResponse } from "../backend/responses/ContentResponse";
+import { DebugModal } from "./modals/DebugModal";
 
 const DEBUG_RENDER = false;
 
 const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
-  0: 0x07fcfe,
-  1: 0x024fef,
-  2: 0x07fcfe,
-  3: 0x024fef,
-  4: 0x012f81,
-  5: 0x07fcfe,
-  6: 0x024fef,
-  7: 0x07fcfe,
+  1: 0x07fcfe,
+  2: 0x024fef,
+  3: 0x07fcfe,
+  4: 0x024fef,
+  5: 0x012f81,
+  6: 0x07fcfe,
+  7: 0x024fef,
   8: 0x07fcfe,
-  9: 0x012f81,
-  10: 0x07fcfe,
-  11: 0x024fef,
-  12: 0x012f81,
-  13: 0x07fcfe,
-  14: 0x012f81,
-  15: 0x07fcfe,
-  16: 0x024fef,
-  17: 0x012f81,
-  18: 0x07fcfe,
-  19: 0x012f81,
+  9: 0x07fcfe,
+  10: 0x012f81,
+  11: 0x07fcfe,
+  12: 0x024fef,
+  13: 0x012f81,
+  14: 0x07fcfe,
+  15: 0x012f81,
+  16: 0x07fcfe,
+  17: 0x024fef,
+  18: 0x012f81,
+  19: 0x07fcfe,
+  20: 0x012f81,
+};
+
+const PRIZE_ELEMENTS: { [id: string]: string } = {
+  "101": "#prize-car",
+  "102": "#prize-car",
+  "103": "#prize-car",
+  "104": "#prize-car",
+  "105": "#prize-car",
+  "106": "#prize-car",
+  "201": "#prize-car",
+  "202": "#prize-car",
+  "203": "#prize-car",
+  "1000": "#prize-snacks",
+  "2000": "#prize-snacks",
+  "3000": "#prize-snacks",
 };
 
 export class ScratchManager {
@@ -52,6 +71,8 @@ export class ScratchManager {
   private camera: THREE.OrthographicCamera;
   private isScratched: boolean = false;
   private renderer: THREE.WebGLRenderer;
+  private prize: PrizeRepresentation;
+  private prizeElement: HTMLElement;
 
   private lastTouch: THREE.Vector2;
 
@@ -59,8 +80,8 @@ export class ScratchManager {
     this.setDebugConsole();
   }
 
-  constructor(id: number, divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
-    this.id = id;
+  constructor(divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
+    this.id = parseInt(divElement.dataset.cardid);
     this.divElement = divElement;
     this.renderer = renderer;
     this.pxWidth = divElement.clientWidth;
@@ -100,6 +121,11 @@ export class ScratchManager {
     return this.isScratched;
   }
 
+  setPrize(prize: PrizeRepresentation) {
+    this.prize = prize;
+    this.showPrize(true);
+  }
+
   update() {
     if (!this.needsUpdate) return;
 
@@ -111,13 +137,23 @@ export class ScratchManager {
     this.needsUpdate = false;
   }
 
+  reveal() {
+    this.isScratched = true;
+    this.canvas.classList.add("animated-reveal");
+    this.needsUpdate = true;
+  }
+
+  highlight() {
+    this.divElement.classList.add("highlighted");
+  }
+
   private onScratchSelected() {
     this.isScratched = true;
 
     const event = new ScratchSelectedEvent({ id: this.id });
     dispatchEvent(event);
 
-    getScratchContent(this.id).then(this.onContentResponse.bind(this));
+    Backend.getScratchContent(this.id).then(this.onContentResponse.bind(this));
   }
 
   private onTouchMove(event: TouchEvent) {
@@ -133,7 +169,6 @@ export class ScratchManager {
 
     if (!this.scratched) {
       this.onScratchSelected();
-      this.showPrize();
       return;
     }
 
@@ -159,18 +194,30 @@ export class ScratchManager {
     }
   }
 
-  private onTouchEnd() {}
-
-  private onContentResponse(response: any) {
-    dispatchEvent(new ScratchLoadedEvent({ id: this.id }));
-    console.log("RESPONSE:", response);
+  private onTouchEnd() {
+    this.lastTouch = undefined;
   }
 
-  private showPrize() {
-    const prizeId = randomPick(["prize-snacks", "prize-car"]);
-    const prizeElement = document.getElementById(prizeId).cloneNode() as HTMLElement;
-    prizeElement.style.display = "initial";
-    prizeElement.id = undefined;
+  private onContentResponse(response: ContentResponse) {
+    if (!response.isOK) {
+      // Redirect home
+      console.warn("Redirigiendo a home...");
+      location.href = Backend.getHomeURL(response.result);
+      return;
+    }
+
+    dispatchEvent(new ScratchLoadedEvent({ id: this.id, response }));
+    this.prize = response.getPrize(this.id);
+    this.showPrize(true);
+    console.debug("Premio", this.prize);
+  }
+
+  private showPrize(animate = false) {
+    const prizeElement = this.getPrizeElement();
+    if (prizeElement.parentElement) return;
+
+    if (animate) prizeElement.classList.add("animated-prize");
+
     this.divElement.appendChild(prizeElement);
   }
 
@@ -185,7 +232,7 @@ export class ScratchManager {
   }
 
   private static setDebugConsole() {
-    const spinner = document.getElementById("scratch-threshold") as HTMLInputElement;
+    const spinner = $("#scratch-threshold")[0] as HTMLInputElement;
     if (!spinner) return;
 
     spinner.value = ScratchManager.FINISH_THRESHOLD.toString();
@@ -193,5 +240,15 @@ export class ScratchManager {
     spinner.addEventListener("input", (ev) => {
       ScratchManager.FINISH_THRESHOLD = parseInt(spinner.value);
     });
+  }
+
+  private getPrizeElement() {
+    if (this.prizeElement) return this.prizeElement;
+
+    const prizeImg = document.createElement("img");
+    prizeImg.classList.add("prize");
+    prizeImg.src = Backend.getPrizeURL(this.prize);
+
+    return (this.prizeElement = prizeImg);
   }
 }

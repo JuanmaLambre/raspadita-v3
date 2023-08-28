@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import $ from "jquery";
 import {
   ScratchingDisabledEvent,
   ScratchEventTypes,
@@ -7,56 +8,122 @@ import {
   ScratchSelectedEvent,
 } from "../types/ScratchEvent";
 import { ScratchManager } from "./ScratchManager";
+import { Backend } from "../backend/Backend";
+import { CardStatus } from "./CardStatus";
+import { ClockEvents, ClockManager } from "./ClockManager";
+import { WinModal } from "./modals/WinModal";
+import { LostModal } from "./modals/LostModal";
+import { DebugModal } from "./modals/DebugModal";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
+const GAME_FINISH_DELAY = 3000; // Milliseconds
 
 export class PageManager {
   scratches: ScratchManager[] = [];
 
   private renderer: THREE.WebGLRenderer;
+  private cardStatus: CardStatus;
+  private clockManager: ClockManager;
 
   get scratchedCount(): number {
     return this.scratches.filter((s) => s.scratched).length;
   }
 
-  setup(divClassName: string) {
+  setup(divSelector: string) {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setClearColor(0x0, 0);
     this.renderer.setAnimationLoop(this.update.bind(this));
 
-    const cardDivs = document.getElementsByClassName(divClassName) as HTMLCollectionOf<HTMLDivElement>;
+    const cardDivs = $<HTMLDivElement>(divSelector);
     const { offsetWidth: pxWidth, offsetHeight: pxHeight } = cardDivs[0];
     this.renderer.setSize(pxWidth, pxHeight);
 
+    // Build scratches
     for (let i = 0; i < cardDivs.length; i++) {
       const div = cardDivs[i];
-      const scratch = new ScratchManager(i, div, this.renderer);
+      const scratch = new ScratchManager(div, this.renderer);
       this.scratches.push(scratch);
     }
+
+    // Initialize all scratches with card status
+    this.cardStatus = CardStatus.newFromHTML();
+    this.updateScratches();
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
     addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
+
+    this.clockManager = new ClockManager();
+    if (!this.cardStatus.stillPlaying) this.clockManager.stop();
+    else addEventListener(ClockEvents.Timeout, this.onTimeout.bind(this));
+
+    Backend.callGameStart();
+
+    this.checkLoadStatus();
   }
 
   update() {
     this.scratches.forEach((mngr) => mngr.update());
+    this.clockManager.update();
   }
 
-  private get selected() {
-    const enabled = this.scratches.filter((s) => s.enabled);
-    if (enabled.length > 1) return undefined;
-    else return enabled[0];
+  private checkLoadStatus() {
+    if (this.cardStatus.hasWon) {
+      WinModal.setPrize(this.cardStatus.prizeId);
+      WinModal.setUsed();
+      WinModal.show();
+    } else if (this.cardStatus.hasLost) {
+      LostModal.setUsed();
+      if (this.cardStatus.timeExpired) LostModal.setTimeExpiration();
+      LostModal.show();
+    }
+  }
+
+  private checkGameStatus() {
+    if (this.cardStatus.hasWon) {
+      WinModal.setPrize(this.cardStatus.prizeId);
+      WinModal.show();
+    } else if (this.cardStatus.hasLost) {
+      if (this.cardStatus.timeExpired || this.clockManager.timeout) LostModal.setTimeExpiration();
+      LostModal.show();
+    }
+
+    if (!this.cardStatus.stillPlaying) {
+      this.clockManager.stop();
+      this.updateScratches();
+    }
+
+    if (this.cardStatus.isInvalid) location.href = Backend.getHomeURL(this.cardStatus.resultCode);
+  }
+
+  private updateScratches() {
+    this.scratches.forEach((scratch) => {
+      const prize = this.cardStatus.getPrizeFor(scratch.id);
+      if (prize) {
+        scratch.setPrize(prize);
+        scratch.reveal();
+        if (this.cardStatus.selected.includes(scratch.id)) scratch.highlight();
+      }
+    });
   }
 
   private getScratch(id: number) {
     return this.scratches.find((scratch) => scratch.id == id);
   }
 
+  private onTimeout() {
+    this.disableScratches();
+
+    Backend.notifyTimeout().then((response) => {
+      this.cardStatus.updateWith(response);
+      this.checkGameStatus();
+    });
+  }
+
   private onScratchSelected(ev: ScratchSelectedEvent) {
-    this.scratches.forEach((mngr) => (mngr.enabled = false));
+    this.disableScratches();
 
     if (!WAIT_SERVER_RESPONSE) {
       this.getScratch(ev.id).enabled = true;
@@ -64,8 +131,12 @@ export class PageManager {
   }
 
   private onScratchLoaded(ev: ScratchLoadedEvent) {
+    this.cardStatus.updateWith(ev.response);
+
     const scratch = this.getScratch(ev.id);
     scratch.enabled = true;
+
+    if (this.scratchedCount < SCRATCH_LIMIT) this.checkGameStatus();
   }
 
   private onScratchFinished(ev: ScratchFinishedEvent) {
@@ -73,12 +144,18 @@ export class PageManager {
 
     if (this.scratchedCount < SCRATCH_LIMIT) {
       this.scratches.forEach((mngr) => (mngr.enabled = true));
+    } else {
+      setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
     }
   }
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     if (this.scratchedCount < SCRATCH_LIMIT) {
-      alert("Seguí raspando antes de seleccionar una raspadita nueva");
+      DebugModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
     }
+  }
+
+  private disableScratches() {
+    this.scratches.forEach((scratch) => (scratch.enabled = scratch.scratched));
   }
 }

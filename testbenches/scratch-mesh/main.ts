@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import $ from "jquery";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ScratchMesh } from "../../src/scratch/ScratchMesh";
 
@@ -9,7 +10,7 @@ let controls: OrbitControls;
 let scratch: ScratchMesh;
 
 function onWindowResize() {
-  const htmlContent = document.getElementById("content");
+  const htmlContent = $("#content")[0];
   const width = htmlContent.offsetWidth;
   const height = htmlContent.offsetHeight;
   const aspect = width / height;
@@ -21,7 +22,7 @@ function onWindowResize() {
 
 function setup() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
-  const contentDiv = document.getElementById("content");
+  const contentDiv = $("#content")[0];
   contentDiv.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();

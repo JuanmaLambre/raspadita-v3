@@ -5,41 +5,93 @@
     <title>Raspadita</title>
   </head>
 
+  <!-- HIDDEN_VARS -->
+  <form name="form1" method="post">
+    <input type="hidden" name="id" id="id" value="7v255XPc44fp7Dujr2BlsQ==" />
+    <input type="hidden" name="hash" id="hash" value="b25fb23fd0dd1f90bf475de3e2303b4869570333" />
+    <input type="hidden" name="token" id="token" value="0f3f484017d26e4a73b73006eae1041051ea4b44" />
+    <input type="hidden" name="movi" id="movi" value="2rijov1+kUAuWY7a5K+//w==" />
+    <input type="hidden" name="mhash" id="mhash" value="8f2e94a33967700d521d96e927c66ac562b2c3d7" />
+    <input type="hidden" name="selec" id="selec" value="" />
+  </form>
+
+  <input type="hidden" name="hidSegundosTotales" id="hidSegundosTotales" value="60" />
+  <input type="hidden" name="hidSegundosRestantes" id="hidSegundosRestantes" value="60" />
+  <input type="hidden" name="hidSeleccion" id="hidSeleccion" value="||" />
+  <input type="hidden" name="hidTarjeta" id="hidTarjeta" value="|||||||||||||||||||" />
+  <input type="hidden" name="hidGano" id="hidGano" value="P" />
+  <input type="hidden" name="hidPremio" id="hidPremio" value="" />
+  <input type="hidden" name="hidMensaje" id="hidMensaje" value="" />
+  <input type="hidden" name="stop_counter" id="stop_counter" value="" />
+  <!-- ENDOF HIDDEN_VARS -->
+
   <body>
+    <div class="modal-home" id="modal-debug">
+      <p id="text"></p>
+      <button type="button" class="modal-close" id="btnCerrar">Cerrar</button>
+    </div>
+
+    <div class="modal-home" id="modal-gano">
+      <div class="content">
+        <div class="tituloModalDoble text-center">
+          <div id="txtYaUtilizadaGano" style="display: none">El codigo ya fue utilizado</div>
+          <p>¡Ganaste!</p>
+          <div id="txtPremio"></div>
+        </div>
+        <div class="buttons">
+          <button type="button" class="btn btnNoJugar modal-close" id="btnCerrar">Cerrar</button><br />
+          <button type="button" class="btn btnNoJugar modal-close" id="btnChance">Nueva chance</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-home" id="modal-nogano">
+      <div class="content">
+        <div id="txtYaUtilizadaNoGano">El codigo ya fue utilizado</div>
+        <div id="txtPerdio">Lamentablemente no tuviste suerte</div>
+        <div id="txtTiempoFuera">Expiró el tiempo</div>
+
+        <div class="buttons">
+          <button type="button" class="btn btnNoJugar modal-close" id="btnCerrar">Cerrar</button><br />
+          <button type="button" class="btn btnNoJugar modal-close" id="btnChance">Nueva Chance</button>
+        </div>
+      </div>
+    </div>
+
     <div class="header">
       <span>CHANCES</span>
     </div>
 
     <div class="cards-grid">
-      <div class="card c1"></div>
-      <div class="card c2"></div>
-      <div class="card c3"></div>
-      <div class="card c4"></div>
-      <div class="card c5"></div>
-      <div class="card c6"></div>
-      <div class="card c7"></div>
-      <div class="card c8"></div>
-      <div class="card c9"></div>
-      <div class="card c10"></div>
-      <div class="card c11"></div>
-      <div class="card c12"></div>
-      <div class="card c13"></div>
-      <div class="card c14"></div>
-      <div class="card c15"></div>
-      <div class="card c16"></div>
-      <div class="card c17"></div>
-      <div class="card c18"></div>
-      <div class="card c19"></div>
-      <div class="card c20"></div>
+      <div class="card c1" data-cardid="1"></div>
+      <div class="card c2" data-cardid="2"></div>
+      <div class="card c3" data-cardid="3"></div>
+      <div class="card c4" data-cardid="4"></div>
+      <div class="card c5" data-cardid="5"></div>
+      <div class="card c6" data-cardid="6"></div>
+      <div class="card c7" data-cardid="7"></div>
+      <div class="card c8" data-cardid="8"></div>
+      <div class="card c9" data-cardid="9"></div>
+      <div class="card c10" data-cardid="10"></div>
+      <div class="card c11" data-cardid="11"></div>
+      <div class="card c12" data-cardid="12"></div>
+      <div class="card c13" data-cardid="13"></div>
+      <div class="card c14" data-cardid="14"></div>
+      <div class="card c15" data-cardid="15"></div>
+      <div class="card c16" data-cardid="16"></div>
+      <div class="card c17" data-cardid="17"></div>
+      <div class="card c18" data-cardid="18"></div>
+      <div class="card c19" data-cardid="19"></div>
+      <div class="card c20" data-cardid="20"></div>
     </div>
 
     <div class="instructions">¡Raspá 3 celdas para ganar!</div>
 
     <div class="time-box">
-      <div class="seconds-bar"></div>
+      <div id="seconds-bar"></div>
     </div>
 
-    <div class="debug-console">
+    <!--div class="debug-console">
       <div class="setting">
         <span>Grosor del pincel</span>
         <input type="number" id="thickness-input" min="1" />
@@ -49,29 +101,6 @@
         <span>Porcentaje mínimo</span>
         <input type="number" id="scratch-threshold" min="0" max="99" />
       </div>
-    </div>
+    </div-->
   </body>
-
-  <img class="prize" id="prize-car" src="../public/auto.png"></img>
-  <img class="prize" id="prize-snacks" src="../public/snacks.png"></img>
-
-  <script>
-    // Make random backgrounds for cards
-
-    // const { floor, random } = Math;
-    // const randInt = (max) => floor(random() * max);
-
-    // const cards = document.getElementsByClassName("card");
-
-    // for (let i = 0; i < cards.length; i++) {
-    //   const x = floor(random() * 100);
-    //   const y = floor(random() * 100);
-    //   const c0 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
-    //   const c50 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
-    //   const c100 = `rgba(${randInt(255)}, ${randInt(255)}, ${randInt(255)}, 1)`;
-    //   const bg = `radial-gradient(circle at ${x}% ${y}%, ${c0}, ${c50} 50%, ${c100} 100%)`;
-
-    //   cards[i].style.background = bg;
-    // }
-  </script>
 </html>
