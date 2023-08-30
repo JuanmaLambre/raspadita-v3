@@ -17,7 +17,7 @@ import { DebugModal } from "./modals/DebugModal";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
-const GAME_FINISH_DELAY = 3000; // Milliseconds
+const GAME_FINISH_DELAY = 2000; // Milliseconds
 
 export class PageManager {
   scratches: ScratchManager[] = [];
