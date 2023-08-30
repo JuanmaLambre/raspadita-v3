@@ -2,7 +2,7 @@ import { GameState } from "../scratch/CardStatus";
 import { randomPick } from "../utils/randomPick";
 
 // const prizesOptions = ["106:TABLETS", "203:PREMIO BOXES", "1000:PUNTOS 1000", "2000:PUNTOS 2000", "3000:PUNTOS 3000"];
-const prizesOptions = ["203:PREMIO BOXES", "1000:PUNTOS 1000"];
+const prizesOptions = ["au2c7294fa0a68494998_sel.png"];
 
 export namespace MockState {
   let timeout = false;
