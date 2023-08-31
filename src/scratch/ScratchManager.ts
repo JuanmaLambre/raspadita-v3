@@ -127,6 +127,11 @@ export class ScratchManager {
   }
 
   update() {
+    if (this.scratchMesh.isPlayingAnimation) {
+      this.scratchMesh.update();
+      this.needsUpdate = true;
+    }
+
     if (!this.needsUpdate) return;
 
     this.renderer.render(this.scene, this.camera);
@@ -147,8 +152,9 @@ export class ScratchManager {
     this.divElement.classList.add("highlighted");
   }
 
-  private onScratchSelected() {
+  private onScratchSelected(point: THREE.Vector2) {
     this.isScratched = true;
+    this.scratchMesh.executeScratchAnimation(point);
 
     const event = new ScratchSelectedEvent({ id: this.id });
     dispatchEvent(event);
@@ -167,12 +173,13 @@ export class ScratchManager {
       return;
     }
 
+    const point = this.getCartesianCoords(event);
+
     if (!this.scratched) {
-      this.onScratchSelected();
+      this.onScratchSelected(point);
+      this.lastTouch = point.clone();
       return;
     }
-
-    const point = this.getCartesianCoords(event);
 
     if (!this.lastTouch) {
       // Note: this is done here rather than onTouchStart because we need to wait for the server's response
@@ -228,7 +235,7 @@ export class ScratchManager {
 
     const pixelCoordX = clientX - this.canvas.parentElement.offsetLeft - scrollLeft;
     const pixelCoordY = this.canvas.parentElement.offsetTop - clientY + this.pxHeight - scrollTop;
-    return new THREE.Vector2(pixelCoordX, pixelCoordY);
+    return new THREE.Vector2(pixelCoordX, pixelCoordY).round();
   }
 
   private static setDebugConsole() {

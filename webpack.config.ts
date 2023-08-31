@@ -133,7 +133,7 @@ const config: CallableOption = (env: any): WebpackConfiguration => ({
 
     // Setup server endpoints
     setupMiddlewares: (middlewares: any, devServer: Server) => {
-      setupServer(devServer);
+      setupServer(devServer, env.bypass);
       return middlewares;
     },
   },

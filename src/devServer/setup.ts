@@ -5,15 +5,15 @@ import { getContent } from "./endpoints/getContent";
 import { initClock } from "./endpoints/initClock";
 import { bypassRequest } from "./endpoints/bypassRequest";
 
-const BYPASS_SERVER = true; // Call actual server
-
-export function setup(server: Server) {
+export function setup(server: Server, bypassServer = false) {
   server.app.use(express.json());
   server.app.use(formData.parse());
 
-  if (BYPASS_SERVER) {
+  if (bypassServer) {
+    console.debug("Setting up bypass server...");
     server.app.post("/pages/*", bypassRequest);
   } else {
+    console.debug("Setting up dev server...");
     server.app.post("/pages/log.ashx", initClock);
     server.app.post("/pages/process_tarjeta.ashx", getContent);
   }
