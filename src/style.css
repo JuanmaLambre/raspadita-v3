@@ -1,0 +1,2261 @@
+@font-face {
+  font-family: extraBold;
+  src: url(../public/assets/recursos/Font/Montserrat-ExtraBold.ttf);
+}
+@font-face {
+  font-family: bold-medium;
+  src: url(../public/assets/recursos/Font/Montserrat-Bold.ttf);
+}
+@font-face {
+  font-family: regular;
+  src: url(../public/assets/recursos/Font/Montserrat-Regular.ttf);
+}
+
+@media all and (min-width: 992px) {
+  #fondo {
+    display: none;
+  }
+  #fondoPremios {
+    display: none;
+  }
+}
+
+@media all and (max-width: 756px) {
+  /*GRILLA*/
+  .section-content-card {
+    text-align: center;
+    align-content: center;
+    margin-top: 5px;
+    --bs-gutter-x: 0rem;
+  }
+
+  .cartaGiro {
+    transform: rotateY(180deg);
+  }
+
+  .contenido-center {
+    display: flex;
+    justify-content: center;
+    padding: 0 25px;
+  }
+
+  .carta {
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+  }
+  .carta div {
+    position: absolute;
+    backface-visibility: hidden;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+  }
+
+  #fondo {
+    background-image: url(../public/assets/recursos/Contenedores/BG-GENERAL.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .section_header {
+    background-color: #0051ed;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+  }
+  .logo-chances {
+    width: 12rem;
+    margin-top: 5px;
+  }
+  .logoServi {
+    width: 5rem;
+  }
+
+  .section-main {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  .section-main-juego {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 1rem;
+  }
+
+  .fondo-main {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 30rem;
+    text-align: center;
+    padding: 30px 5px 30px 5px;
+  }
+
+  .nombre {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    margin-top: 2rem;
+  }
+  .codigo {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 12px;
+  }
+  .div-input {
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-inicio {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 1rem;
+  }
+
+  .input-cod {
+    width: 17rem;
+    margin-top: 2rem;
+  }
+
+  .btn.btn-input {
+    margin-top: 1rem;
+    font-family: extraBold;
+    color: #002e81;
+    width: 8rem;
+    font-size: 20px;
+    background-color: #00ffff;
+    border: 1px solid #ffffff;
+    border-radius: 7px;
+  }
+  .btn.btn-input:hover {
+    margin-top: 1rem;
+    font-family: extraBold;
+    color: #00ffff;
+    width: 8rem;
+    font-size: 20px;
+    background-color: #002e81;
+    border: 1px solid #ffffff;
+    border-radius: 7px;
+  }
+
+  .btn.btn-jugar {
+    background-color: #ff0000;
+    color: #ffffff;
+    font-family: extraBold;
+    padding: 2px 15px;
+    border-radius: 7px;
+    margin-top: 3rem;
+  }
+  .btn.btn-jugar:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+    font-family: extraBold;
+    padding: 2px 15px;
+    border-radius: 7px;
+    margin-top: 3rem;
+  }
+
+  .btn.btn-video {
+    background-color: #ffffff;
+    color: #002e81;
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 2px 5px;
+    margin-top: 1rem;
+    font-family: extraBold;
+  }
+  .btn.btn-video:hover {
+    background-color: #002e81;
+    color: #ffffff;
+  }
+
+  .terminos-a {
+    color: #ffffff;
+    font-family: bold-medium;
+    font-size: 10px;
+  }
+
+  /*MODAL*/
+
+  .modal-home {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    z-index: 6;
+    opacity: 0;
+    height: 0;
+    overflow: scroll;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .modal-home.open {
+    height: 100vh;
+    opacity: 1;
+    transition: opacity 0.3s 0.3s;
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+  .modal-home .wrap-close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    width: 1em;
+    opacity: 0.6;
+    transition: 0.3s;
+    cursor: pointer;
+    color: white;
+  }
+  .modal-home .wrap-close:hover {
+    opacity: 1;
+  }
+  .title-modal {
+    font-size: 18px;
+    margin-top: 30px;
+    font-weight: 800;
+    font-family: bold-medium;
+    color: #002e81;
+  }
+
+  .content {
+    position: relative;
+    width: 500px;
+    max-width: 89%;
+    font-size: 25px;
+    width: 25em;
+    padding: 1em;
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    background-repeat: round;
+    border-radius: 30px;
+    height: 20rem;
+  }
+
+  .body {
+    font-size: 17px;
+    line-height: 1.2;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    text-align: center;
+    font-family: bold-regular;
+    color: #002e81;
+  }
+
+  .btn.btn-aceptar {
+    color: #ffffff;
+    background-color: #002e81;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 5px 30px;
+    font-family: extraBold;
+    box-shadow: 0px 1px 3px 1px rgb(37, 37, 37);
+  }
+
+  .btn.btn-aceptar:hover {
+    color: #002e81;
+    background-color: #ffffff;
+    border: 2px solid #002e81;
+  }
+
+  /* PAGINA CODIGO NO VALIDO*/
+
+  .icon-cruz {
+    width: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .title-cod {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  .text-cod {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 12px;
+  }
+
+  .btn.btn-cod {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    font-family: extraBold;
+    font-size: 20px;
+    padding: 5px 10px 2px 10px;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+  .btn.btn-cod:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+  }
+  .btn.btn-cod-terminos {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-top: 2rem;
+  }
+  .btn.btn-cod-terminos:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+  }
+
+  .fondo-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .video {
+    border: 2px solid #ffffff;
+    height: 37em;
+  }
+
+  /*pagina terminos*/
+
+  /* Elemento base */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 20px;
+  }
+
+  #scroll {
+    height: 30rem;
+    width: 95%;
+    overflow-y: scroll;
+    padding: 0px 10px;
+    margin-top: 2rem;
+  }
+  .tituloTerminos {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 2rem;
+  }
+
+  .text-terminos {
+    font-family: regular;
+    color: #ffffff;
+  }
+
+  .section-terminos {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn.btn-volver {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 2rem;
+  }
+
+  .btn.btn-volver:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 2px solid #002e81;
+  }
+
+  /*pagina como jugar*/
+
+  .img-CM {
+    width: 16rem;
+    object-fit: cover;
+  }
+
+  .titleSlide1 {
+    font-size: 20px;
+    margin-top: 2rem;
+  }
+
+  .textSlide1 {
+    font-size: 12px;
+  }
+
+  .texts-sliders {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 14px;
+    margin-top: 4rem;
+    line-height: 1.3;
+  }
+
+  .text-suerte {
+    font-size: 20px;
+    margin-top: 4rem;
+  }
+  .div-content_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .div-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-top: 2rem;
+  }
+
+  .title-number {
+    font-family: extraBold;
+    font-size: 50px;
+    color: #002e81;
+    margin-bottom: 0;
+  }
+
+  .colorBtnSlider {
+    color: rgb(25, 87, 179);
+  }
+
+  .fondoSlider1 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .fondoSlider2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .fondoSlider3 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider4 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider5 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider6 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .swiper {
+    height: 29rem;
+    font-family: bold-medium;
+    color: #ffffff;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    top: 27rem;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    background-color: #00ffff;
+  }
+
+  .swiper-pagination-bullet-inactive {
+    background-color: #ffffff;
+  }
+
+  .titulosModal {
+    color: rgb(25, 87, 179);
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .btn-volver-CM {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 16px;
+    margin-bottom: 2rem;
+  }
+
+  .btn.btn-volver-CM:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 2px solid #002e81;
+  }
+
+  .btn {
+    transition: none;
+    --bs-btn-color: none;
+    --bs-btn-bg: none;
+    --bs-btn-border-width: none;
+  }
+
+  .btn.btn-cod-CM {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .btn.btn-cod-CM:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+    padding: 6px 10px 3px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /*PREMIOS*/
+
+  #fondoPremios {
+    background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .size-premios {
+    width: 95%;
+    height: 32rem;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 30px 5px 30px 5px;
+    background-repeat: round;
+  }
+
+  .fondo-premio_avion {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png");
+  }
+  .fondo-premio_auto {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png");
+  }
+  .fondo-premio_moto {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png");
+  }
+  .fondo-premio_moto2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png");
+  }
+  .fondo-premio_auriculares {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png");
+  }
+  .fondo-premio_full {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png");
+  }
+  .fondo-premio_infinia {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png");
+  }
+  .fondo-premio_servi1 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png");
+  }
+  .fondo-premio_servi2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png");
+  }
+  .fondo-premio_servi3 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png");
+  }
+  .fondo-premio_tv {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png");
+  }
+
+  .img-premios {
+    width: 12rem;
+  }
+  .img-premio-full {
+    width: 5rem;
+  }
+  .img-premio-infinia {
+    width: 11rem;
+    margin-top: 1rem;
+    margin-bottom: 10px;
+  }
+  .img-premio-boxes {
+    width: 14rem;
+    margin-top: 2rem;
+  }
+
+  .terminos-premio-full {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 11px;
+    margin-top: 3rem;
+  }
+  .title-premios {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    margin-top: 11rem;
+  }
+
+  .subtitle-premios {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.2;
+    margin-top: 2rem;
+  }
+
+  .text-premios {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 13px;
+    margin-top: 2.5rem;
+  }
+
+  .btn.btn-premios {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 15px;
+    padding: 5px 10px 3px 10px;
+    border-radius: 10px;
+    background-color: #002e81;
+    border: 2px solid #ffffff;
+  }
+  .btn.btn-premios:hover {
+    color: #002e81;
+    background-color: #ffffff;
+    border: 2px solid #002e81;
+  }
+
+  .btn:hover {
+    color: none;
+    background-color: none;
+    border-color: none;
+  }
+
+  /*modal premios*/
+
+  .modal {
+    --bs-modal-bg: none;
+    --bs-modal-border-color: none;
+  }
+
+  .modal-content {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    background-repeat: round;
+    height: 25rem;
+    margin-top: 5rem;
+    color: #002e81;
+  }
+  .modal-content-2 {
+    height: 28rem;
+    margin-top: 5rem;
+  }
+
+  .title-premio-modal {
+    font-family: bold-medium;
+    font-size: 22px;
+    margin-top: 5rem;
+    text-align: center;
+  }
+  .title-premio-modal2 {
+    font-family: bold-medium;
+    font-size: 22px;
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .text-modal_premio {
+    font-family: regular;
+    font-size: 15px;
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .text-modal_premio2 {
+    font-family: regular;
+    font-size: 15px;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .btn.btn_modal {
+    background-color: #ffffff;
+    color: #002e81;
+    border-radius: 10px;
+    border: 2px solid #002e81;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 2.5rem;
+  }
+  .btn.btn_modal:hover {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+
+  /*PAGINA JUEGO A*/
+
+  .fondo-main-juego {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 31.5rem;
+    text-align: center;
+    padding: 40px 0px 30px 0px;
+  }
+
+  .section-main-juego {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .row > * {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .title-juego {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .tiempo {
+    font-family: regular;
+    text-align: center;
+    color: #ffffff;
+    font-size: 12px;
+    position: relative;
+    top: 21px;
+    z-index: -1;
+  }
+
+  .contenedor-temporizador {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .div-time {
+    font-family: regular;
+    text-align: center;
+    color: #ffffff;
+    font-size: 13px;
+    margin-bottom: 0;
+    border-left: 1px solid #ffffff;
+    border-right: 1.9px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    width: 90%;
+  }
+  .time {
+    animation: progreso 30s linear;
+    color: #fa0303;
+    background-color: #fa0303;
+    border-right: 1.5px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    z-index: 1;
+  }
+
+  .img-juego {
+    width: 75px;
+    height: 75px;
+    margin: 2px 0px;
+  }
+
+  /*PAGINA PERDEDOR*/
+
+  .fondo-main-perdedor {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 33rem;
+    text-align: center;
+  }
+
+  .section-main-perdedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .section_perdedor {
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .title-perdiste {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .text-perdiste {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+
+  .btn.btn-volver-red {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 12px;
+  }
+
+  .btn.btn-volver-red:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+  }
+
+  .title-tiempo {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 23px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+/*ANIMACION DE MUESTRA TIEMPO DEL JUEGO*/
+@keyframes progreso {
+  0% {
+    width: 0%;
+    background-color: #fd0303;
+  }
+  100% {
+    width: 100%;
+    background-color: #fa0303;
+  }
+}
+
+/*MEDIA CELULARES HORIZONTALES*/
+
+@media all and (max-width: 756px) and (orientation: landscape) {
+  /*GRILLA*/
+  .section-content-card {
+    text-align: center;
+    align-content: center;
+    margin: 45px;
+    margin-top: 35px;
+    --bs-gutter-x: 0rem;
+  }
+
+  .cartaGiro {
+    transform: rotateY(180deg);
+  }
+
+  .carta {
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 70px;
+  }
+  .carta div {
+    position: absolute;
+    backface-visibility: hidden;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+  }
+  .fondo-main {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 70%;
+    height: 38rem;
+    text-align: center;
+    padding: 30px 5px 30px 5px;
+  }
+
+  .div-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .text-inicio {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 1rem;
+  }
+
+  .btn {
+    transition: none;
+    --bs-btn-color: none;
+    --bs-btn-bg: none;
+    --bs-btn-border-width: none;
+  }
+
+  /* PAGINA CODIGO NO VALIDO*/
+
+  .icon-cruz {
+    width: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .title-cod {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 1;
+    margin-top: 2rem;
+  }
+
+  .text-cod {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 3rem;
+  }
+
+  .btn.btn-cod {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    font-family: extraBold;
+    font-size: 20px;
+    padding: 5px 10px 2px 10px;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+  .btn.btn-cod:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+  }
+  .btn.btn-cod-terminos {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-top: 2rem;
+  }
+  .btn.btn-cod-terminos:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+  }
+
+  .fondo-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .video {
+    border: 2px solid #ffffff;
+    height: 37em;
+  }
+
+  /*pagina terminos*/
+
+  /* Elemento base */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 20px;
+  }
+
+  #scroll {
+    height: 30rem;
+    width: 80%;
+    overflow-y: scroll;
+    padding: 0px 10px;
+    margin-top: 2rem;
+  }
+  .tituloTerminos {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 2rem;
+  }
+
+  .text-terminos {
+    font-family: regular;
+    color: #ffffff;
+  }
+
+  .section-terminos {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn.btn-volver {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 2rem;
+  }
+
+  .btn.btn-volver:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 2px solid #002e81;
+  }
+
+  /*pagina como jugar*/
+
+  .img-CM {
+    width: 16rem;
+    object-fit: cover;
+  }
+
+  .titleSlide1 {
+    font-size: 20px;
+    margin-top: 2rem;
+  }
+
+  .textSlide1 {
+    font-size: 12px;
+  }
+
+  .texts-sliders {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 14px;
+    margin-top: 4rem;
+    line-height: 1.3;
+  }
+
+  .text-suerte {
+    font-size: 20px;
+    margin-top: 4rem;
+  }
+  .div-content_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .div-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-top: 2rem;
+  }
+
+  .title-number {
+    font-family: extraBold;
+    font-size: 50px;
+    color: #002e81;
+    margin-bottom: 0;
+  }
+
+  .colorBtnSlider {
+    color: rgb(25, 87, 179);
+  }
+
+  .fondoSlider1 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .fondoSlider2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .fondoSlider3 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider4 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider5 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider6 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .swiper {
+    width: 70%;
+    height: 30rem;
+    font-family: bold-medium;
+    color: #ffffff;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    top: 27rem;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    background-color: #00ffff;
+  }
+
+  .swiper-pagination-bullet-inactive {
+    background-color: #ffffff;
+  }
+
+  .titulosModal {
+    color: rgb(25, 87, 179);
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .btn.btn-volver-CM {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 16px;
+    margin-bottom: 2rem;
+  }
+
+  .btn.btn-volver-CM:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 2px solid #002e81;
+  }
+
+  .btn.btn-cod-CM {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .btn.btn-cod-CM:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+    padding: 6px 10px 3px 10px;
+  }
+
+  /*PREMIOS*/
+
+  #fondoPremios {
+    background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .size-premios {
+    width: 70%;
+    height: 32rem;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 30px 5px 30px 5px;
+    background-repeat: round;
+  }
+
+  .fondo-premio_avion {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png");
+  }
+  .fondo-premio_auto {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png");
+  }
+  .fondo-premio_moto {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png");
+  }
+  .fondo-premio_moto2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png");
+  }
+  .fondo-premio_auriculares {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png");
+  }
+  .fondo-premio_full {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png");
+  }
+  .fondo-premio_infinia {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png");
+  }
+  .fondo-premio_servi1 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png");
+  }
+  .fondo-premio_servi2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png");
+  }
+  .fondo-premio_servi3 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png");
+  }
+  .fondo-premio_tv {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png");
+  }
+
+  .img-premios {
+    width: 12rem;
+  }
+  .img-premio-full {
+    width: 5rem;
+  }
+  .img-premio-infinia {
+    width: 11rem;
+    margin-top: 1rem;
+    margin-bottom: 10px;
+  }
+  .img-premio-boxes {
+    width: 14rem;
+    margin-top: 2rem;
+  }
+
+  .terminos-premio-full {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 11px;
+    margin-top: 3rem;
+  }
+  .title-premios {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    margin-top: 11rem;
+  }
+
+  .subtitle-premios {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.2;
+    margin-top: 2rem;
+  }
+
+  .text-premios {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 13px;
+    margin-top: 2.5rem;
+  }
+
+  .btn.btn-premios {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 15px;
+    padding: 5px 10px 3px 10px;
+    border-radius: 10px;
+    background-color: #002e81;
+    border: 2px solid #ffffff;
+  }
+  .btn.btn-premios:hover {
+    color: #002e81;
+    background-color: #ffffff;
+    border: 2px solid #002e81;
+  }
+
+  /*modal premios*/
+
+  .modal {
+    --bs-modal-bg: none;
+    --bs-modal-border-color: none;
+  }
+
+  .modal-content {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    background-repeat: round;
+    height: 25rem;
+    margin-top: 5rem;
+    color: #002e81;
+  }
+  .modal-content-2 {
+    height: 28rem;
+    margin-top: 5rem;
+  }
+
+  .title-premio-modal {
+    font-family: bold-medium;
+    font-size: 22px;
+    margin-top: 5rem;
+    text-align: center;
+  }
+  .title-premio-modal2 {
+    font-family: bold-medium;
+    font-size: 22px;
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .text-modal_premio {
+    font-family: regular;
+    font-size: 15px;
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .text-modal_premio2 {
+    font-family: regular;
+    font-size: 15px;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .btn.btn_modal {
+    background-color: #ffffff;
+    color: #002e81;
+    border-radius: 10px;
+    border: 2px solid #002e81;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 2.5rem;
+  }
+  .btn.btn_modal:hover {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+
+  /*PAGINA JUEGO A*/
+
+  .fondo-main-juego {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 42rem;
+    text-align: center;
+  }
+
+  .section-main-juego {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .row {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .title-juego {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .tiempo {
+    font-family: regular;
+    text-align: center;
+    color: #ffffff;
+    font-size: 12px;
+    position: relative;
+    top: 21px;
+    z-index: -1;
+  }
+
+  .contenedor-temporizador {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .div-time {
+    font-family: regular;
+    text-align: center;
+    color: #ffffff;
+    font-size: 13px;
+    margin-bottom: 0;
+    border-left: 1px solid #ffffff;
+    border-right: 1.9px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    width: 90%;
+  }
+  .time {
+    animation: progreso 30s linear;
+    color: #fa0303;
+    background-color: #fa0303;
+    border-right: 1.5px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    z-index: 1;
+  }
+
+  .img-juego {
+    width: 100px;
+    height: 90px;
+    margin: 2px 0px;
+  }
+
+  /*PAGINA PERDEDOR*/
+
+  .fondo-main-perdedor {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 46rem;
+    text-align: center;
+  }
+
+  .section-main-perdedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .section_perdedor {
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .title-perdiste {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .text-perdiste {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+
+  .btn.btn-volver-red {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 12px;
+  }
+
+  .btn.btn-volver-red:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+  }
+
+  .title-tiempo {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 23px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+/*MEDIA PARA TABLET*/
+
+@media all and (min-width: 756px) and (max-width: 991px) {
+  /*GRILLA*/
+  .section-content-card {
+    text-align: center;
+    align-content: center;
+
+    --bs-gutter-x: 0rem;
+    margin-top: 25px;
+  }
+
+  .cartaGiro {
+    transform: rotateY(180deg);
+  }
+
+  .carta {
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 100px;
+  }
+  .carta div {
+    position: absolute;
+    backface-visibility: hidden;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+  }
+
+  #fondo {
+    background-image: url(../public/assets/recursos/Contenedores/BG-GENERAL.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .section_header {
+    background-color: #0051ed;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+  }
+  .logo-chances {
+    width: 12rem;
+    margin-top: 5px;
+  }
+  .logoServi {
+    width: 5rem;
+  }
+
+  .section-main {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  .section-main-juego {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .fondo-main {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 70%;
+    height: 38rem;
+    text-align: center;
+    padding: 30px 5px 30px 5px;
+  }
+
+  .nombre {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    margin-top: 2rem;
+  }
+  .codigo {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 12px;
+  }
+  .div-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  .text-inicio {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 1.5rem;
+  }
+
+  .input-cod {
+    width: 17rem;
+    margin-top: 2rem;
+  }
+
+  .btn {
+    transition: none;
+    --bs-btn-color: none;
+    --bs-btn-bg: none;
+    --bs-btn-border-width: none;
+  }
+
+  .btn.btn-input {
+    margin-top: 2rem;
+    font-family: extraBold;
+    color: #002e81;
+    width: 8rem;
+    font-size: 20px;
+    background-color: #00ffff;
+    border: 1px solid #ffffff;
+    border-radius: 7px;
+  }
+  .btn.btn-input:hover {
+    color: #00ffff;
+    background-color: #002e81;
+    border: 1px solid #ffffff;
+  }
+
+  .btn.btn-jugar {
+    background-color: #ff0000;
+    color: #ffffff;
+    font-family: extraBold;
+    padding: 2px 15px;
+    border-radius: 7px;
+    margin-top: 3rem;
+  }
+  .btn.btn-jugar:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+  }
+
+  .btn.btn-video {
+    background-color: #ffffff;
+    color: #002e81;
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 2px 5px;
+    margin-top: 1rem;
+    font-family: extraBold;
+  }
+  .btn.btn-video:hover {
+    background-color: #002e81;
+    color: #ffffff;
+  }
+
+  .terminos-a {
+    color: #ffffff;
+    font-family: bold-medium;
+    font-size: 10px;
+  }
+
+  /* PAGINA CODIGO NO VALIDO*/
+
+  .icon-cruz {
+    width: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .title-cod {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 1;
+    margin-top: 2rem;
+  }
+
+  .text-cod {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 3rem;
+  }
+
+  .btn.btn-cod {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    font-family: extraBold;
+    font-size: 20px;
+    padding: 5px 10px 2px 10px;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+  .btn.btn-cod:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+  }
+  .btn.btn-cod-terminos {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-top: 2rem;
+  }
+  .btn.btn-cod-terminos:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+  }
+
+  .fondo-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .video {
+    border: 2px solid #ffffff;
+    height: 37em;
+  }
+
+  /*pagina terminos*/
+
+  /* Elemento base */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 20px;
+  }
+
+  #scroll {
+    height: 30rem;
+    width: 80%;
+    overflow-y: scroll;
+    padding: 0px 10px;
+    margin-top: 2rem;
+  }
+  .tituloTerminos {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 2rem;
+  }
+
+  .text-terminos {
+    font-family: regular;
+    color: #ffffff;
+  }
+
+  .section-terminos {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn.btn-volver {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 2rem;
+  }
+
+  .btn.btn-volver:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 2px solid #002e81;
+  }
+
+  /*pagina como jugar*/
+
+  .img-CM {
+    width: 16rem;
+    object-fit: cover;
+  }
+
+  .titleSlide1 {
+    font-size: 20px;
+    margin-top: 2rem;
+  }
+
+  .textSlide1 {
+    font-size: 12px;
+  }
+
+  .texts-sliders {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 14px;
+    margin-top: 4rem;
+    line-height: 1.3;
+  }
+
+  .text-suerte {
+    font-size: 20px;
+    margin-top: 4rem;
+  }
+  .div-content_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .div-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-top: 2rem;
+  }
+
+  .title-number {
+    font-family: extraBold;
+    font-size: 50px;
+    color: #002e81;
+    margin-bottom: 0;
+  }
+
+  .colorBtnSlider {
+    color: rgb(25, 87, 179);
+  }
+
+  .fondoSlider1 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .fondoSlider2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .fondoSlider3 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider4 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider5 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+  .fondoSlider6 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    background-repeat: round;
+    height: 25rem;
+  }
+
+  .swiper {
+    width: 70%;
+    height: 30rem;
+    font-family: bold-medium;
+    color: #ffffff;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal {
+    top: 27rem;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    background-color: #00ffff;
+  }
+
+  .swiper-pagination-bullet-inactive {
+    background-color: #ffffff;
+  }
+
+  .titulosModal {
+    color: rgb(25, 87, 179);
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .btn.btn-volver-CM {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 16px;
+    margin-bottom: 2rem;
+  }
+
+  .btn.btn-volver-CM:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 2px solid #002e81;
+  }
+
+  .btn.btn-cod-CM {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .btn.btn-cod-CM:hover {
+    background-color: #ffffff;
+    color: #002e81;
+    border: 1px solid #002e81;
+    padding: 6px 10px 3px 10px;
+  }
+
+  /*PREMIOS*/
+
+  #fondoPremios {
+    background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .size-premios {
+    width: 70%;
+    height: 32rem;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 30px 5px 30px 5px;
+    background-repeat: round;
+  }
+
+  .fondo-premio_avion {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png");
+  }
+  .fondo-premio_auto {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png");
+  }
+  .fondo-premio_moto {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png");
+  }
+  .fondo-premio_moto2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png");
+  }
+  .fondo-premio_auriculares {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png");
+  }
+  .fondo-premio_full {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png");
+  }
+  .fondo-premio_infinia {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png");
+  }
+  .fondo-premio_servi1 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png");
+  }
+  .fondo-premio_servi2 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png");
+  }
+  .fondo-premio_servi3 {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png");
+  }
+  .fondo-premio_tv {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png");
+  }
+
+  .img-premios {
+    width: 12rem;
+  }
+  .img-premio-full {
+    width: 5rem;
+  }
+  .img-premio-infinia {
+    width: 11rem;
+    margin-top: 1rem;
+    margin-bottom: 10px;
+  }
+  .img-premio-boxes {
+    width: 14rem;
+    margin-top: 2rem;
+  }
+
+  .terminos-premio-full {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 11px;
+    margin-top: 3rem;
+  }
+  .title-premios {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 30px;
+    margin-top: 11rem;
+  }
+
+  .subtitle-premios {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.2;
+    margin-top: 2rem;
+  }
+
+  .text-premios {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 13px;
+    margin-top: 2.5rem;
+  }
+
+  .btn.btn-premios {
+    font-family: extraBold;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: 15px;
+    padding: 5px 10px 3px 10px;
+    border-radius: 10px;
+    background-color: #002e81;
+    border: 2px solid #ffffff;
+  }
+  .btn.btn-premios:hover {
+    color: #002e81;
+    background-color: #ffffff;
+    border: 2px solid #002e81;
+  }
+
+  /*modal premios*/
+
+  .modal {
+    --bs-modal-bg: none;
+    --bs-modal-border-color: none;
+  }
+
+  .modal-content {
+    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    background-repeat: round;
+    height: 25rem;
+    margin-top: 5rem;
+    color: #002e81;
+  }
+  .modal-content-2 {
+    height: 28rem;
+    margin-top: 5rem;
+  }
+
+  .title-premio-modal {
+    font-family: bold-medium;
+    font-size: 22px;
+    margin-top: 5rem;
+    text-align: center;
+  }
+  .title-premio-modal2 {
+    font-family: bold-medium;
+    font-size: 22px;
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .text-modal_premio {
+    font-family: regular;
+    font-size: 15px;
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .text-modal_premio2 {
+    font-family: regular;
+    font-size: 15px;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .btn.btn_modal {
+    background-color: #ffffff;
+    color: #002e81;
+    border-radius: 10px;
+    border: 2px solid #002e81;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 14px;
+    margin-bottom: 2.5rem;
+  }
+  .btn.btn_modal:hover {
+    background-color: #002e81;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+
+  /*PAGINA JUEGO A*/
+
+  .fondo-main-juego {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 45rem;
+    text-align: center;
+    padding: 40px 0px 30px 0px;
+  }
+
+  .section-main-juego {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .row > * {
+    padding-right: 0;
+    padding-left: 0;
+    --bs-gutter-x: 0;
+  }
+
+  .title-juego {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .tiempo {
+    font-family: regular;
+    text-align: center;
+    color: #ffffff;
+    font-size: 12px;
+    position: relative;
+    top: 21px;
+    z-index: -1;
+  }
+
+  .contenedor-temporizador {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .div-time {
+    font-family: regular;
+    text-align: center;
+    color: #ffffff;
+    font-size: 13px;
+    margin-bottom: 0;
+    border-left: 1px solid #ffffff;
+    border-right: 1.9px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    width: 90%;
+  }
+  .time {
+    animation: progreso 30s linear;
+    color: #fa0303;
+    background-color: #fa0303;
+    border-right: 1.5px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    z-index: 1;
+  }
+
+  .img-juego {
+    width: 120px;
+    height: 95px;
+    margin: 2px 0px;
+  }
+
+  /*PAGINA PERDEDOR*/
+
+  .fondo-main-perdedor {
+    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    background-repeat: round;
+    width: 95%;
+    height: 50rem;
+    text-align: center;
+    padding: 40px 20px 60px 20px;
+  }
+
+  .section-main-perdedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .section_perdedor {
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .title-perdiste {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .text-perdiste {
+    font-family: regular;
+    color: #ffffff;
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+
+  .btn.btn-volver-red {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 5px 10px 2px 10px;
+    font-family: extraBold;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 12px;
+  }
+
+  .btn.btn-volver-red:hover {
+    background-color: #ffffff;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+  }
+
+  .title-tiempo {
+    font-family: bold-medium;
+    color: #ffffff;
+    font-size: 23px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+}

@@ -94,6 +94,7 @@ const config: CallableOption = (env: any): WebpackConfiguration => ({
             options: { sassOptions: { outputStyle: "expanded" } },
           },
         ],
+        generator: { filename: "[name][ext]" },
       },
 
       // Images
@@ -101,7 +102,7 @@ const config: CallableOption = (env: any): WebpackConfiguration => ({
         test: /\.(jpg|png|gif|svg)$/,
         type: "asset/resource",
         generator: {
-          filename: "assets/images/[hash][ext]",
+          filename: "assets/images/[name][ext]",
         },
       },
 

@@ -17,7 +17,7 @@ export const debugConfig = {
   debug: true,
   host: "http://localhost:8080",
   endpoints: {
-    images: "/public/",
+    images: "/public/images/",
     home: "/pages/home.aspx",
     initClock: "/pages/log.ashx",
     content: "/pages/process_tarjeta.ashx",

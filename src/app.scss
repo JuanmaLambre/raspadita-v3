@@ -1,0 +1,60 @@
+$reveal-time: 1s;
+
+.carta {
+  &.highlighted {
+    // border: #ed42e6 8px solid;
+    // box-sizing: border-box;
+  }
+
+  .prize {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+  }
+
+  canvas {
+    position: absolute;
+    z-index: 10;
+
+    &.animated-reveal {
+      animation: scratch-reveal-animation $reveal-time;
+      opacity: 0;
+    }
+  }
+}
+
+.animated-prize {
+  animation: prize-animation $reveal-time;
+}
+
+@keyframes prize-animation {
+  0% {
+    filter: blur(1000px) brightness(100%);
+    opacity: 0;
+  }
+  100% {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+@keyframes scratch-reveal-animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* A partir de acá sobreescribimos lo que viene en el CSS del diseñador */
+
+.front .img-juego {
+  display: none !important;
+}
+
+.time {
+  animation: none !important;
+}
