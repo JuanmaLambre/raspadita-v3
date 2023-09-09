@@ -10,46 +10,9 @@ import {
 import { Backend } from "../backend/Backend";
 import { PrizeRepresentation } from "./CardStatus";
 import { ContentResponse } from "../backend/responses/ContentResponse";
+import { selectors } from "./selectors";
 
 const DEBUG_RENDER = false;
-
-const ID_COLORS: { [id: number]: THREE.ColorRepresentation } = {
-  1: 0x07fcfe,
-  2: 0x024fef,
-  3: 0x07fcfe,
-  4: 0x024fef,
-  5: 0x012f81,
-  6: 0x07fcfe,
-  7: 0x024fef,
-  8: 0x07fcfe,
-  9: 0x07fcfe,
-  10: 0x012f81,
-  11: 0x07fcfe,
-  12: 0x024fef,
-  13: 0x012f81,
-  14: 0x07fcfe,
-  15: 0x012f81,
-  16: 0x07fcfe,
-  17: 0x024fef,
-  18: 0x012f81,
-  19: 0x07fcfe,
-  20: 0x012f81,
-};
-
-const PRIZE_ELEMENTS: { [id: string]: string } = {
-  "101": "#prize-car",
-  "102": "#prize-car",
-  "103": "#prize-car",
-  "104": "#prize-car",
-  "105": "#prize-car",
-  "106": "#prize-car",
-  "201": "#prize-car",
-  "202": "#prize-car",
-  "203": "#prize-car",
-  "1000": "#prize-snacks",
-  "2000": "#prize-snacks",
-  "3000": "#prize-snacks",
-};
 
 export class ScratchManager {
   readonly pxWidth: number; // In CSS pixels
@@ -92,8 +55,13 @@ export class ScratchManager {
     this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
     this.canvas.addEventListener("touchend", this.onTouchEnd.bind(this));
 
-    const color = ID_COLORS[this.id];
-    this.scratchMesh = new ScratchMesh({ pxWidth: this.pxWidth, pxHeight: this.pxHeight, color });
+    // Get texture path from HTML
+    this.scratchMesh = new ScratchMesh({ pxWidth: this.pxWidth, pxHeight: this.pxHeight });
+    const imgElement = this.divElement.getElementsByClassName(selectors.cards.image)[0] as HTMLImageElement;
+    const texture = imgElement?.src;
+    console.log(">>> TEXTURE", texture);
+    this.scratchMesh.setTexture(texture, () => (this.needsUpdate = true));
+
     this.scene = new THREE.Scene();
     this.scene.add(this.scratchMesh);
 
@@ -187,6 +155,8 @@ export class ScratchManager {
       this.lastTouch = point.clone();
       return;
     }
+
+    if (this.lastTouch.distanceTo(point) < 5) return;
 
     // Do scratch
     this.scratchMesh.scratch(this.lastTouch, point);

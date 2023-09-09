@@ -4,6 +4,10 @@ export const selectors = {
     lostClass: ".fondo-main-perdedor",
   },
 
+  cards: {
+    image: "img-juego",
+  },
+
   clock: {
     section: "#section_Inicio",
     timeBar: ".contenedor-temporizador .time",
