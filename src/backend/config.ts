@@ -8,6 +8,7 @@ export const config = {
     home: "/pages/home.aspx",
     initClock: "/pages/log.ashx",
     content: "/pages/process_tarjeta.ashx",
+    winExit: "/pages/tarjeta_salida.aspx",
   },
 };
 
@@ -20,5 +21,6 @@ export const debugConfig = {
     home: "/pages/home.aspx",
     initClock: "/pages/log.ashx",
     content: "/pages/process_tarjeta.ashx",
+    winExit: "/pages/tarjeta_salida.aspx",
   },
 };

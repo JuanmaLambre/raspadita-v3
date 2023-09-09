@@ -71,6 +71,15 @@ export namespace Backend {
       });
   }
 
+  export function getWinURL() {
+    const canj = baseForm.get("canj")?.toString() || "";
+    const movi = encodeURIComponent(baseForm.get("movi").toString());
+    const mhash = baseForm.get("mhash").toString();
+
+    const query = `?canj=${canj}&movip=${movi}&mhash=${mhash}`;
+    return config.host + config.endpoints.winExit + query;
+  }
+
   export function getPrizeURL(filename: string): string {
     return config.host + config.endpoints.images + filename;
   }

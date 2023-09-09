@@ -1,5 +1,6 @@
 import $ from "jquery";
 import { Backend } from "../backend/Backend";
+import { selectors } from "./selectors";
 
 export enum ClockEvents {
   Timeout = "timeout",
@@ -13,7 +14,7 @@ export class ClockManager {
   private stopped = false;
 
   constructor() {
-    this.barElement = $("#seconds-bar")[0];
+    this.barElement = $(selectors.clock.timeBar)[0];
     this.totalSeconds = parseInt($<HTMLInputElement>("#hidSegundosTotales")[0].value);
     this.serverRemaining = parseInt($<HTMLInputElement>("#hidSegundosRestantes")[0].value);
     this.startEpoch = +new Date();
@@ -38,6 +39,11 @@ export class ClockManager {
     this.stopped = true;
   }
 
+  hide() {
+    const section = $(selectors.clock.section);
+    section.hide();
+  }
+
   private updateClock() {
     if (this.timeout) this.onTimeout();
 
@@ -46,6 +52,7 @@ export class ClockManager {
   }
 
   private onTimeout() {
+    console.debug("Timeout");
     this.stop();
     Backend.notifyTimeout();
     dispatchEvent(new Event(ClockEvents.Timeout));

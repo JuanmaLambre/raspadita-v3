@@ -1,41 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Raspadita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="promo raspadita ypf" />
+    <meta name="keywords" content="ypf, promo, chances, trivia" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <title>Chances YPF</title>
   </head>
+  <body id="fondo">
+    <!-- HIDDEN_VARS -->
+<form name="form1" method="post">
+        <input type="hidden" name="id" id="id" value="7v255XPc44fp7Dujr2BlsQ==" />
+        <input type="hidden" name="hash" id="hash" value="b25fb23fd0dd1f90bf475de3e2303b4869570333" />
+        <input type="hidden" name="token" id="token" value="0f3f484017d26e4a73b73006eae1041051ea4b44" />
+        <input type="hidden" name="movi" id="movi" value="IPrHwquoRQUWmv2BGLFoJw==" />
+        <input type="hidden" name="mhash" id="mhash" value="432f170377e16b75dd584bed237ad71811e682c5" />
+        <input type="hidden" name="selec" id="selec" value="" />        
+    </form>
 
-  <!-- HIDDEN_VARS -->
-  <form name="form1" method="post">
-    <input type="hidden" name="id" id="id" value="7v255XPc44fp7Dujr2BlsQ==" />
-    <input type="hidden" name="hash" id="hash" value="b25fb23fd0dd1f90bf475de3e2303b4869570333" />
-    <input type="hidden" name="token" id="token" value="0f3f484017d26e4a73b73006eae1041051ea4b44" />
-    <input type="hidden" name="movi" id="movi" value="2rijov1+kUAuWY7a5K+//w==" />
-    <input type="hidden" name="mhash" id="mhash" value="8f2e94a33967700d521d96e927c66ac562b2c3d7" />
-    <input type="hidden" name="selec" id="selec" value="" />
-  </form>
+    <input type="hidden" name="hidSegundosTotales" id="hidSegundosTotales" value="61" />
+    <input type="hidden" name="hidSegundosRestantes" id="hidSegundosRestantes" value="61" />
+    <input type="hidden" name="hidSeleccion" id="hidSeleccion" value="||" />
+    <input type="hidden" name="hidTarjeta" id="hidTarjeta" value="|||||||||||||||||||" />
+    <input type="hidden" name="hidGano" id="hidGano" value="P" />
+    <input type="hidden" name="hidPremio" id="hidPremio" value="" />
+    <input type="hidden" name="hidMensaje" id="hidMensaje" value="" />
+    <input type="hidden" name="stop_counter" id="stop_counter" value="" />
+<!-- ENDOF HIDDEN_VARS -->
 
-  <input type="hidden" name="hidSegundosTotales" id="hidSegundosTotales" value="60" />
-  <input type="hidden" name="hidSegundosRestantes" id="hidSegundosRestantes" value="60" />
-  <input type="hidden" name="hidSeleccion" id="hidSeleccion" value="||" />
-  <input type="hidden" name="hidTarjeta" id="hidTarjeta" value="|||||||||||||||||||" />
-  <input type="hidden" name="hidGano" id="hidGano" value="P" />
-  <input type="hidden" name="hidPremio" id="hidPremio" value="" />
-  <input type="hidden" name="hidMensaje" id="hidMensaje" value="" />
-  <input type="hidden" name="stop_counter" id="stop_counter" value="" />
-  <!-- ENDOF HIDDEN_VARS -->
+    <header>
+      <section class="section_header">
+        <div>
+          <img class="logo-chances" src="../public/assets/recursos/Logos/Logo-Chances-web.png" alt="lOGO PROMO" />
+        </div>
+        <div class="text-center">
+          <img class="logoServi" src="../public/assets/recursos/Logos/Logo_ServiClub-Header.png" alt="lOGO SERVICLUB" />
+        </div>
+      </section>
+    </header>
 
-  <body>
+    <main class="mb-3">
+      <section class="text-center" id="section_Inicio">
+        <article>
+          <p class="title-juego">¡RASPÁ 3 CELDAS PARA GANAR!</p>
+        </article>
+        <article class="contenedor-temporizador">
+          <span class="tiempo">TENES 30 SEGUNDOS</span>
+          <div class="div-time">
+            <div class="time">.</div>
+          </div>
+          <!--<div class="time-box">
+              <div id="seconds-bar"></div>
+            </div>-->
+        </article>
+      </section>
+
+      <section class="section_perdedor" id="section_TiempoFuera">
+        <article>
+          <p class="title-tiempo">¡TE QUEDASTE SIN TIEMPO!</p>
+        </article>
+        <article class="d-flex justify-content-center">
+          <div class="text-perdiste">
+            <p>
+              CANJEA 1.000 PUNTOS SERVICLUB POR <br />
+              UN NUEVO CÓDIGO Y VOLVÉ A PARTICIPAR
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section_perdedor" id="section_Perdiste">
+        <article>
+          <p class="title-perdiste">¡QUE LÁSTIMA, PERDISTE!</p>
+        </article>
+        <article class="d-flex justify-content-center">
+          <div class="text-perdiste">
+            <p>
+              CANJEA 1.000 PUNTOS SERVICLUB POR <br />
+              UN NUEVO CÓDIGO Y VOLVÉ A PARTICIPAR
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section_perdedor" id="section_YaUtilizadaNoGano">
+        <article>
+          <p class="title-perdiste">Con este codigo ya participaste</p>
+        </article>
+        <article class="d-flex justify-content-center">
+          <div class="text-center">
+            <a href="home.aspx" class="btn btn-volver-red">VOLVER ATRAS</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- 
     <div class="modal-home" id="modal-debug">
       <p id="text"></p>
       <button type="button" class="modal-close" id="btnCerrar">Cerrar</button>
     </div>
+-->
 
+      <div class="modal-home limite-uso" id="mensaje-emergente">
+        <div class="content">
+          <br />
+          <h2 class="title-modal text-center" id="txt_titulo"></h2>
+          <section>
+            <div class="text-center">
+              <button class="btn btn-aceptar modal-close">ACEPTAR</button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!--    
     <div class="modal-home" id="modal-gano">
       <div class="content">
         <div class="tituloModalDoble text-center">
           <div id="txtYaUtilizadaGano" style="display: none">El codigo ya fue utilizado</div>
-          <p>¡Ganaste!</p>
+          <p>Ganaste</p>
           <div id="txtPremio"></div>
         </div>
         <div class="buttons">
@@ -57,11 +147,171 @@
         </div>
       </div>
     </div>
+    -->
 
-    <div class="header">
-      <span>CHANCES</span>
-    </div>
+      <section class="section-main-juego">
+        <div class="fondo-main-juego">
+          <!--class=fondo-main-perdedor  para cuando se visualiza el boton de Volver-->
 
+          <div class="text-center" id="divPerdisteVolver" style="display: none">
+            <a href="ypfjpm://" class="btn btn-volver-red">VOLVER A LA APP YPF</a>
+          </div>
+
+          <section class="row section-content-card">
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta1">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-violeta.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta2">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azul.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta3">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-celeste.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta4">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azul.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+          </section>
+          <section class="row section-content-card">
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta5">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azuldark.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta6">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-violeta.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta7">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azul.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta8">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-celeste.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+          </section>
+          <section class="row section-content-card">
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta9">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-celeste.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta10">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azuldark.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta11">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-violeta.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta12">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azul.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+          </section>
+          <section class="row section-content-card">
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta13">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azul.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta14">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-celeste.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta15">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azuldark.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta16">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-violeta.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+          </section>
+          <section class="row section-content-card">
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta17">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azuldark.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta18">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azul.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta19">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-celeste.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+            <article class="col-3 col-md-3 contenido-center">
+              <div class="carta" id="carta20">
+                <div class="front">
+                  <!--img class="img-juego" src="images/Box-azuldark.png" alt="" /-->
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <!--   
     <div class="cards-grid">
       <div class="card c1" data-cardid="1"></div>
       <div class="card c2" data-cardid="2"></div>
@@ -83,24 +333,6 @@
       <div class="card c18" data-cardid="18"></div>
       <div class="card c19" data-cardid="19"></div>
       <div class="card c20" data-cardid="20"></div>
-    </div>
-
-    <div class="instructions">¡Raspá 3 celdas para ganar!</div>
-
-    <div class="time-box">
-      <div id="seconds-bar"></div>
-    </div>
-
-    <!--div class="debug-console">
-      <div class="setting">
-        <span>Grosor del pincel</span>
-        <input type="number" id="thickness-input" min="1" />
-      </div>
-
-      <div class="setting">
-        <span>Porcentaje mínimo</span>
-        <input type="number" id="scratch-threshold" min="0" max="99" />
-      </div>
-    </div-->
+    </div>-->
   </body>
 </html>

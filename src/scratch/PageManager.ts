@@ -11,9 +11,10 @@ import { ScratchManager } from "./ScratchManager";
 import { Backend } from "../backend/Backend";
 import { CardStatus } from "./CardStatus";
 import { ClockEvents, ClockManager } from "./ClockManager";
-import { WinModal } from "./modals/WinModal";
-import { LostModal } from "./modals/LostModal";
-import { DebugModal } from "./modals/DebugModal";
+import { PopupModal } from "./messages/PopupModal";
+import { TimeoutMessage } from "./messages/TimeoutMessage";
+import { LostMessage } from "./messages/LostMessage";
+import { UsedCode } from "./messages/UsedCode";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -71,31 +72,40 @@ export class PageManager {
 
   private checkLoadStatus() {
     if (this.cardStatus.hasWon) {
-      WinModal.setPrize(this.cardStatus.prizeId);
-      WinModal.setUsed();
-      WinModal.show();
+      this.onGameWon();
     } else if (this.cardStatus.hasLost) {
-      LostModal.setUsed();
-      if (this.cardStatus.timeExpired) LostModal.setTimeExpiration();
-      LostModal.show();
+      UsedCode.show();
+      this.clockManager.hide();
     }
   }
 
   private checkGameStatus() {
-    if (this.cardStatus.hasWon) {
-      WinModal.setPrize(this.cardStatus.prizeId);
-      WinModal.show();
-    } else if (this.cardStatus.hasLost) {
-      if (this.cardStatus.timeExpired || this.clockManager.timeout) LostModal.setTimeExpiration();
-      LostModal.show();
-    }
+    if (this.cardStatus.hasWon) this.onGameWon();
+    else if (this.cardStatus.hasLost) this.onGameLost();
 
     if (!this.cardStatus.stillPlaying) {
       this.clockManager.stop();
       this.updateScratches();
     }
 
-    if (this.cardStatus.isInvalid) location.href = Backend.getHomeURL(this.cardStatus.resultCode);
+    if (this.cardStatus.isInvalid) {
+      console.error("Código de servidor inválido");
+      location.href = Backend.getHomeURL(this.cardStatus.resultCode);
+    }
+  }
+
+  private onGameWon() {
+    console.debug("Ganó");
+    location.href = Backend.getWinURL();
+  }
+
+  private onGameLost() {
+    console.debug("Perdió");
+
+    this.clockManager.hide();
+
+    if (this.cardStatus.timeExpired || this.clockManager.timeout) TimeoutMessage.show();
+    else LostMessage.show();
   }
 
   private updateScratches() {
@@ -114,6 +124,8 @@ export class PageManager {
   }
 
   private onTimeout() {
+    TimeoutMessage.show();
+
     this.disableScratches();
 
     Backend.notifyTimeout().then((response) => {
@@ -152,7 +164,7 @@ export class PageManager {
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     if (this.scratchedCount < SCRATCH_LIMIT) {
-      DebugModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
+      PopupModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
     }
   }
 

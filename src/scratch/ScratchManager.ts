@@ -7,11 +7,9 @@ import {
   ScratchLoadedEvent,
   ScratchSelectedEvent,
 } from "../types/ScratchEvent";
-import { randomPick } from "../utils/randomPick";
 import { Backend } from "../backend/Backend";
 import { PrizeRepresentation } from "./CardStatus";
 import { ContentResponse } from "../backend/responses/ContentResponse";
-import { DebugModal } from "./modals/DebugModal";
 
 const DEBUG_RENDER = false;
 
@@ -54,7 +52,6 @@ const PRIZE_ELEMENTS: { [id: string]: string } = {
 };
 
 export class ScratchManager {
-  readonly id: number;
   readonly pxWidth: number; // In CSS pixels
   readonly pxHeight: number; // In CSS pixels
 
@@ -81,7 +78,6 @@ export class ScratchManager {
   }
 
   constructor(divElement: HTMLDivElement, renderer: THREE.WebGLRenderer) {
-    this.id = parseInt(divElement.dataset.cardid);
     this.divElement = divElement;
     this.renderer = renderer;
     this.pxWidth = divElement.clientWidth;
@@ -90,6 +86,7 @@ export class ScratchManager {
     this.canvas = document.createElement("canvas");
     this.canvas.width = this.pxWidth;
     this.canvas.height = this.pxHeight;
+    this.canvas.style.zIndex = "99";
     this.divElement.appendChild(this.canvas);
 
     this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
@@ -111,6 +108,10 @@ export class ScratchManager {
     this.camera.lookAt(0, 0, 0);
     this.camera.updateProjectionMatrix();
     this.scene.add(this.camera);
+  }
+
+  get id(): number {
+    return parseInt(this.divElement.id.match(/^[^\d]*(\d+)$/)[1]);
   }
 
   get aspect(): number {
@@ -208,7 +209,7 @@ export class ScratchManager {
   private onContentResponse(response: ContentResponse) {
     if (!response.isOK) {
       // Redirect home
-      console.warn("Redirigiendo a home...");
+      console.warn("Respuesta de servidor errónea, redirigiendo a home...");
       location.href = Backend.getHomeURL(response.result);
       return;
     }
