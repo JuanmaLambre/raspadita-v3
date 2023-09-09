@@ -59,7 +59,6 @@ export class ScratchManager {
     this.scratchMesh = new ScratchMesh({ pxWidth: this.pxWidth, pxHeight: this.pxHeight });
     const imgElement = this.divElement.getElementsByClassName(selectors.cards.image)[0] as HTMLImageElement;
     const texture = imgElement?.src;
-    console.log(">>> TEXTURE", texture);
     this.scratchMesh.setTexture(texture, () => (this.needsUpdate = true));
 
     this.scene = new THREE.Scene();
