@@ -49,7 +49,6 @@ export class ScratchManager {
     this.canvas = document.createElement("canvas");
     this.canvas.width = this.pxWidth;
     this.canvas.height = this.pxHeight;
-    this.canvas.style.zIndex = "99";
     this.divElement.appendChild(this.canvas);
 
     this.canvas.addEventListener("touchmove", this.onTouchMove.bind(this));
