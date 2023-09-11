@@ -11,10 +11,10 @@ import { ScratchManager } from "./ScratchManager";
 import { Backend } from "../backend/Backend";
 import { CardStatus } from "./CardStatus";
 import { ClockEvents, ClockManager } from "./ClockManager";
-import { PopupModal } from "./messages/PopupModal";
-import { TimeoutMessage } from "./messages/TimeoutMessage";
-import { LostMessage } from "./messages/LostMessage";
-import { UsedCode } from "./messages/UsedCode";
+import { PopupModal } from "./html-components/PopupModal";
+import { TimeoutMessage } from "./html-components/TimeoutMessage";
+import { LostMessage } from "./html-components/LostMessage";
+import { UsedCode } from "./html-components/UsedCode";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
