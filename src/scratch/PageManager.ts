@@ -150,6 +150,7 @@ export class PageManager {
     scratch.enabled = true;
 
     if (this.scratchedCount < SCRATCH_LIMIT) this.checkGameStatus();
+    else this.clockManager.stop(); // Will check game status at onScratchFinished
   }
 
   private onScratchFinished(ev: ScratchFinishedEvent) {
