@@ -26,6 +26,7 @@ const tbPages = testbenches.map((name) => {
 const config: CallableOption = (env: any): WebpackConfiguration => ({
   entry: {
     app: path.resolve(__dirname, "./src/main.ts"),
+    style: path.resolve(__dirname, "./src/style.css"),
     ...tbEntries,
   },
 
@@ -64,7 +65,10 @@ const config: CallableOption = (env: any): WebpackConfiguration => ({
         use: [
           {
             loader: "html-loader",
-            options: { minimize: !env.expanded },
+            options: {
+              minimize: !env.expanded,
+              sources: false,
+            },
           },
         ],
       },
@@ -91,7 +95,7 @@ const config: CallableOption = (env: any): WebpackConfiguration => ({
           "css-loader",
           {
             loader: "sass-loader",
-            options: { sassOptions: { outputStyle: "expanded" } },
+            options: { sassOptions: { outputStyle: env.expanded ? "expanded" : "compressed" } },
           },
         ],
         generator: { filename: "[name][ext]" },
