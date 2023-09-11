@@ -54,7 +54,6 @@ export class ClockManager {
   private onTimeout() {
     console.debug("Timeout");
     this.stop();
-    Backend.notifyTimeout();
     dispatchEvent(new Event(ClockEvents.Timeout));
   }
 }

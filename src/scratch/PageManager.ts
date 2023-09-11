@@ -125,9 +125,6 @@ export class PageManager {
   }
 
   private onTimeout() {
-    TimeoutMessage.show();
-    this.clockManager.hide();
-
     this.disableScratches();
 
     Backend.notifyTimeout().then((response) => {
