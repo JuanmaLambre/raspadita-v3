@@ -1,5 +1,4 @@
 import "./app.scss";
-import "./style.css";
 import * as THREE from "three";
 import { PageManager } from "./scratch/PageManager";
 import { Backend } from "./backend/Backend";
