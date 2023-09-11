@@ -21,6 +21,5 @@ export async function bypassRequest(req: Request, res: Response) {
   const response = await fetch(url, opts);
 
   const result = await response.json();
-  console.log(">>> RESULT", JSON.stringify(result));
   res.send(result);
 }

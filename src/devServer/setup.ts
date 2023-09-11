@@ -10,10 +10,10 @@ export function setup(server: Server, bypassServer = false) {
   server.app.use(formData.parse());
 
   if (bypassServer) {
-    console.debug("Setting up bypass server...");
+    console.log("Setting up bypass server...");
     server.app.post("/pages/*", bypassRequest);
   } else {
-    console.debug("Setting up dev server...");
+    console.log("Setting up dev server...");
     server.app.post("/pages/log.ashx", initClock);
     server.app.post("/pages/process_tarjeta.ashx", getContent);
   }
