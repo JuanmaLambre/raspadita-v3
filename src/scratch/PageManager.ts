@@ -15,6 +15,7 @@ import { PopupModal } from "./html-components/PopupModal";
 import { TimeoutMessage } from "./html-components/TimeoutMessage";
 import { LostMessage } from "./html-components/LostMessage";
 import { UsedCode } from "./html-components/UsedCode";
+import { any } from "../utils/any";
 
 const WAIT_SERVER_RESPONSE = false;
 const SCRATCH_LIMIT = 3;
@@ -165,9 +166,10 @@ export class PageManager {
   }
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
-    if (this.scratchedCount < SCRATCH_LIMIT) {
-      PopupModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
-    }
+    const selected = this.cardStatus.selected.map((id) => this.getScratch(id));
+    const showModal = any(selected, (s) => !s.finished);
+
+    if (showModal) PopupModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
   }
 
   private disableScratches() {
