@@ -1,3 +1,8 @@
+/**
+ * Build parameters (use at `webpack build`):
+ *    --env expanded
+ */
+
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
@@ -146,6 +151,11 @@ const config: CallableOption = (env: any): WebpackConfiguration => ({
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
+
+  // Use this to exclude dependencies from bundle
+  // externals: {
+  //   jquery: "$",
+  // },
 });
 
 export default config;
