@@ -6,10 +6,6 @@ export namespace UsedCode {
 
   export function show() {
     element.show();
-
-    const bgMain = $(selectors.background.class);
-    bgMain.removeClass(selectors.background.class);
-    bgMain.addClass(selectors.background.lostClass);
   }
 
   function init() {

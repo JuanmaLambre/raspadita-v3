@@ -1,7 +1,7 @@
 export const selectors = {
   background: {
-    class: ".fondo-main-juego",
-    lostClass: ".fondo-main-perdedor",
+    class: "fondo-main-juego",
+    lostClass: "fondo-main-perdedor",
   },
 
   cards: {
@@ -24,4 +24,6 @@ export const selectors = {
       accept: ".btn-aceptar",
     },
   },
+
+  returnBtn: "#divPerdisteVolver",
 };
