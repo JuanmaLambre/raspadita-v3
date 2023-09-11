@@ -11,6 +11,8 @@ export namespace PopupModal {
 
     const acceptBtn = modalElement.find(selectors.messages.popup.accept);
     acceptBtn.on("click", hide);
+
+    hide();
   }
 
   export function show(text?: string) {
