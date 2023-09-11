@@ -105,7 +105,7 @@ export class PageManager {
 
     this.clockManager.hide();
 
-    if (this.cardStatus.timeExpired || this.clockManager.timeout) TimeoutMessage.show();
+    if (this.cardStatus.timeExpired) TimeoutMessage.show();
     else LostMessage.show();
   }
 
