@@ -18,11 +18,11 @@ export namespace PopupModal {
   export function show(text?: string) {
     if (text != undefined) textElement.textContent = text;
 
-    modalElement.show();
+    modalElement[0].classList.add(selectors.messages.popup.showClass);
   }
 
   export function hide() {
-    modalElement.hide();
+    modalElement[0].classList.remove(selectors.messages.popup.showClass);
   }
 
   init();

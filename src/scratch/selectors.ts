@@ -22,6 +22,7 @@ export const selectors = {
       element: "#mensaje-emergente",
       text: "#txt_titulo",
       accept: ".btn-aceptar",
+      showClass: "show",
     },
   },
 

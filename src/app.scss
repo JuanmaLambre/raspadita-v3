@@ -55,7 +55,12 @@ $reveal-time: 1s;
 }
 
 .modal-home {
+  display: none;
   height: 100% !important;
   opacity: 1 !important;
   align-items: center !important;
+
+  &.show {
+    display: flex;
+  }
 }
