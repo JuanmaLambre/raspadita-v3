@@ -24,6 +24,7 @@ const GAME_FINISH_DELAY = 2000; // Milliseconds
 export class PageManager {
   scratches: ScratchManager[] = [];
 
+  private gameHasEnded: boolean = false;
   private renderer: THREE.WebGLRenderer;
   private cardStatus: CardStatus;
   private clockManager: ClockManager;
@@ -157,13 +158,14 @@ export class PageManager {
       this.scratches.forEach((mngr) => (mngr.enabled = true));
     } else {
       console.debug("El juego terminó, esperando", GAME_FINISH_DELAY / 1000, "segundos...");
+      this.gameHasEnded = true;
       setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
     }
   }
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     const selected = this.cardStatus.selected.map((id) => this.getScratch(id));
-    const showModal = any(selected, (s) => !s.finished);
+    const showModal = !this.gameHasEnded && any(selected, (s) => !s.finished);
 
     if (showModal) PopupModal.show("Seguí raspando antes de seleccionar una raspadita nueva");
   }
