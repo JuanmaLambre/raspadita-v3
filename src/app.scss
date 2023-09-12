@@ -1,6 +1,8 @@
 $reveal-time: 1s;
 
 .carta {
+  overflow: hidden;
+
   .prize {
     position: absolute;
     top: 0;

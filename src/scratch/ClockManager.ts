@@ -1,5 +1,4 @@
 import $ from "jquery";
-import { Backend } from "../backend/Backend";
 import { selectors } from "./selectors";
 
 export enum ClockEvents {

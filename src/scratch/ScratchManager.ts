@@ -13,6 +13,7 @@ import { ContentResponse } from "../backend/responses/ContentResponse";
 import { selectors } from "./selectors";
 
 const DEBUG_RENDER = false;
+const MINIMUM_SCRATCH_DISTANCE = 3;
 
 export class ScratchManager {
   readonly pxWidth: number; // In CSS pixels
@@ -154,7 +155,7 @@ export class ScratchManager {
       return;
     }
 
-    if (this.lastTouch.distanceTo(point) < 5) return;
+    if (this.lastTouch.distanceTo(point) < MINIMUM_SCRATCH_DISTANCE) return;
 
     // Do scratch
     this.scratchMesh.scratch(this.lastTouch, point);
