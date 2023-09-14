@@ -2,7 +2,7 @@
 
 ### Build del proyecto
 
-Ejecutar `npm run build`. Los archivos generados se encontrarán en la carpeta `./dist` (incluyendo `app.bundle.js`)
+Ejecutar `npm run build`. Los archivos generados se encontrarán en la carpeta `./dist` (`app.bundle.js` y  `app.css`).
 
 ### Correr localmente
 
@@ -10,7 +10,7 @@ Para correr el proyecto con un servidor local, ejecutar `npm run dev`. Luego, ir
 
 En este entorno todas las llamadas al servidor se harán al servidor local, también [localhost:8080]().
 
-Dentro de `./src/devServer/setup.ts` existe la opción de procesar localmente los requests o hacer un bypass al servidor real. Esta opción (en vez de hacer la llamada directamente desde el browser, sin un bypass) permite evadir problemas de CORS (que no son pocos)
+Por default, el servidor local está configurado para hacer un bypass al servidor de test ([https://test.ypfchances.com]()). Esta opción permite evadir problemas de CORS (que no son pocos)
 
 #### Actualizar index.html
 
