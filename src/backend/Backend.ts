@@ -12,8 +12,8 @@ export namespace Backend {
   export const config: BackendConfig = backendConfig;
 
   function init() {
-    host = "http://fetch-host-from-html.com";
     baseForm = new FormData($("form[name=form1]")[0] as HTMLFormElement);
+    host = baseForm.get("host").toString();
 
     if (!baseForm) {
       console.warn("Dev: No se encontró el form con las variables");
