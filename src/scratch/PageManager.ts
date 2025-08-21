@@ -25,7 +25,6 @@ export class PageManager {
   scratches: ScratchManager[] = [];
 
   private gameHasEnded: boolean = false;
-  private renderer: THREE.WebGLRenderer;
   private cardStatus: CardStatus;
   private clockManager: ClockManager;
 
@@ -34,18 +33,13 @@ export class PageManager {
   }
 
   setup(divSelector: string) {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setClearColor(0x0, 0);
-    this.renderer.setAnimationLoop(this.update.bind(this));
-
-    const cardDivs = $<HTMLDivElement>(divSelector);
-    const { offsetWidth: pxWidth, offsetHeight: pxHeight } = cardDivs[0];
-    this.renderer.setSize(pxWidth, pxHeight);
+    setInterval(this.update.bind(this), 30);
 
     // Build scratches
+    const cardDivs = $<HTMLDivElement>(divSelector);
     for (let i = 0; i < cardDivs.length; i++) {
       const div = cardDivs[i];
-      const scratch = new ScratchManager(div, this.renderer);
+      const scratch = new ScratchManager(div);
       this.scratches.push(scratch);
     }
 
@@ -68,7 +62,6 @@ export class PageManager {
   }
 
   update() {
-    this.scratches.forEach((mngr) => mngr.update());
     this.clockManager.update();
   }
 

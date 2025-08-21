@@ -11,16 +11,120 @@
   src: url(../public/assets/recursos/Font/Montserrat-Regular.ttf);
 }
 
-@media all and (min-width: 992px) {
-  #fondo {
-    display: none;
-  }
-  #fondoPremios {
-    display: none;
-  }
-}
-
 @media all and (max-width: 756px) {
+  /*PAGINA DE INICIO AJUSTES*/
+
+  .terminos-inicio {
+    color: #6d7b8d;
+    font-family: "regular";
+    font-size: 12px;
+  }
+
+  /*pop up*/
+  .modal-home {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    z-index: 6;
+    opacity: 0;
+    height: 0;
+    overflow: scroll;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .modal-home.open {
+    height: 100vh;
+    opacity: 1;
+    transition: opacity 0.3s 0.3s;
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+  .modal-home .wrap-close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    width: 1em;
+    opacity: 0.6;
+    transition: 0.3s;
+    cursor: pointer;
+    color: #edecec;
+  }
+  .modal-home .wrap-close:hover {
+    opacity: 1;
+  }
+
+  .title-modal {
+    font-weight: 800;
+    font-size: 25px;
+    font-family: "bold-medium";
+    margin-top: 20px;
+    color: #6d7b8d;
+  }
+
+  .content-modal {
+    position: relative;
+    width: 500px;
+    max-width: 89%;
+    font-size: 25px;
+    width: 25em;
+    padding: 1em;
+    background: #ffffff;
+    border-radius: 30px;
+    color: #000;
+  }
+
+  .body {
+    font-size: 15px;
+    line-height: 1.2;
+    margin-left: auto;
+    color: #000;
+    font-family: "regular";
+    margin-right: auto;
+    margin-top: 2em;
+    text-align: center;
+  }
+
+  .form-content {
+    font-family: "regular";
+    display: block;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .form-inicio label {
+    font-size: 11px;
+    color: #7384a5;
+    margin-bottom: 8px;
+  }
+  .form-inicio input {
+    width: 90%;
+    padding: 8px;
+    background-color: #f2f1f1;
+    border-radius: 10px;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .section-nav {
+    background-image: url("../public/images/HEAD.svg");
+    background-repeat: round;
+    height: 7rem;
+    margin-top: -8px;
+    width: 100%;
+  }
+
+  .btn {
+    transition: none;
+    --bs-btn-color: none;
+    --bs-btn-bg: none;
+    --bs-btn-border-width: none;
+  }
+
   /*GRILLA*/
   .section-content-card {
     text-align: center;
@@ -59,7 +163,7 @@
   }
 
   #fondo {
-    background-image: url(../public/assets/recursos/Contenedores/BG-GENERAL.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/BG-GENERAL.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -95,7 +199,7 @@
   }
 
   .fondo-main {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 95%;
     height: 30rem;
@@ -190,92 +294,6 @@
     font-size: 10px;
   }
 
-  /*MODAL*/
-
-  .modal-home {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    z-index: 6;
-    opacity: 0;
-    height: 0;
-    overflow: scroll;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  .modal-home.open {
-    height: 100vh;
-    opacity: 1;
-    transition: opacity 0.3s 0.3s;
-    padding-top: 80px;
-    padding-bottom: 50px;
-  }
-  .modal-home .wrap-close {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    width: 1em;
-    opacity: 0.6;
-    transition: 0.3s;
-    cursor: pointer;
-    color: white;
-  }
-  .modal-home .wrap-close:hover {
-    opacity: 1;
-  }
-  .title-modal {
-    font-size: 18px;
-    margin-top: 30px;
-    font-weight: 800;
-    font-family: bold-medium;
-    color: #002e81;
-  }
-
-  .content {
-    position: relative;
-    width: 500px;
-    max-width: 89%;
-    font-size: 25px;
-    width: 25em;
-    padding: 1em;
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
-    background-repeat: round;
-    border-radius: 30px;
-    height: 20rem;
-  }
-
-  .body {
-    font-size: 17px;
-    line-height: 1.2;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2em;
-    text-align: center;
-    font-family: bold-regular;
-    color: #002e81;
-  }
-
-  .btn.btn-aceptar {
-    color: #ffffff;
-    background-color: #002e81;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 800;
-    padding: 5px 30px;
-    font-family: extraBold;
-    box-shadow: 0px 1px 3px 1px rgb(37, 37, 37);
-  }
-
-  .btn.btn-aceptar:hover {
-    color: #002e81;
-    background-color: #ffffff;
-    border: 2px solid #002e81;
-  }
-
   /* PAGINA CODIGO NO VALIDO*/
 
   .icon-cruz {
@@ -341,25 +359,54 @@
   }
 
   /*pagina terminos*/
+  .content-text {
+    padding-left: 20px;
+    margin-top: 20px;
+  }
 
-  /* Elemento base */
+  .text-title {
+    color: #7384a5;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+    padding-right: 20px;
+  }
+  .linea {
+    width: 50px;
+    height: 3px;
+    background-color: #51b7b5;
+    padding-left: 20px;
+  }
+
   ::-webkit-scrollbar {
     display: none;
     width: 20px;
   }
 
-  #scroll {
-    height: 30rem;
-    width: 95%;
+  #global {
+    height: 45vh;
+    width: 100%;
     overflow-y: scroll;
-    padding: 0px 10px;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
   }
   .tituloTerminos {
     font-family: extraBold;
     color: #ffffff;
     font-size: 20px;
     margin-top: 2rem;
+  }
+
+  .text2 {
+    width: 90%;
+    color: #7384a5;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    margin-top: 1rem;
+    padding: 0 0px;
   }
 
   .text-terminos {
@@ -446,34 +493,34 @@
   }
 
   .fondoSlider1 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png"); */
     background-repeat: round;
     height: 25rem;
   }
 
   .fondoSlider2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png"); */
     background-repeat: round;
     height: 25rem;
   }
 
   .fondoSlider3 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider4 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider5 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider6 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png"); */
     background-repeat: round;
     height: 25rem;
   }
@@ -550,8 +597,54 @@
 
   /*PREMIOS*/
 
+  .content-premios {
+    display: flex;
+    justify-content: center;
+  }
+
+  .premio {
+    width: 100%;
+    height: 100%;
+  }
+
+  .premioAuto {
+    width: 90%;
+  }
+
+  .textPremio {
+    font-family: "bold-medium";
+    margin-bottom: 0;
+  }
+  .textPremio2 {
+    font-family: "regular";
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .box-text-premio {
+    background-color: #d9d9d9;
+    border-radius: 12px;
+    padding: 10px 5px;
+    width: 90%;
+  }
+
+  .btn.btnVolver {
+    background-color: #51b7b5;
+    text-align: center;
+    font-family: "bold-medium";
+    font-size: 18px;
+    color: #ffffff;
+    width: 90%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .btn.btnVolver:hover {
+    background-color: rgb(41, 121, 119);
+    color: #ffffff;
+  }
+
   #fondoPremios {
-    background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -568,37 +661,37 @@
   }
 
   .fondo-premio_avion {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png"); */
   }
   .fondo-premio_auto {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png"); */
   }
   .fondo-premio_moto {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png"); */
   }
   .fondo-premio_moto2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png"); */
   }
   .fondo-premio_auriculares {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png"); */
   }
   .fondo-premio_full {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png"); */
   }
   .fondo-premio_infinia {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png"); */
   }
   .fondo-premio_servi1 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png"); */
   }
   .fondo-premio_servi2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png"); */
   }
   .fondo-premio_servi3 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png"); */
   }
   .fondo-premio_tv {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png"); */
   }
 
   .img-premios {
@@ -675,7 +768,7 @@
   }
 
   .modal-content {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png"); */
     background-repeat: round;
     height: 25rem;
     margin-top: 5rem;
@@ -731,12 +824,12 @@
   /*PAGINA JUEGO A*/
 
   .fondo-main-juego {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
-    background-repeat: round;
+    background-color: #3d0d00;
+    border-radius: 10px;
     width: 95%;
-    height: 31.5rem;
+    height: 29.5rem;
     text-align: center;
-    padding: 40px 0px 30px 0px;
+    padding: 20px 0px 30px 0px;
   }
 
   .section-main-juego {
@@ -751,8 +844,8 @@
 
   .title-juego {
     font-family: bold-medium;
-    color: #ffffff;
-    font-size: 20px;
+    color: #6d7b8d;
+    font-size: 16px;
     margin-top: 10px;
     margin-bottom: 0;
   }
@@ -760,11 +853,11 @@
   .tiempo {
     font-family: regular;
     text-align: center;
-    color: #ffffff;
+    color: #6d7b8d;
     font-size: 12px;
     position: relative;
     top: 21px;
-    z-index: -1;
+    z-index: 1;
   }
 
   .contenedor-temporizador {
@@ -772,40 +865,41 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 0;
+    margin-top: -10px;
   }
 
   .div-time {
     font-family: regular;
     text-align: center;
-    color: #ffffff;
+    color: #6d7b8d;
     font-size: 13px;
     margin-bottom: 0;
-    border-left: 1px solid #ffffff;
-    border-right: 1.9px solid #ffffff;
-    border-top: 2px solid #ffffff;
-    border-bottom: 2px solid #ffffff;
+    border-left: 1px solid #3d0d00;
+    border-right: 1.9px solid #3d0d00;
+    border-top: 2px solid #3d0d00;
+    border-bottom: 2px solid #3d0d00;
     width: 90%;
   }
   .time {
     animation: progreso 30s linear;
     color: #fa0303;
     background-color: #fa0303;
-    border-right: 1.5px solid #ffffff;
-    border-left: 1px solid #ffffff;
+    border-right: 1.5px solid #3d0d00;
+    border-left: 1px solid #3d0d00;
     z-index: 1;
   }
 
   .img-juego {
     width: 75px;
     height: 75px;
+    object-fit: cover;
     margin: 2px 0px;
   }
 
   /*PAGINA PERDEDOR*/
 
   .fondo-main-perdedor {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 95%;
     height: 33rem;
@@ -821,6 +915,7 @@
   .section_perdedor {
     text-align: center;
     line-height: 1.4;
+    display: none;
   }
 
   .title-perdiste {
@@ -912,7 +1007,7 @@
     transform: rotateY(180deg);
   }
   .fondo-main {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 70%;
     height: 38rem;
@@ -1114,34 +1209,34 @@
   }
 
   .fondoSlider1 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png"); */
     background-repeat: round;
     height: 25rem;
   }
 
   .fondoSlider2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png"); */
     background-repeat: round;
     height: 25rem;
   }
 
   .fondoSlider3 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider4 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider5 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider6 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png"); */
     background-repeat: round;
     height: 25rem;
   }
@@ -1210,7 +1305,7 @@
   /*PREMIOS*/
 
   #fondoPremios {
-    background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1227,37 +1322,37 @@
   }
 
   .fondo-premio_avion {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png"); */
   }
   .fondo-premio_auto {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png"); */
   }
   .fondo-premio_moto {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png"); */
   }
   .fondo-premio_moto2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png"); */
   }
   .fondo-premio_auriculares {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png"); */
   }
   .fondo-premio_full {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png"); */
   }
   .fondo-premio_infinia {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png"); */
   }
   .fondo-premio_servi1 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png"); */
   }
   .fondo-premio_servi2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png"); */
   }
   .fondo-premio_servi3 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png"); */
   }
   .fondo-premio_tv {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png"); */
   }
 
   .img-premios {
@@ -1328,7 +1423,7 @@
   }
 
   .modal-content {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png"); */
     background-repeat: round;
     height: 25rem;
     margin-top: 5rem;
@@ -1384,7 +1479,7 @@
   /*PAGINA JUEGO A*/
 
   .fondo-main-juego {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 95%;
     height: 42rem;
@@ -1457,7 +1552,7 @@
   /*PAGINA PERDEDOR*/
 
   .fondo-main-perdedor {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 95%;
     height: 46rem;
@@ -1553,7 +1648,7 @@
   }
 
   #fondo {
-    background-image: url(../public/assets/recursos/Contenedores/BG-GENERAL.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/BG-GENERAL.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1588,7 +1683,7 @@
   }
 
   .fondo-main {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 70%;
     height: 38rem;
@@ -1854,34 +1949,34 @@
   }
 
   .fondoSlider1 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png"); */
     background-repeat: round;
     height: 25rem;
   }
 
   .fondoSlider2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png"); */
     background-repeat: round;
     height: 25rem;
   }
 
   .fondoSlider3 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider4 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-azul.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider5 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-celeste.png"); */
     background-repeat: round;
     height: 25rem;
   }
   .fondoSlider6 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-violeta.png"); */
     background-repeat: round;
     height: 25rem;
   }
@@ -1950,7 +2045,7 @@
   /*PREMIOS*/
 
   #fondoPremios {
-    background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/BG-Premios.png); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1967,37 +2062,37 @@
   }
 
   .fondo-premio_avion {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-avion.png"); */
   }
   .fondo-premio_auto {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-premio-auto.png"); */
   }
   .fondo-premio_moto {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-wave.png"); */
   }
   .fondo-premio_moto2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-moto-xr.png"); */
   }
   .fondo-premio_auriculares {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-auriculares.png"); */
   }
   .fondo-premio_full {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-full.png"); */
   }
   .fondo-premio_infinia {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-infinia.png"); */
   }
   .fondo-premio_servi1 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-3000.png"); */
   }
   .fondo-premio_servi2 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-1000.png"); */
   }
   .fondo-premio_servi3 {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/contenedor-serviclub-2000.png"); */
   }
   .fondo-premio_tv {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/Contenedor-tv.png"); */
   }
 
   .img-premios {
@@ -2068,7 +2163,7 @@
   }
 
   .modal-content {
-    background-image: url("../public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png");
+    /* background-image: url("public/assets/recursos/Contenedores/contenedor-de-premios/clean/Contenedor-premios-blanco.png"); */
     background-repeat: round;
     height: 25rem;
     margin-top: 5rem;
@@ -2124,7 +2219,7 @@
   /*PAGINA JUEGO A*/
 
   .fondo-main-juego {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 95%;
     height: 45rem;
@@ -2199,7 +2294,7 @@
   /*PAGINA PERDEDOR*/
 
   .fondo-main-perdedor {
-    background-image: url(../public/assets/recursos/Contenedores/Contenedor.png);
+    /* background-image: url(../public/assets/recursos/Contenedores/Contenedor.png); */
     background-repeat: round;
     width: 95%;
     height: 50rem;

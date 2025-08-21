@@ -2,7 +2,6 @@ export type BackendConfig = typeof config;
 
 export const config = {
   debug: false,
-  host: "https://test.ypfchances.com",
   endpoints: {
     images: "/pages/images/",
     home: "/pages/home.aspx",
@@ -15,7 +14,6 @@ export const config = {
 export const debugConfig = {
   ...config,
   debug: true,
-  host: "http://localhost:8080",
   endpoints: {
     images: "/public/images/",
     home: "/pages/home.aspx",

@@ -8,9 +8,11 @@ const backendConfig: BackendConfig =
 
 export namespace Backend {
   let baseForm: FormData;
+  let host: string;
   export const config: BackendConfig = backendConfig;
 
   function init() {
+    host = "http://fetch-host-from-html.com";
     baseForm = new FormData($("form[name=form1]")[0] as HTMLFormElement);
 
     if (!baseForm) {
@@ -23,7 +25,7 @@ export namespace Backend {
   }
 
   export async function callGameStart() {
-    const url = config.host + config.endpoints.initClock;
+    const url = host + config.endpoints.initClock;
     baseForm.set("selec", "");
 
     const opts: RequestInit = {
@@ -36,7 +38,7 @@ export namespace Backend {
   }
 
   export async function getScratchContent(scratchId: number): Promise<ContentResponse> {
-    const url = config.host + config.endpoints.content;
+    const url = host + config.endpoints.content;
     baseForm.set("selec", scratchId.toString());
 
     const opts: RequestInit = {
@@ -54,7 +56,7 @@ export namespace Backend {
   }
 
   export async function notifyTimeout(): Promise<ContentResponse> {
-    const url = config.host + config.endpoints.content;
+    const url = host + config.endpoints.content;
     baseForm.set("selec", "0");
 
     const opts: RequestInit = {
@@ -77,16 +79,16 @@ export namespace Backend {
     const mhash = baseForm.get("mhash").toString();
 
     const query = `?canj=${canj}&movip=${movi}&mhash=${mhash}`;
-    return config.host + config.endpoints.winExit + query;
+    return host + config.endpoints.winExit + query;
   }
 
   export function getPrizeURL(filename: string): string {
-    return config.host + config.endpoints.images + filename;
+    return host + config.endpoints.images + filename;
   }
 
   export function getHomeURL(errorCode?: string): string {
     const query = errorCode ? `?msg_result=${errorCode}` : "";
-    return config.host + config.endpoints.home + query;
+    return host + config.endpoints.home + query;
   }
 
   init();

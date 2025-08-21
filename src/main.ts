@@ -1,11 +1,9 @@
 import "./app.scss";
-import * as THREE from "three";
 import { PageManager } from "./scratch/PageManager";
 import { Backend } from "./backend/Backend";
 
 // For debugging
 const w = window as any;
-w.THREE = THREE;
 w.Backend = Backend;
 
 function start(cardClassName = ".carta") {

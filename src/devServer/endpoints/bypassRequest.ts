@@ -4,7 +4,7 @@ import { config } from "../../backend/config";
 /** Calls actual deployed server */
 export async function bypassRequest(req: Request, res: Response) {
   const pathname = req.url;
-  const host = config.host;
+  const host = "http://ni-idea.com";
   const url = host + pathname;
 
   const form = new FormData();

@@ -1,8 +1,8 @@
 {
   "license": "Trade Secret",
   "scripts": {
-    "dev": "webpack serve --config ./webpack.config.ts --env bypass",
-    "local-dev": "webpack serve --config ./webpack.config.ts",
+    "bypass-dev": "webpack serve --config ./webpack.config.ts --env bypass",
+    "dev": "webpack serve --config ./webpack.config.ts",
     "build": "webpack build --config ./webpack.config.ts --mode production",
     "fetch-tokens": "npx ts-node ./scripts/fetchTokens.ts"
   },
