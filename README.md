@@ -1,8 +1,10 @@
+Forkeado de [raspadita-ypf](https://github.com/JuanmaLambre/raspadita-ypf)
+
 # Raspadita YPF
 
 ### Build del proyecto
 
-Ejecutar `npm run build`. Los archivos generados se encontrarán en la carpeta `./dist` (`app.bundle.js` y  `app.css`).
+Ejecutar `npm run build`. Los archivos generados se encontrarán en la carpeta `./dist` (`app.bundle.js` y `app.css`).
 
 ### Correr localmente
 
