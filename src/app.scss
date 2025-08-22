@@ -68,3 +68,9 @@ $reveal-time: 1s;
     display: flex;
   }
 }
+
+// Design fix
+
+.contenedor-temporizador .tiempo {
+  z-index: 2 !important;
+}
