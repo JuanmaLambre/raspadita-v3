@@ -11,9 +11,11 @@ $reveal-time: 1s;
     height: inherit;
   }
 
-  &.animated-reveal {
-    animation: scratch-reveal-animation $reveal-time;
-    opacity: 0;
+  .front {
+    &.animated-reveal {
+      animation: scratch-reveal-animation $reveal-time;
+      opacity: 0;
+    }
   }
 }
 

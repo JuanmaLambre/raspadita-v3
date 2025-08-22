@@ -6,6 +6,7 @@ export const selectors = {
 
   cards: {
     image: "img-juego",
+    front: "front",
   },
 
   clock: {

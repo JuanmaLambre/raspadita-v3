@@ -2,6 +2,7 @@ import { ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent"
 import { Backend } from "../backend/Backend";
 import { PrizeRepresentation } from "./CardStatus";
 import { ContentResponse } from "../backend/responses/ContentResponse";
+import { selectors } from "./selectors";
 
 export class ScratchManager {
   readonly pxWidth: number; // In CSS pixels
@@ -35,6 +36,10 @@ export class ScratchManager {
     return this.isScratched;
   }
 
+  get frontDiv() {
+    return this.divElement.getElementsByClassName(selectors.cards.front)[0];
+  }
+
   setPrize(prize: PrizeRepresentation) {
     this.prize = prize;
     this.showPrize(true);
@@ -42,7 +47,7 @@ export class ScratchManager {
 
   reveal() {
     this.isScratched = true;
-    this.divElement.classList.add("animated-reveal");
+    this.frontDiv.classList.add("animated-reveal");
   }
 
   highlight() {
