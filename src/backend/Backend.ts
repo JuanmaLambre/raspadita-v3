@@ -91,5 +91,10 @@ export namespace Backend {
     return host + config.endpoints.home + query;
   }
 
+  export function getLostRedirectURL() {
+    const path = $("#pagina_perdio")?.val()?.toString();
+    return path ? host + path : null;
+  }
+
   init();
 }

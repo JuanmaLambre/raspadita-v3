@@ -102,6 +102,10 @@ export class PageManager {
 
     if (this.cardStatus.timeExpired) TimeoutMessage.show();
     else LostMessage.show();
+
+    if (Backend.getLostRedirectURL()) {
+      location.href = Backend.getLostRedirectURL();
+    }
   }
 
   private updateScratches() {
