@@ -22,6 +22,7 @@ const SCRATCH_LIMIT = 3;
 const GAME_FINISH_DELAY = 2000; // Milliseconds
 
 export class PageManager {
+  version: string = "v0.4";
   scratches: ScratchManager[] = [];
 
   private gameHasEnded: boolean = false;
@@ -33,8 +34,6 @@ export class PageManager {
   }
 
   setup(divSelector: string) {
-    setInterval(this.update.bind(this), 30);
-
     // Build scratches
     const cardDivs = $<HTMLDivElement>(divSelector);
     for (let i = 0; i < cardDivs.length; i++) {
@@ -49,7 +48,7 @@ export class PageManager {
 
     addEventListener(ScratchEventTypes.onScratchLoaded, this.onScratchLoaded.bind(this));
     addEventListener(ScratchEventTypes.onScratchSelected, this.onScratchSelected.bind(this));
-    addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
+    // addEventListener(ScratchEventTypes.onScratchFinished, this.onScratchFinished.bind(this));
     addEventListener(ScratchEventTypes.onScratchingDisabled, this.onScratchingDisabled.bind(this));
 
     this.clockManager = new ClockManager();
@@ -59,6 +58,8 @@ export class PageManager {
     Backend.callGameStart();
 
     this.checkLoadStatus();
+
+    setInterval(this.update.bind(this), 30);
   }
 
   update() {
@@ -133,6 +134,14 @@ export class PageManager {
     if (!WAIT_SERVER_RESPONSE) {
       this.getScratch(ev.id).enabled = true;
     }
+
+    if (this.scratchedCount < SCRATCH_LIMIT) {
+      this.scratches.forEach((mngr) => (mngr.enabled = true));
+    } else {
+      console.debug("El juego terminó, esperando", GAME_FINISH_DELAY / 1000, "segundos...");
+      this.gameHasEnded = true;
+      setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
+    }
   }
 
   private onScratchLoaded(ev: ScratchLoadedEvent) {
@@ -144,17 +153,17 @@ export class PageManager {
     if (this.scratchedCount < SCRATCH_LIMIT) this.checkGameStatus();
   }
 
-  private onScratchFinished(ev: ScratchFinishedEvent) {
-    console.debug("Raspadita", ev.id, "terminó");
+  // private onScratchFinished(ev: ScratchFinishedEvent) {
+  //   console.debug("Raspadita", ev.id, "terminó");
 
-    if (this.scratchedCount < SCRATCH_LIMIT) {
-      this.scratches.forEach((mngr) => (mngr.enabled = true));
-    } else {
-      console.debug("El juego terminó, esperando", GAME_FINISH_DELAY / 1000, "segundos...");
-      this.gameHasEnded = true;
-      setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
-    }
-  }
+  //   if (this.scratchedCount < SCRATCH_LIMIT) {
+  //     this.scratches.forEach((mngr) => (mngr.enabled = true));
+  //   } else {
+  //     console.debug("El juego terminó, esperando", GAME_FINISH_DELAY / 1000, "segundos...");
+  //     this.gameHasEnded = true;
+  //     setTimeout(this.checkGameStatus.bind(this), GAME_FINISH_DELAY);
+  //   }
+  // }
 
   private onScratchingDisabled(ev: ScratchingDisabledEvent) {
     const selected = this.cardStatus.selected.map((id) => this.getScratch(id));

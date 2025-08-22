@@ -1,4 +1,4 @@
-import { ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
+import { ScratchFinishedEvent, ScratchLoadedEvent, ScratchSelectedEvent } from "../types/ScratchEvent";
 import { Backend } from "../backend/Backend";
 import { PrizeRepresentation } from "./CardStatus";
 import { ContentResponse } from "../backend/responses/ContentResponse";
@@ -9,7 +9,6 @@ export class ScratchManager {
   readonly pxHeight: number; // In CSS pixels
 
   public enabled: boolean = true;
-  public finished: boolean = false;
 
   private divElement: HTMLDivElement;
   private isScratched: boolean = false;
@@ -55,6 +54,8 @@ export class ScratchManager {
   }
 
   private onScratchSelected() {
+    if (this.isScratched) return;
+
     this.isScratched = true;
     this.reveal();
 
