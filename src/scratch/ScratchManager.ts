@@ -8,6 +8,7 @@ export class ScratchManager {
   readonly pxWidth: number; // In CSS pixels
   readonly pxHeight: number; // In CSS pixels
 
+  public finished: boolean = false;
   public enabled: boolean = true;
 
   private divElement: HTMLDivElement;
