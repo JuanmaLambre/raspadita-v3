@@ -1,5 +1,10 @@
 $reveal-time: 1s;
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 .carta {
   overflow: hidden;
 
