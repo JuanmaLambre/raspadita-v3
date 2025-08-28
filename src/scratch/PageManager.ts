@@ -22,7 +22,7 @@ const SCRATCH_LIMIT = 3;
 const GAME_FINISH_DELAY = 2000; // Milliseconds
 
 export class PageManager {
-  version: string = "v0.4";
+  version: string = "v0.5.1";
   scratches: ScratchManager[] = [];
 
   private renderer: THREE.WebGLRenderer;
