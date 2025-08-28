@@ -11,7 +11,10 @@ $reveal-time: 1s;
     height: inherit;
   }
 
-  .front {
+  canvas {
+    position: absolute;
+    z-index: 10;
+
     &.animated-reveal {
       animation: scratch-reveal-animation $reveal-time;
       opacity: 0;
@@ -51,7 +54,7 @@ $reveal-time: 1s;
 }
 
 .front .img-juego {
-  // display: none !important;
+  display: none !important;
 }
 
 .time {
